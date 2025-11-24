@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Snail Tools - Công cụ hỗ trợ game</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+        }
+
+        .container {
+            background: white;
+            border-radius: 20px;
+            padding: 50px;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+            max-width: 600px;
+            width: 100%;
+            text-align: center;
+        }
+
+        h1 {
+            color: #667eea;
+            font-size: 3em;
+            margin-bottom: 10px;
+        }
+
+        .subtitle {
+            color: #666;
+            font-size: 1.2em;
+            margin-bottom: 40px;
+        }
+
+        .menu {
+            margin-top: 30px;
+        }
+
+        .menu-item {
+            display: block;
+            padding: 20px 30px;
+            margin: 15px 0;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            text-decoration: none;
+            border-radius: 15px;
+            font-size: 1.3em;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(102, 126, 234, 0.4);
+        }
+
+        .menu-item:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 25px rgba(102, 126, 234, 0.6);
+        }
+
+        .menu-item .icon {
+            font-size: 1.5em;
+            margin-right: 10px;
+        }
+
+        .menu-item .description {
+            display: block;
+            font-size: 0.7em;
+            margin-top: 5px;
+            opacity: 0.9;
+            font-weight: normal;
+        }
+
+        .footer {
+            margin-top: 40px;
+            color: #999;
+            font-size: 0.9em;
+        }
+
+        .coming-soon {
+            background: linear-gradient(135deg, #999 0%, #666 100%);
+            cursor: not-allowed;
+            opacity: 0.6;
+        }
+
+        .coming-soon:hover {
+            transform: none;
+            box-shadow: 0 4px 15px rgba(102, 126, 234, 0.4);
+        }
+
+        @media (max-width: 768px) {
+            .container {
+                padding: 30px 20px;
+            }
+
+            h1 {
+                font-size: 2em;
+            }
+
+            .menu-item {
+                padding: 15px 20px;
+                font-size: 1.1em;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>🐌 Snail Tools</h1>
+
+        <div class="menu">
+            <a href="coo-king.html" class="menu-item">
+                <span class="icon">🍳</span>
+                <span>Coo-king Calculator</span>
+                <span class="description">Tính toán lợi nhuận món ăn tối ưu</span>
+            </a>
+
+            <div class="menu-item coming-soon" title="Sắp ra mắt">
+                <span class="icon">⚔️</span>
+                <span>Combat Calculator</span>
+                <span class="description">Coming soon...</span>
+            </div>
+
+            <div class="menu-item coming-soon" title="Sắp ra mắt">
+                <span class="icon">📊</span>
+                <span>Resource Manager</span>
+                <span class="description">Coming soon...</span>
+            </div>
+        </div>
+
+        <div class="footer">
+            <p>Made with ❤️ for Snail players</p>
+        </div>
+    </div>
+</body>
+</html>
+

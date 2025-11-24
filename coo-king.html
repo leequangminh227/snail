@@ -215,6 +215,25 @@
             color: white;
         }
 
+        .back-button {
+            display: inline-block;
+            padding: 10px 20px;
+            background: #f8f9fa;
+            color: #667eea;
+            text-decoration: none;
+            border-radius: 8px;
+            font-weight: 600;
+            transition: all 0.3s;
+            border: 2px solid #667eea;
+        }
+
+        .back-button:hover {
+            background: #667eea;
+            color: white;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(102, 126, 234, 0.4);
+        }
+
         @media (max-width: 768px) {
             .container {
                 padding: 15px;
@@ -237,6 +256,9 @@
 <body>
     <div class="container">
         <h1>🍳 Coo-king Calculator</h1>
+        <div style="text-align: center; margin-bottom: 20px;">
+            <a href="/" class="back-button">← Quay lại trang chủ</a>
+        </div>
 
         <div class="section">
             <h2>📦 Nguyên Liệu</h2>
