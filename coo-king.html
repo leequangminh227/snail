@@ -234,6 +234,27 @@
             box-shadow: 0 4px 12px rgba(102, 126, 234, 0.4);
         }
 
+        .reset-button {
+            display: inline-block;
+            padding: 10px 20px;
+            background: #f8f9fa;
+            color: #dc3545;
+            text-decoration: none;
+            border-radius: 8px;
+            font-weight: 600;
+            transition: all 0.3s;
+            border: 2px solid #dc3545;
+            cursor: pointer;
+            font-family: inherit;
+        }
+
+        .reset-button:hover {
+            background: #dc3545;
+            color: white;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(220, 53, 69, 0.4);
+        }
+
         @media (max-width: 768px) {
             .container {
                 padding: 15px;
@@ -256,8 +277,9 @@
 <body>
     <div class="container">
         <h1>🍳 Coo-king Calculator</h1>
-        <div style="text-align: center; margin-bottom: 20px;">
+        <div style="text-align: center; margin-bottom: 20px; display: flex; gap: 10px; justify-content: center; flex-wrap: wrap;">
             <a href="/" class="back-button">← Quay lại trang chủ</a>
+            <button onclick="resetToDefault()" class="reset-button">🔄 Reset về mặc định</button>
         </div>
 
         <div class="section">
@@ -280,6 +302,9 @@
 
         <div class="section">
             <h2>🍽️ Danh Sách Món Ăn</h2>
+            <p style="text-align: center; color: #666; font-size: 0.9em; margin-bottom: 10px;">
+                💾 Trạng thái checkbox và giá bán được tự động lưu
+            </p>
             <div class="table-container">
                 <table id="dishTable">
                     <thead>
@@ -335,8 +360,48 @@
             food3: 156
         };
 
+        // Load từ localStorage
+        function loadFromLocalStorage() {
+            const saved = localStorage.getItem('coo-king-dish-states');
+            if (saved) {
+                try {
+                    const savedStates = JSON.parse(saved);
+                    // Merge với dữ liệu mặc định (để đảm bảo có đầy đủ món)
+                    return dishes.map(dish => {
+                        const savedDish = savedStates.find(s => s.id === dish.id);
+                        if (savedDish) {
+                            return {
+                                ...dish,
+                                enabled: savedDish.enabled !== undefined ? savedDish.enabled : true,
+                                price: savedDish.price !== undefined ? savedDish.price : dish.price
+                            };
+                        }
+                        return { ...dish, enabled: true };
+                    });
+                } catch (e) {
+                    console.error('Lỗi khi load localStorage:', e);
+                    return dishes.map(d => ({ ...d, enabled: true }));
+                }
+            }
+            return dishes.map(d => ({ ...d, enabled: true }));
+        }
+
+        // Lưu vào localStorage
+        function saveToLocalStorage() {
+            try {
+                const statesToSave = dishStates.map(dish => ({
+                    id: dish.id,
+                    enabled: dish.enabled,
+                    price: dish.price
+                }));
+                localStorage.setItem('coo-king-dish-states', JSON.stringify(statesToSave));
+            } catch (e) {
+                console.error('Lỗi khi lưu localStorage:', e);
+            }
+        }
+
         // State
-        let dishStates = dishes.map(d => ({ ...d, enabled: true }));
+        let dishStates = loadFromLocalStorage();
 
         // Khởi tạo bảng món ăn
         function initDishTable() {
@@ -398,6 +463,7 @@
         function toggleDish(dishId) {
             const dish = dishStates.find(d => d.id === dishId);
             dish.enabled = !dish.enabled;
+            saveToLocalStorage();
             calculate();
         }
 
@@ -405,7 +471,19 @@
         function updatePrice(dishId, newPrice) {
             const dish = dishStates.find(d => d.id === dishId);
             dish.price = parseFloat(newPrice) || 0;
+            saveToLocalStorage();
             calculate();
+        }
+
+        // Reset về mặc định
+        function resetToDefault() {
+            if (confirm('Bạn có chắc muốn reset tất cả về mặc định? (Checkbox và giá bán sẽ về trạng thái ban đầu)')) {
+                localStorage.removeItem('coo-king-dish-states');
+                dishStates = dishes.map(d => ({ ...d, enabled: true }));
+                initDishTable();
+                calculate();
+                alert('Đã reset về mặc định! ✅');
+            }
         }
 
         // Tính toán chiến lược tối ưu
