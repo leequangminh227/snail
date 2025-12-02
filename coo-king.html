@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Máy Tính Lợi Nhuận Món Ăn</title>
+    <title>Coo-king Calculator - Multi Set</title>
     <style>
         * {
             margin: 0;
@@ -19,7 +19,7 @@
         }
 
         .container {
-            max-width: 1400px;
+            max-width: 1600px;
             margin: 0 auto;
             background: white;
             border-radius: 20px;
@@ -30,7 +30,7 @@
         h1 {
             text-align: center;
             color: #667eea;
-            margin-bottom: 30px;
+            margin-bottom: 20px;
             font-size: 2.5em;
         }
 
@@ -45,6 +45,41 @@
             color: #764ba2;
             margin-bottom: 15px;
             font-size: 1.5em;
+        }
+
+        .tabs {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 20px;
+            flex-wrap: wrap;
+        }
+
+        .tab {
+            padding: 12px 24px;
+            background: #e9ecef;
+            border: 2px solid transparent;
+            border-radius: 10px;
+            cursor: pointer;
+            font-weight: 600;
+            transition: all 0.3s;
+        }
+
+        .tab:hover {
+            background: #dee2e6;
+        }
+
+        .tab.active {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            border-color: #667eea;
+        }
+
+        .tab-content {
+            display: none;
+        }
+
+        .tab-content.active {
+            display: block;
         }
 
         .input-grid {
@@ -215,7 +250,7 @@
             color: white;
         }
 
-        .back-button {
+        .back-button, .reset-button {
             display: inline-block;
             padding: 10px 20px;
             background: #f8f9fa;
@@ -225,6 +260,13 @@
             font-weight: 600;
             transition: all 0.3s;
             border: 2px solid #667eea;
+            cursor: pointer;
+            font-family: inherit;
+        }
+
+        .reset-button {
+            color: #dc3545;
+            border-color: #dc3545;
         }
 
         .back-button:hover {
@@ -234,25 +276,43 @@
             box-shadow: 0 4px 12px rgba(102, 126, 234, 0.4);
         }
 
-        .reset-button {
-            display: inline-block;
-            padding: 10px 20px;
-            background: #f8f9fa;
-            color: #dc3545;
-            text-decoration: none;
-            border-radius: 8px;
-            font-weight: 600;
-            transition: all 0.3s;
-            border: 2px solid #dc3545;
-            cursor: pointer;
-            font-family: inherit;
-        }
-
         .reset-button:hover {
             background: #dc3545;
             color: white;
             transform: translateY(-2px);
             box-shadow: 0 4px 12px rgba(220, 53, 69, 0.4);
+        }
+
+        .comparison-section {
+            background: linear-gradient(135deg, #28a745 0%, #20c997 100%);
+            color: white;
+            padding: 25px;
+            border-radius: 10px;
+            margin-top: 20px;
+        }
+
+        .comparison-section h2 {
+            color: white;
+            margin-bottom: 20px;
+        }
+
+        .set-comparison {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 15px;
+            margin-top: 15px;
+        }
+
+        .set-card {
+            background: rgba(255, 255, 255, 0.2);
+            padding: 15px;
+            border-radius: 8px;
+            backdrop-filter: blur(10px);
+        }
+
+        .set-card.best {
+            background: rgba(255, 215, 0, 0.3);
+            border: 3px solid #ffd700;
         }
 
         @media (max-width: 768px) {
@@ -276,175 +336,148 @@
 </head>
 <body>
     <div class="container">
-        <h1>🍳 Coo-king Calculator</h1>
+        <h1>🍳 Coo-king Calculator - Multi Set</h1>
         <div style="text-align: center; margin-bottom: 20px; display: flex; gap: 10px; justify-content: center; flex-wrap: wrap;">
             <a href="/" class="back-button">← Quay lại trang chủ</a>
             <button onclick="resetToDefault()" class="reset-button">🔄 Reset về mặc định</button>
         </div>
 
-        <div class="section">
-            <h2>📦 Nguyên Liệu</h2>
-            <div class="input-grid">
-                <div class="input-group">
-                    <label for="food1">Food 1 (65% tỷ lệ rơi - Giá lẻ: 29)</label>
-                    <input type="number" id="food1" value="650" min="0">
-                </div>
-                <div class="input-group">
-                    <label for="food2">Food 2 (25% tỷ lệ rơi - Giá lẻ: 86)</label>
-                    <input type="number" id="food2" value="250" min="0">
-                </div>
-                <div class="input-group">
-                    <label for="food3">Food 3 (10% tỷ lệ rơi - Giá lẻ: 156)</label>
-                    <input type="number" id="food3" value="100" min="0">
-                </div>
+        <!-- Tabs cho các Set -->
+        <div class="tabs" id="setTabs">
+            <!-- Sẽ được tạo bằng JavaScript -->
+        </div>
+
+        <!-- Tab Contents -->
+        <div id="tabContents">
+            <!-- Sẽ được tạo bằng JavaScript -->
+        </div>
+
+        <!-- So sánh giữa các Set -->
+        <div class="comparison-section">
+            <h2>🏆 So Sánh Giữa Các Set</h2>
+            <div id="setComparison">
+                <!-- Sẽ được tạo bằng JavaScript -->
             </div>
         </div>
 
-        <div class="section">
-            <h2>🍽️ Danh Sách Món Ăn</h2>
-            <p style="text-align: center; color: #666; font-size: 0.9em; margin-bottom: 10px;">
-                💾 Trạng thái checkbox và giá bán được tự động lưu
-            </p>
-            <div class="table-container">
-                <table id="dishTable">
-                    <thead>
-                        <tr>
-                            <th>Chọn</th>
-                            <th>STT</th>
-                            <th>Tên món</th>
-                            <th>Food1</th>
-                            <th>Food2</th>
-                            <th>Food3</th>
-                            <th>Giá bán</th>
-                            <th>Chi phí cơ hội</th>
-                            <th>Lợi nhuận</th>
-                            <th>Đánh giá</th>
-                        </tr>
-                    </thead>
-                    <tbody id="dishTableBody">
-                        <!-- Sẽ được thêm bằng JavaScript -->
-                    </tbody>
-                </table>
-            </div>
-        </div>
-
+        <!-- Phân tích tổng thể -->
         <div class="strategy-section">
-            <h2>💡 Chiến Lược Tối Ưu</h2>
-            <div id="strategyContent">
-                <!-- Sẽ được thêm bằng JavaScript -->
+            <h2>💡 Phân Tích Chiến Lược Tối Ưu</h2>
+            <div id="overallStrategy">
+                <!-- Sẽ được tạo bằng JavaScript -->
             </div>
         </div>
     </div>
 
     <script>
-        // Dữ liệu món ăn
-        const dishes = [
-            { id: 1, name: 'Sâu hồi', food1: 1, food2: 0, food3: 0, price: 20 },
-            { id: 2, name: 'Hamburger', food1: 3, food2: 0, food3: 0, price: 86 },
-            { id: 3, name: 'Pudding', food1: 2, food2: 1, food3: 0, price: 154 },
-            { id: 4, name: 'Salad', food1: 5, food2: 0, food3: 0, price: 192 },
-            { id: 5, name: 'Gumball', food1: 3, food2: 2, food3: 0, price: 288 },
-            { id: 6, name: 'Thần lằn', food1: 4, food2: 2, food3: 0, price: 364 },
-            { id: 7, name: 'Xương bò ma', food1: 6, food2: 3, food3: 0, price: 590 },
-            { id: 8, name: 'Súp đặc mắt nhện', food1: 5, food2: 2, food3: 1, price: 504 },
-            { id: 9, name: 'Phô mai giòi', food1: 10, food2: 6, food3: 0, price: 1258 },
-            { id: 10, name: 'Tinh linh máu', food1: 8, food2: 4, food3: 0, price: 844 },
-            { id: 11, name: 'Chân sư tử', food1: 8, food2: 5, food3: 3, price: 1008 },
-            { id: 12, name: 'Bánh quy pho mát', food1: 20, food2: 10, food3: 5, price: 2160 }
-        ];
-
-        // Giá bán lẻ nguyên liệu
-        const foodPrices = {
-            food1: 29,
-            food2: 86,
-            food3: 156
+        // Cấu trúc dữ liệu cho mỗi Set
+        const SETS = {
+            set1: {
+                id: 'set1',
+                name: 'Set 1 (Đảo Hề)',
+                foodPrices: { food1: 29, food2: 86, food3: 156 },
+                dishes: [
+                    { id: 1, name: 'Sâu hồi', food1: 1, food2: 0, food3: 0, price: 20 },
+                    { id: 2, name: 'Hamburger', food1: 3, food2: 0, food3: 0, price: 86 },
+                    { id: 3, name: 'Pudding', food1: 2, food2: 1, food3: 0, price: 154 },
+                    { id: 4, name: 'Salad', food1: 5, food2: 0, food3: 0, price: 192 },
+                    { id: 5, name: 'Gumball', food1: 3, food2: 2, food3: 0, price: 288 },
+                    { id: 6, name: 'Thần lằn', food1: 4, food2: 2, food3: 0, price: 364 },
+                    { id: 7, name: 'Xương bò ma', food1: 6, food2: 3, food3: 0, price: 590 },
+                    { id: 8, name: 'Súp đặc mắt nhện', food1: 5, food2: 2, food3: 1, price: 571 },
+                    { id: 9, name: 'Phô mai giòi', food1: 10, food2: 6, food3: 0, price: 1258 },
+                    { id: 10, name: 'Tinh linh máu', food1: 8, food2: 4, food3: 0, price: 844 },
+                    { id: 11, name: 'Chân sư tử', food1: 8, food2: 5, food3: 3, price: 1008 },
+                    { id: 12, name: 'Bánh quy pho mát', food1: 20, food2: 10, food3: 5, price: 2160 }
+                ]
+            },
+            set2: {
+                id: 'set2',
+                name: 'Set 2 (Đảo Hải sản)',
+                foodPrices: { food1: 36, food2: 108, food3: 195 },
+                dishes: [
+                    // THÊM CÁC MÓN ĂN SET 2 TẠI ĐÂY
+                    { id: 1, name: 'Hàu nướng', food1: 1, food2: 0, food3: 0, price: 24 },
+                    { id: 2, name: 'Bạch tuộc ngâm', food1: 3, food2: 0, food3: 0, price: 108 },
+                    { id: 3, name: 'Shasimi cá đuối', food1: 5, food2: 0, food3: 0, price: 240 },
+                    { id: 4, name: 'Tôm kỳ lạ', food1: 2, food2: 1, food3: 0, price: 192 },
+                    { id: 5, name: 'Phô mai muối', food1: 4, food2: 2, food3: 0, price: 273 },
+                    { id: 6, name: 'Thuỷ Long Nướng', food1: 6, food2: 3, food3: 0, price: 369 },
+                    { id: 7, name: 'Cánh cá người', food1: 5, food2: 2, food3: 1, price: 420 },
+                    { id: 8, name: 'Món Set 2 - 8', food1: 5, food2: 2, food3: 1, price: 0 },
+                    { id: 9, name: 'Món Set 2 - 9', food1: 10, food2: 6, food3: 0, price: 0 },
+                    { id: 10, name: 'Món Set 2 - 10', food1: 8, food2: 4, food3: 0, price: 0 },
+                    { id: 11, name: 'Món Set 2 - 11', food1: 8, food2: 5, food3: 3, price: 0 },
+                    { id: 12, name: 'Món Set 2 - 12', food1: 20, food2: 10, food3: 5, price: 0 }
+                ]
+            }
+            // Thêm set3, set4,... tại đây
         };
+
+        // Tỷ lệ rơi nguyên liệu (giống nhau cho tất cả set)
+        const FOOD_DROP_RATE = {
+            food1: 0.65,  // 65%
+            food2: 0.25,  // 25%
+            food3: 0.10   // 10%
+        };
+
+        // State cho mỗi set
+        let setStates = {};
+        let currentSet = 'set1';
 
         // Load từ localStorage
         function loadFromLocalStorage() {
-            const saved = localStorage.getItem('coo-king-dish-states');
+            const saved = localStorage.getItem('coo-king-multi-set-states');
             if (saved) {
                 try {
-                    const savedStates = JSON.parse(saved);
-                    // Merge với dữ liệu mặc định (để đảm bảo có đầy đủ món)
-                    return dishes.map(dish => {
-                        const savedDish = savedStates.find(s => s.id === dish.id);
-                        if (savedDish) {
-                            return {
-                                ...dish,
-                                enabled: savedDish.enabled !== undefined ? savedDish.enabled : true,
-                                price: savedDish.price !== undefined ? savedDish.price : dish.price
-                            };
-                        }
-                        return { ...dish, enabled: true };
-                    });
+                    return JSON.parse(saved);
                 } catch (e) {
                     console.error('Lỗi khi load localStorage:', e);
-                    return dishes.map(d => ({ ...d, enabled: true }));
+                    return {};
                 }
             }
-            return dishes.map(d => ({ ...d, enabled: true }));
+            return {};
         }
 
         // Lưu vào localStorage
         function saveToLocalStorage() {
             try {
-                const statesToSave = dishStates.map(dish => ({
-                    id: dish.id,
-                    enabled: dish.enabled,
-                    price: dish.price
-                }));
-                localStorage.setItem('coo-king-dish-states', JSON.stringify(statesToSave));
+                localStorage.setItem('coo-king-multi-set-states', JSON.stringify(setStates));
             } catch (e) {
                 console.error('Lỗi khi lưu localStorage:', e);
             }
         }
 
-        // State
-        let dishStates = loadFromLocalStorage();
-
-        // Khởi tạo bảng món ăn
-        function initDishTable() {
-            const tbody = document.getElementById('dishTableBody');
-            tbody.innerHTML = '';
-
-            dishStates.forEach(dish => {
-                const row = document.createElement('tr');
-                const opportunityCost = calculateOpportunityCost(dish);
-                const profit = dish.price - opportunityCost;
-                const rating = getRating(profit);
-
-                row.innerHTML = `
-                    <td class="checkbox-cell">
-                        <input type="checkbox" 
-                               id="dish-${dish.id}" 
-                               ${dish.enabled ? 'checked' : ''} 
-                               onchange="toggleDish(${dish.id})">
-                    </td>
-                    <td>${dish.id}</td>
-                    <td><strong>${dish.name}</strong></td>
-                    <td>${dish.food1}</td>
-                    <td>${dish.food2}</td>
-                    <td>${dish.food3}</td>
-                    <td>
-                        <input type="number" 
-                               class="price-input" 
-                               value="${dish.price}" 
-                               min="0" 
-                               onchange="updatePrice(${dish.id}, this.value)">
-                    </td>
-                    <td>${opportunityCost.toFixed(0)}</td>
-                    <td class="${profit >= 0 ? 'profit-positive' : 'profit-negative'}">
-                        ${profit >= 0 ? '+' : ''}${profit.toFixed(0)}
-                    </td>
-                    <td>${rating}</td>
-                `;
-                tbody.appendChild(row);
+        // Khởi tạo state cho các set
+        function initializeStates() {
+            const savedStates = loadFromLocalStorage();
+            
+            Object.keys(SETS).forEach(setKey => {
+                const set = SETS[setKey];
+                const savedSetState = savedStates[setKey];
+                
+                setStates[setKey] = {
+                    dishes: set.dishes.map(dish => {
+                        if (savedSetState) {
+                            const savedDish = savedSetState.dishes.find(d => d.id === dish.id);
+                            if (savedDish) {
+                                return {
+                                    ...dish,
+                                    enabled: savedDish.enabled !== undefined ? savedDish.enabled : true,
+                                    price: savedDish.price !== undefined ? savedDish.price : dish.price
+                                };
+                            }
+                        }
+                        return { ...dish, enabled: true };
+                    }),
+                    ingredients: savedSetState?.ingredients || { food1: 650, food2: 250, food3: 100 }
+                };
             });
         }
 
         // Tính chi phí cơ hội
-        function calculateOpportunityCost(dish) {
+        function calculateOpportunityCost(dish, setKey) {
+            const foodPrices = SETS[setKey].foodPrices;
             return dish.food1 * foodPrices.food1 + 
                    dish.food2 * foodPrices.food2 + 
                    dish.food3 * foodPrices.food3;
@@ -459,122 +492,272 @@
             return '<span class="badge badge-bad">❌ Tệ</span>';
         }
 
+        // Tạo tabs
+        function createTabs() {
+            const tabsContainer = document.getElementById('setTabs');
+            tabsContainer.innerHTML = Object.keys(SETS).map((setKey, index) => 
+                `<div class="tab ${index === 0 ? 'active' : ''}" onclick="switchTab('${setKey}')">
+                    ${SETS[setKey].name}
+                </div>`
+            ).join('');
+        }
+
+        // Switch tab
+        function switchTab(setKey) {
+            currentSet = setKey;
+            
+            // Update active tab
+            document.querySelectorAll('.tab').forEach(tab => tab.classList.remove('active'));
+            event.target.classList.add('active');
+            
+            // Update active content
+            document.querySelectorAll('.tab-content').forEach(content => content.classList.remove('active'));
+            document.getElementById(`content-${setKey}`).classList.add('active');
+        }
+
+        // Tạo nội dung cho mỗi tab
+        function createTabContents() {
+            const container = document.getElementById('tabContents');
+            container.innerHTML = Object.keys(SETS).map((setKey, index) => {
+                const set = SETS[setKey];
+                return `
+                    <div id="content-${setKey}" class="tab-content ${index === 0 ? 'active' : ''}">
+                        <div class="section">
+                            <h2>📦 Nguyên Liệu ${set.name}</h2>
+                            <div class="input-grid">
+                                <div class="input-group">
+                                    <label>Food 1 (65% - Giá lẻ: ${set.foodPrices.food1})</label>
+                                    <input type="number" id="${setKey}-food1" value="${setStates[setKey].ingredients.food1}" min="0" 
+                                           onchange="updateIngredients('${setKey}')">
+                                </div>
+                                <div class="input-group">
+                                    <label>Food 2 (25% - Giá lẻ: ${set.foodPrices.food2})</label>
+                                    <input type="number" id="${setKey}-food2" value="${setStates[setKey].ingredients.food2}" min="0"
+                                           onchange="updateIngredients('${setKey}')">
+                                </div>
+                                <div class="input-group">
+                                    <label>Food 3 (10% - Giá lẻ: ${set.foodPrices.food3})</label>
+                                    <input type="number" id="${setKey}-food3" value="${setStates[setKey].ingredients.food3}" min="0"
+                                           onchange="updateIngredients('${setKey}')">
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="section">
+                            <h2>🍽️ Danh Sách Món Ăn</h2>
+                            <p style="text-align: center; color: #666; font-size: 0.9em; margin-bottom: 10px;">
+                                💾 Trạng thái checkbox và giá bán được tự động lưu
+                            </p>
+                            <div class="table-container">
+                                <table>
+                                    <thead>
+                                        <tr>
+                                            <th>Chọn</th>
+                                            <th>STT</th>
+                                            <th>Tên món</th>
+                                            <th>Food1</th>
+                                            <th>Food2</th>
+                                            <th>Food3</th>
+                                            <th>Giá bán</th>
+                                            <th>Chi phí cơ hội</th>
+                                            <th>Lợi nhuận</th>
+                                            <th>Đánh giá</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody id="${setKey}-table-body">
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+
+                        <div class="strategy-section">
+                            <h2>💡 Chiến Lược ${set.name}</h2>
+                            <div id="${setKey}-strategy">
+                            </div>
+                        </div>
+                    </div>
+                `;
+            }).join('');
+        }
+
+        // Render bảng món ăn cho 1 set
+        function renderDishTable(setKey) {
+            const tbody = document.getElementById(`${setKey}-table-body`);
+            const dishes = setStates[setKey].dishes;
+            
+            tbody.innerHTML = dishes.map(dish => {
+                const opportunityCost = calculateOpportunityCost(dish, setKey);
+                const profit = dish.price - opportunityCost;
+                const rating = getRating(profit);
+                
+                return `
+                    <tr>
+                        <td class="checkbox-cell">
+                            <input type="checkbox" ${dish.enabled ? 'checked' : ''} 
+                                   onchange="toggleDish('${setKey}', ${dish.id})">
+                        </td>
+                        <td>${dish.id}</td>
+                        <td><strong>${dish.name}</strong></td>
+                        <td>${dish.food1}</td>
+                        <td>${dish.food2}</td>
+                        <td>${dish.food3}</td>
+                        <td>
+                            <input type="number" class="price-input" value="${dish.price}" min="0" 
+                                   onchange="updatePrice('${setKey}', ${dish.id}, this.value)">
+                        </td>
+                        <td>${opportunityCost.toFixed(0)}</td>
+                        <td class="${profit >= 0 ? 'profit-positive' : 'profit-negative'}">
+                            ${profit >= 0 ? '+' : ''}${profit.toFixed(0)}
+                        </td>
+                        <td>${rating}</td>
+                    </tr>
+                `;
+            }).join('');
+        }
+
         // Toggle món ăn
-        function toggleDish(dishId) {
-            const dish = dishStates.find(d => d.id === dishId);
+        function toggleDish(setKey, dishId) {
+            const dish = setStates[setKey].dishes.find(d => d.id === dishId);
             dish.enabled = !dish.enabled;
             saveToLocalStorage();
-            calculate();
+            calculateAll();
         }
 
         // Cập nhật giá
-        function updatePrice(dishId, newPrice) {
-            const dish = dishStates.find(d => d.id === dishId);
+        function updatePrice(setKey, dishId, newPrice) {
+            const dish = setStates[setKey].dishes.find(d => d.id === dishId);
             dish.price = parseFloat(newPrice) || 0;
             saveToLocalStorage();
-            calculate();
+            calculateAll();
         }
 
-        // Reset về mặc định
-        function resetToDefault() {
-            if (confirm('Bạn có chắc muốn reset tất cả về mặc định? (Checkbox và giá bán sẽ về trạng thái ban đầu)')) {
-                localStorage.removeItem('coo-king-dish-states');
-                dishStates = dishes.map(d => ({ ...d, enabled: true }));
-                initDishTable();
-                calculate();
-                alert('Đã reset về mặc định! ✅');
-            }
+        // Cập nhật nguyên liệu
+        function updateIngredients(setKey) {
+            setStates[setKey].ingredients = {
+                food1: parseInt(document.getElementById(`${setKey}-food1`).value) || 0,
+                food2: parseInt(document.getElementById(`${setKey}-food2`).value) || 0,
+                food3: parseInt(document.getElementById(`${setKey}-food3`).value) || 0
+            };
+            saveToLocalStorage();
+            calculateAll();
         }
 
-        // Tính toán chiến lược tối ưu
-        function calculate() {
-            // Cập nhật lại bảng
-            initDishTable();
-
-            const food1 = parseInt(document.getElementById('food1').value) || 0;
-            const food2 = parseInt(document.getElementById('food2').value) || 0;
-            const food3 = parseInt(document.getElementById('food3').value) || 0;
+        // Tính toán chiến lược cho 1 set
+        function calculateSetStrategy(setKey) {
+            const ingredients = setStates[setKey].ingredients;
+            const foodPrices = SETS[setKey].foodPrices;
+            const enabledDishes = setStates[setKey].dishes.filter(d => d.enabled);
 
             // Tính tổng giá bán lẻ
-            const totalRetail = food1 * foodPrices.food1 + 
-                               food2 * foodPrices.food2 + 
-                               food3 * foodPrices.food3;
-
-            // Lấy các món được bật
-            const enabledDishes = dishStates.filter(d => d.enabled);
+            const totalRetail = ingredients.food1 * foodPrices.food1 + 
+                               ingredients.food2 * foodPrices.food2 + 
+                               ingredients.food3 * foodPrices.food3;
 
             // Tính lợi nhuận cho mỗi món
             const dishProfits = enabledDishes.map(dish => {
-                const opportunityCost = calculateOpportunityCost(dish);
+                const opportunityCost = calculateOpportunityCost(dish, setKey);
                 const profit = dish.price - opportunityCost;
-                return {
-                    ...dish,
-                    opportunityCost,
-                    profit,
-                    profitRatio: profit / opportunityCost
-                };
+                return { ...dish, opportunityCost, profit };
             });
 
             // Sắp xếp theo lợi nhuận giảm dần
             dishProfits.sort((a, b) => b.profit - a.profit);
 
-            // Tìm chiến lược tối ưu bằng greedy algorithm
-            let remainingFood1 = food1;
-            let remainingFood2 = food2;
-            let remainingFood3 = food3;
-            let totalProfit = 0;
-            let totalRevenueFromCooking = 0;
+            // Greedy algorithm
+            let remaining = { ...ingredients };
+            let totalRevenue = 0;
             const strategy = [];
 
             for (const dish of dishProfits) {
-                if (dish.profit <= 0) continue; // Bỏ qua món lỗ
+                if (dish.profit <= 0) continue;
 
-                // Tính số món có thể nấu
                 let maxCook = Infinity;
-                if (dish.food1 > 0) maxCook = Math.min(maxCook, Math.floor(remainingFood1 / dish.food1));
-                if (dish.food2 > 0) maxCook = Math.min(maxCook, Math.floor(remainingFood2 / dish.food2));
-                if (dish.food3 > 0) maxCook = Math.min(maxCook, Math.floor(remainingFood3 / dish.food3));
+                if (dish.food1 > 0) maxCook = Math.min(maxCook, Math.floor(remaining.food1 / dish.food1));
+                if (dish.food2 > 0) maxCook = Math.min(maxCook, Math.floor(remaining.food2 / dish.food2));
+                if (dish.food3 > 0) maxCook = Math.min(maxCook, Math.floor(remaining.food3 / dish.food3));
 
                 if (maxCook > 0 && maxCook !== Infinity) {
-                    const cookCount = maxCook;
-                    const revenue = cookCount * dish.price;
-                    const netProfit = cookCount * dish.profit;
+                    const revenue = maxCook * dish.price;
+                    const netProfit = maxCook * dish.profit;
 
-                    remainingFood1 -= cookCount * dish.food1;
-                    remainingFood2 -= cookCount * dish.food2;
-                    remainingFood3 -= cookCount * dish.food3;
-                    totalProfit += netProfit;
-                    totalRevenueFromCooking += revenue;
+                    remaining.food1 -= maxCook * dish.food1;
+                    remaining.food2 -= maxCook * dish.food2;
+                    remaining.food3 -= maxCook * dish.food3;
+                    totalRevenue += revenue;
 
-                    strategy.push({
-                        dish,
-                        count: cookCount,
-                        revenue,
-                        netProfit
-                    });
+                    strategy.push({ dish, count: maxCook, revenue, netProfit });
                 }
             }
 
             // Tính giá trị nguyên liệu dư
-            const remainingValue = remainingFood1 * foodPrices.food1 +
-                                  remainingFood2 * foodPrices.food2 +
-                                  remainingFood3 * foodPrices.food3;
+            const remainingValue = remaining.food1 * foodPrices.food1 +
+                                  remaining.food2 * foodPrices.food2 +
+                                  remaining.food3 * foodPrices.food3;
 
-            const totalRevenue = totalRevenueFromCooking + remainingValue;
-            const profitIncrease = totalRevenue - totalRetail;
+            const finalRevenue = totalRevenue + remainingValue;
+            const profitIncrease = finalRevenue - totalRetail;
             const profitPercent = totalRetail > 0 ? (profitIncrease / totalRetail * 100) : 0;
 
-            // Hiển thị kết quả
-            displayStrategy(strategy, remainingFood1, remainingFood2, remainingFood3, 
-                          remainingValue, totalRevenueFromCooking, totalRevenue, totalRetail, profitIncrease, profitPercent);
+            return {
+                strategy,
+                remaining,
+                remainingValue,
+                totalRevenue: totalRevenue,
+                finalRevenue,
+                totalRetail,
+                profitIncrease,
+                profitPercent
+            };
         }
 
-        // Hiển thị chiến lược
-        function displayStrategy(strategy, remainingFood1, remainingFood2, remainingFood3, 
-                                remainingValue, totalRevenueFromCooking, totalRevenue, totalRetail, profitIncrease, profitPercent) {
-            const content = document.getElementById('strategyContent');
+        // Tính toán cho 1000 food
+        function calculate1000FoodStrategy() {
+            const results = {};
             
-            if (strategy.length === 0) {
+            Object.keys(SETS).forEach(setKey => {
+                const foodPrices = SETS[setKey].foodPrices;
+                
+                // 1000 food theo tỷ lệ 65-25-10
+                const ingredients = {
+                    food1: 650,
+                    food2: 250,
+                    food3: 100
+                };
+                
+                // Tạo state tạm với 1000 food
+                const tempState = {
+                    ...setStates[setKey],
+                    ingredients: ingredients
+                };
+                
+                // Backup state hiện tại
+                const originalState = setStates[setKey];
+                setStates[setKey] = tempState;
+                
+                // Tính toán
+                const result = calculateSetStrategy(setKey);
+                
+                // Restore state
+                setStates[setKey] = originalState;
+                
+                results[setKey] = {
+                    setName: SETS[setKey].name,
+                    finalRevenue: result.finalRevenue,
+                    profitIncrease: result.profitIncrease,
+                    profitPercent: result.profitPercent,
+                    strategy: result.strategy
+                };
+            });
+            
+            return results;
+        }
+
+        // Hiển thị chiến lược cho 1 set
+        function displaySetStrategy(setKey, result) {
+            const content = document.getElementById(`${setKey}-strategy`);
+            const foodPrices = SETS[setKey].foodPrices;
+            
+            if (result.strategy.length === 0) {
                 content.innerHTML = `
                     <div class="strategy-item">
                         <h3>⚠️ Không có chiến lược lợi nhuận</h3>
@@ -582,9 +765,9 @@
                     </div>
                 `;
             } else {
-                let html = '<div class="strategy-item"><h3>🎯 Chiến Lược Nấu Ăn Tối Ưu:</h3>';
+                let html = '<div class="strategy-item"><h3>🎯 Chiến Lược Nấu Ăn:</h3>';
                 
-                strategy.forEach((item, index) => {
+                result.strategy.forEach((item, index) => {
                     html += `
                         <p><strong>${index + 1}. ${item.dish.name}</strong>: 
                         Nấu <strong>${item.count} món</strong> 
@@ -598,10 +781,10 @@
                 html += `
                     <div class="strategy-item">
                         <h3>📊 Nguyên Liệu Còn Lại:</h3>
-                        <p>Food1: <strong>${remainingFood1}</strong> (${(remainingFood1 * foodPrices.food1).toFixed(0)})</p>
-                        <p>Food2: <strong>${remainingFood2}</strong> (${(remainingFood2 * foodPrices.food2).toFixed(0)})</p>
-                        <p>Food3: <strong>${remainingFood3}</strong> (${(remainingFood3 * foodPrices.food3).toFixed(0)})</p>
-                        <p>Tổng giá trị bán lẻ dư: <strong>${remainingValue.toFixed(0)}</strong></p>
+                        <p>Food1: <strong>${result.remaining.food1}</strong> (${(result.remaining.food1 * foodPrices.food1).toFixed(0)})</p>
+                        <p>Food2: <strong>${result.remaining.food2}</strong> (${(result.remaining.food2 * foodPrices.food2).toFixed(0)})</p>
+                        <p>Food3: <strong>${result.remaining.food3}</strong> (${(result.remaining.food3 * foodPrices.food3).toFixed(0)})</p>
+                        <p>Tổng giá trị bán lẻ dư: <strong>${result.remainingValue.toFixed(0)}</strong></p>
                     </div>
                 `;
 
@@ -611,30 +794,122 @@
             content.innerHTML += `
                 <div class="total-box">
                     <h3>💰 TỔNG THU NHẬP</h3>
-                    <div class="amount">${totalRevenue.toFixed(0)}</div>
+                    <div class="amount">${result.finalRevenue.toFixed(0)}</div>
                     <div class="comparison">
-                        <p>• Tổng bán món ăn: <strong>${totalRevenueFromCooking.toFixed(0)}</strong></p>
-                        <p>• Tổng giá trị nguyên liệu còn lại: <strong>${remainingValue.toFixed(0)}</strong></p>
-                        <p style="border-top: 2px solid #ddd; padding-top: 10px; margin-top: 10px;">So với bán lẻ toàn bộ: <strong>${totalRetail.toFixed(0)}</strong></p>
-                        <p style="font-size: 1.3em; color: ${profitIncrease >= 0 ? '#28a745' : '#dc3545'}">
-                            ${profitIncrease >= 0 ? '✓' : '✗'} 
-                            <strong>${profitIncrease >= 0 ? '+' : ''}${profitIncrease.toFixed(0)} 
-                            (${profitIncrease >= 0 ? '+' : ''}${profitPercent.toFixed(1)}%)</strong>
+                        <p>• Tổng bán món ăn: <strong>${result.totalRevenue.toFixed(0)}</strong></p>
+                        <p>• Tổng giá trị nguyên liệu còn lại: <strong>${result.remainingValue.toFixed(0)}</strong></p>
+                        <p style="border-top: 2px solid #ddd; padding-top: 10px; margin-top: 10px;">
+                            So với bán lẻ toàn bộ: <strong>${result.totalRetail.toFixed(0)}</strong>
+                        </p>
+                        <p style="font-size: 1.3em; color: ${result.profitIncrease >= 0 ? '#28a745' : '#dc3545'}">
+                            ${result.profitIncrease >= 0 ? '✓' : '✗'} 
+                            <strong>${result.profitIncrease >= 0 ? '+' : ''}${result.profitIncrease.toFixed(0)} 
+                            (${result.profitIncrease >= 0 ? '+' : ''}${result.profitPercent.toFixed(1)}%)</strong>
                         </p>
                     </div>
                 </div>
             `;
         }
 
-        // Event listeners
-        document.getElementById('food1').addEventListener('input', calculate);
-        document.getElementById('food2').addEventListener('input', calculate);
-        document.getElementById('food3').addEventListener('input', calculate);
+        // Hiển thị so sánh giữa các set
+        function displayComparison() {
+            const results1000 = calculate1000FoodStrategy();
+            
+            // Tìm set tốt nhất
+            let bestSet = null;
+            let maxRevenue = -Infinity;
+            Object.keys(results1000).forEach(setKey => {
+                if (results1000[setKey].finalRevenue > maxRevenue) {
+                    maxRevenue = results1000[setKey].finalRevenue;
+                    bestSet = setKey;
+                }
+            });
+            
+            const comparisonHTML = Object.keys(results1000).map(setKey => {
+                const result = results1000[setKey];
+                const isBest = setKey === bestSet;
+                
+                return `
+                    <div class="set-card ${isBest ? 'best' : ''}">
+                        <h3>${isBest ? '🏆 ' : ''}${result.setName}</h3>
+                        <p style="font-size: 1.5em; font-weight: 700; margin: 10px 0;">
+                            ${result.finalRevenue.toFixed(0)}
+                        </p>
+                        <p>Lợi nhuận: <strong style="color: ${result.profitIncrease >= 0 ? '#90EE90' : '#FF6B6B'}">
+                            ${result.profitIncrease >= 0 ? '+' : ''}${result.profitIncrease.toFixed(0)} 
+                            (${result.profitPercent.toFixed(1)}%)
+                        </strong></p>
+                        ${isBest ? '<p style="margin-top: 10px; font-weight: 600;">⭐ FARM Ở ĐÂY!</p>' : ''}
+                    </div>
+                `;
+            }).join('');
+            
+            document.getElementById('setComparison').innerHTML = `
+                <div class="set-comparison">
+                    ${comparisonHTML}
+                </div>
+            `;
+            
+            // Phân tích tổng thể
+            const overallHTML = `
+                <div class="strategy-item">
+                    <h3>🎯 KẾT LUẬN: Với 1000 Nguyên Liệu (650-250-100)</h3>
+                    <p style="font-size: 1.2em; margin: 15px 0;">
+                        <strong>→ NÊN FARM TẠI: ${results1000[bestSet].setName}</strong>
+                    </p>
+                    <p>Thu nhập: <strong>${results1000[bestSet].finalRevenue.toFixed(0)}</strong></p>
+                    <p>Lợi nhuận: <strong>+${results1000[bestSet].profitIncrease.toFixed(0)} (+${results1000[bestSet].profitPercent.toFixed(1)}%)</strong></p>
+                    
+                    <h4 style="margin-top: 20px;">📋 Chiến lược nấu món tại ${results1000[bestSet].setName}:</h4>
+                    ${results1000[bestSet].strategy.map((item, index) => 
+                        `<p>${index + 1}. <strong>${item.dish.name}</strong>: Nấu ${item.count} món → ${item.revenue.toFixed(0)}</p>`
+                    ).join('')}
+                </div>
+                
+                <div class="strategy-item">
+                    <h3>📊 So Sánh Chi Tiết Giữa Các Set</h3>
+                    ${Object.keys(results1000).map(setKey => {
+                        const result = results1000[setKey];
+                        const diff = result.finalRevenue - results1000[bestSet].finalRevenue;
+                        return `
+                            <p><strong>${result.setName}</strong>: 
+                                ${result.finalRevenue.toFixed(0)} 
+                                ${setKey !== bestSet ? `<span style="color: #dc3545;">(${diff.toFixed(0)})</span>` : '<span style="color: #28a745;">✓ TỐT NHẤT</span>'}
+                            </p>
+                        `;
+                    }).join('')}
+                </div>
+            `;
+            
+            document.getElementById('overallStrategy').innerHTML = overallHTML;
+        }
+
+        // Tính toán tất cả
+        function calculateAll() {
+            Object.keys(SETS).forEach(setKey => {
+                renderDishTable(setKey);
+                const result = calculateSetStrategy(setKey);
+                displaySetStrategy(setKey, result);
+            });
+            displayComparison();
+        }
+
+        // Reset về mặc định
+        function resetToDefault() {
+            if (confirm('Bạn có chắc muốn reset tất cả về mặc định?')) {
+                localStorage.removeItem('coo-king-multi-set-states');
+                initializeStates();
+                createTabContents();
+                calculateAll();
+                alert('Đã reset về mặc định! ✅');
+            }
+        }
 
         // Khởi tạo
-        initDishTable();
-        calculate();
+        initializeStates();
+        createTabs();
+        createTabContents();
+        calculateAll();
     </script>
 </body>
 </html>
-
