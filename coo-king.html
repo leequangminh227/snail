@@ -401,10 +401,10 @@
                     { id: 2, name: 'Bạch tuộc ngâm', food1: 3, food2: 0, food3: 0, price: 108 },
                     { id: 3, name: 'Shasimi cá đuối', food1: 5, food2: 0, food3: 0, price: 240 },
                     { id: 4, name: 'Tôm kỳ lạ', food1: 2, food2: 1, food3: 0, price: 192 },
-                    { id: 5, name: 'Phô mai muối', food1: 4, food2: 2, food3: 0, price: 273 },
-                    { id: 6, name: 'Thuỷ Long Nướng', food1: 6, food2: 3, food3: 0, price: 369 },
+                    { id: 5, name: 'Phô mai muối', food1: 4, food2: 2, food3: 0, price: 342 },
+                    { id: 6, name: 'Thuỷ Long Nướng', food1: 6, food2: 3, food3: 0, price: 442 },
                     { id: 7, name: 'Cánh cá người', food1: 5, food2: 2, food3: 1, price: 420 },
-                    { id: 8, name: 'Món Set 2 - 8', food1: 5, food2: 2, food3: 1, price: 0 },
+                    { id: 8, name: 'Rắn biển', food1: 8, food2: 4, food3: 0, price: 528 },
                     { id: 9, name: 'Món Set 2 - 9', food1: 10, food2: 6, food3: 0, price: 0 },
                     { id: 10, name: 'Món Set 2 - 10', food1: 8, food2: 4, food3: 0, price: 0 },
                     { id: 11, name: 'Món Set 2 - 11', food1: 8, food2: 5, food3: 3, price: 0 },
@@ -483,12 +483,13 @@
                    dish.food3 * foodPrices.food3;
         }
 
-        // Đánh giá món ăn
-        function getRating(profit) {
-            if (profit >= 400) return '<span class="badge badge-best">⭐ XUẤT SẮC</span>';
-            if (profit >= 200) return '<span class="badge badge-good">✓✓✓ Rất tốt</span>';
-            if (profit >= 100) return '<span class="badge badge-good">✓✓ Tốt</span>';
-            if (profit >= 20) return '<span class="badge badge-good">✓ Khá</span>';
+        // Đánh giá món ăn (dựa trên hiệu suất + lợi nhuận)
+        function getRating(profit, efficiency = 0) {
+            // Ưu tiên hiệu suất hơn lợi nhuận tuyệt đối
+            if (efficiency >= 100 && profit >= 300) return '<span class="badge badge-best">⭐ XUẤT SẮC</span>';
+            if (efficiency >= 60 || profit >= 200) return '<span class="badge badge-good">✓✓✓ Rất tốt</span>';
+            if (efficiency >= 30 || profit >= 100) return '<span class="badge badge-good">✓✓ Tốt</span>';
+            if (efficiency >= 10 || profit >= 20) return '<span class="badge badge-good">✓ Khá</span>';
             return '<span class="badge badge-bad">❌ Tệ</span>';
         }
 
@@ -522,60 +523,64 @@
                 const set = SETS[setKey];
                 return `
                     <div id="content-${setKey}" class="tab-content ${index === 0 ? 'active' : ''}">
-                        <div class="section">
+        <div class="section">
                             <h2>📦 Nguyên Liệu ${set.name}</h2>
-                            <div class="input-grid">
-                                <div class="input-group">
+            <div class="input-grid">
+                <div class="input-group">
                                     <label>Food 1 (65% - Giá lẻ: ${set.foodPrices.food1})</label>
                                     <input type="number" id="${setKey}-food1" value="${setStates[setKey].ingredients.food1}" min="0" 
                                            onchange="updateIngredients('${setKey}')">
-                                </div>
-                                <div class="input-group">
+                </div>
+                <div class="input-group">
                                     <label>Food 2 (25% - Giá lẻ: ${set.foodPrices.food2})</label>
                                     <input type="number" id="${setKey}-food2" value="${setStates[setKey].ingredients.food2}" min="0"
                                            onchange="updateIngredients('${setKey}')">
-                                </div>
-                                <div class="input-group">
+                </div>
+                <div class="input-group">
                                     <label>Food 3 (10% - Giá lẻ: ${set.foodPrices.food3})</label>
                                     <input type="number" id="${setKey}-food3" value="${setStates[setKey].ingredients.food3}" min="0"
                                            onchange="updateIngredients('${setKey}')">
-                                </div>
-                            </div>
-                        </div>
+                </div>
+            </div>
+        </div>
 
-                        <div class="section">
-                            <h2>🍽️ Danh Sách Món Ăn</h2>
+        <div class="section">
+            <h2>🍽️ Danh Sách Món Ăn</h2>
                             <p style="text-align: center; color: #666; font-size: 0.9em; margin-bottom: 10px;">
                                 💾 Trạng thái checkbox và giá bán được tự động lưu
                             </p>
-                            <div class="table-container">
+                            <p style="text-align: center; color: #17a2b8; font-size: 0.85em; margin-bottom: 10px;">
+                                ℹ️ <strong>Hiệu suất</strong> = Lợi nhuận ÷ Trọng số nguyên liệu (xét tỷ lệ rơi 65%-25%-10%). Càng cao = càng tối ưu!
+                            </p>
+            <div class="table-container">
                                 <table>
-                                    <thead>
-                                        <tr>
-                                            <th>Chọn</th>
-                                            <th>STT</th>
-                                            <th>Tên món</th>
-                                            <th>Food1</th>
-                                            <th>Food2</th>
-                                            <th>Food3</th>
-                                            <th>Giá bán</th>
-                                            <th>Chi phí cơ hội</th>
-                                            <th>Lợi nhuận</th>
-                                            <th>Đánh giá</th>
-                                        </tr>
-                                    </thead>
+                    <thead>
+                        <tr>
+                            <th>Chọn</th>
+                            <th>STT</th>
+                            <th>Tên món</th>
+                            <th>Food1</th>
+                            <th>Food2</th>
+                            <th>Food3</th>
+                            <th>Giá bán</th>
+                            <th>Chi phí cơ hội</th>
+                            <th>Lợi nhuận</th>
+                                            <th>Hiệu suất</th>
+                            <th>Đánh giá</th>
+                        </tr>
+                    </thead>
                                     <tbody id="${setKey}-table-body">
-                                    </tbody>
-                                </table>
-                            </div>
-                        </div>
+                    </tbody>
+                </table>
+            </div>
+        </div>
 
-                        <div class="strategy-section">
+        <div class="strategy-section">
                             <h2>💡 Chiến Lược ${set.name}</h2>
                             <div id="${setKey}-strategy">
-                            </div>
-                        </div>
-                    </div>
+            </div>
+        </div>
+    </div>
                 `;
             }).join('');
         }
@@ -587,29 +592,39 @@
             
             tbody.innerHTML = dishes.map(dish => {
                 const opportunityCost = calculateOpportunityCost(dish, setKey);
-                const profit = dish.price - opportunityCost;
-                const rating = getRating(profit);
+                const { profit, efficiency } = calculateDishEfficiency(dish, setKey);
+                const rating = getRating(profit, efficiency);
+                
+                // Màu sắc cho hiệu suất
+                let efficiencyColor = '#666';
+                if (efficiency >= 100) efficiencyColor = '#ffd700'; // Vàng - Xuất sắc
+                else if (efficiency >= 60) efficiencyColor = '#28a745'; // Xanh - Tốt
+                else if (efficiency >= 30) efficiencyColor = '#17a2b8'; // Xanh dương - Khá
+                else if (efficiency < 0) efficiencyColor = '#dc3545'; // Đỏ - Tệ
                 
                 return `
                     <tr>
-                        <td class="checkbox-cell">
+                    <td class="checkbox-cell">
                             <input type="checkbox" ${dish.enabled ? 'checked' : ''} 
                                    onchange="toggleDish('${setKey}', ${dish.id})">
-                        </td>
-                        <td>${dish.id}</td>
-                        <td><strong>${dish.name}</strong></td>
-                        <td>${dish.food1}</td>
-                        <td>${dish.food2}</td>
-                        <td>${dish.food3}</td>
-                        <td>
+                    </td>
+                    <td>${dish.id}</td>
+                    <td><strong>${dish.name}</strong></td>
+                    <td>${dish.food1}</td>
+                    <td>${dish.food2}</td>
+                    <td>${dish.food3}</td>
+                    <td>
                             <input type="number" class="price-input" value="${dish.price}" min="0" 
                                    onchange="updatePrice('${setKey}', ${dish.id}, this.value)">
+                    </td>
+                    <td>${opportunityCost.toFixed(0)}</td>
+                    <td class="${profit >= 0 ? 'profit-positive' : 'profit-negative'}">
+                        ${profit >= 0 ? '+' : ''}${profit.toFixed(0)}
+                    </td>
+                        <td style="color: ${efficiencyColor}; font-weight: 600;">
+                            ${efficiency.toFixed(1)}
                         </td>
-                        <td>${opportunityCost.toFixed(0)}</td>
-                        <td class="${profit >= 0 ? 'profit-positive' : 'profit-negative'}">
-                            ${profit >= 0 ? '+' : ''}${profit.toFixed(0)}
-                        </td>
-                        <td>${rating}</td>
+                    <td>${rating}</td>
                     </tr>
                 `;
             }).join('');
@@ -642,6 +657,34 @@
             calculateAll();
         }
 
+        // Tính hiệu suất món ăn (xét tỷ lệ rơi nguyên liệu)
+        function calculateDishEfficiency(dish, setKey) {
+            const opportunityCost = calculateOpportunityCost(dish, setKey);
+            const profit = dish.price - opportunityCost;
+            
+            // Trọng số khan hiếm dựa trên tỷ lệ rơi (số càng cao = càng khan hiếm)
+            // food1: 65% -> weight = 1.54
+            // food2: 25% -> weight = 4.00 (khan hiếm gấp 2.6 lần food1)
+            // food3: 10% -> weight = 10.00 (hiếm nhất)
+            const scarcityWeights = {
+                food1: 1 / FOOD_DROP_RATE.food1,  // 1.54
+                food2: 1 / FOOD_DROP_RATE.food2,  // 4.00
+                food3: 1 / FOOD_DROP_RATE.food3   // 10.00
+            };
+            
+            // Tổng chi phí có trọng số (weighted cost)
+            const weightedCost = 
+                dish.food1 * scarcityWeights.food1 + 
+                dish.food2 * scarcityWeights.food2 + 
+                dish.food3 * scarcityWeights.food3;
+            
+            // Hiệu suất = Lợi nhuận / Chi phí có trọng số
+            // Món nào hiệu suất cao = tận dụng nguyên liệu tốt hơn
+            const efficiency = weightedCost > 0 ? profit / weightedCost : 0;
+            
+            return { profit, efficiency, weightedCost };
+        }
+
         // Tính toán chiến lược cho 1 set
         function calculateSetStrategy(setKey) {
             const ingredients = setStates[setKey].ingredients;
@@ -653,15 +696,16 @@
                                ingredients.food2 * foodPrices.food2 + 
                                ingredients.food3 * foodPrices.food3;
 
-            // Tính lợi nhuận cho mỗi món
+            // Tính lợi nhuận và hiệu suất cho mỗi món
             const dishProfits = enabledDishes.map(dish => {
                 const opportunityCost = calculateOpportunityCost(dish, setKey);
-                const profit = dish.price - opportunityCost;
-                return { ...dish, opportunityCost, profit };
+                const { profit, efficiency, weightedCost } = calculateDishEfficiency(dish, setKey);
+                return { ...dish, opportunityCost, profit, efficiency, weightedCost };
             });
 
-            // Sắp xếp theo lợi nhuận giảm dần
-            dishProfits.sort((a, b) => b.profit - a.profit);
+            // Sắp xếp theo HIỆU SUẤT giảm dần (thay vì chỉ lợi nhuận)
+            // Món có hiệu suất cao = tận dụng nguyên liệu tốt hơn
+            dishProfits.sort((a, b) => b.efficiency - a.efficiency);
 
             // Greedy algorithm
             let remaining = { ...ingredients };
@@ -765,11 +809,14 @@
                     </div>
                 `;
             } else {
-                let html = '<div class="strategy-item"><h3>🎯 Chiến Lược Nấu Ăn:</h3>';
+                let html = '<div class="strategy-item"><h3>🎯 Chiến Lược Nấu Ăn Tối Ưu:</h3>';
+                html += '<p style="font-size: 0.9em; opacity: 0.9; margin-bottom: 10px;">Sắp xếp theo hiệu suất (xét tỷ lệ rơi nguyên liệu)</p>';
                 
                 result.strategy.forEach((item, index) => {
+                    const { efficiency } = calculateDishEfficiency(item.dish, setKey);
                     html += `
-                        <p><strong>${index + 1}. ${item.dish.name}</strong>: 
+                        <p><strong>${index + 1}. ${item.dish.name}</strong> 
+                        <span style="color: #ffd700;">[Hiệu suất: ${efficiency.toFixed(1)}]</span>: 
                         Nấu <strong>${item.count} món</strong> 
                         → Thu về <strong>${item.revenue.toFixed(0)}</strong> 
                         (Lợi nhuận: <strong>+${item.netProfit.toFixed(0)}</strong>)</p>
@@ -825,31 +872,67 @@
                 }
             });
             
-            const comparisonHTML = Object.keys(results1000).map(setKey => {
-                const result = results1000[setKey];
-                const isBest = setKey === bestSet;
-                
-                return `
-                    <div class="set-card ${isBest ? 'best' : ''}">
-                        <h3>${isBest ? '🏆 ' : ''}${result.setName}</h3>
-                        <p style="font-size: 1.5em; font-weight: 700; margin: 10px 0;">
-                            ${result.finalRevenue.toFixed(0)}
-                        </p>
-                        <p>Lợi nhuận: <strong style="color: ${result.profitIncrease >= 0 ? '#90EE90' : '#FF6B6B'}">
-                            ${result.profitIncrease >= 0 ? '+' : ''}${result.profitIncrease.toFixed(0)} 
-                            (${result.profitPercent.toFixed(1)}%)
-                        </strong></p>
-                        ${isBest ? '<p style="margin-top: 10px; font-weight: 600;">⭐ FARM Ở ĐÂY!</p>' : ''}
-                    </div>
-                `;
-            }).join('');
+            const comparisonHTML = Object.keys(results1000)
+                .sort((a, b) => results1000[b].finalRevenue - results1000[a].finalRevenue) // Sắp xếp giảm dần
+                .map(setKey => {
+                    const result = results1000[setKey];
+                    const isBest = setKey === bestSet;
+                    const diff = maxRevenue - result.finalRevenue;
+                    const diffPercent = result.finalRevenue > 0 ? (diff / result.finalRevenue * 100) : 0;
+                    
+                    return `
+                        <div class="set-card ${isBest ? 'best' : ''}">
+                            <h3>${isBest ? '🏆 ' : ''}${result.setName}</h3>
+                            <p style="font-size: 1.5em; font-weight: 700; margin: 10px 0;">
+                                ${result.finalRevenue.toFixed(0)}
+                            </p>
+                            <p>Lợi nhuận: <strong style="color: ${result.profitIncrease >= 0 ? '#90EE90' : '#FF6B6B'}">
+                                ${result.profitIncrease >= 0 ? '+' : ''}${result.profitIncrease.toFixed(0)} 
+                                (${result.profitPercent.toFixed(1)}%)
+                            </strong></p>
+                            ${!isBest ? `
+                                <p style="margin-top: 10px; padding: 8px; background: rgba(220, 53, 69, 0.2); border-radius: 5px;">
+                                    <span style="color: #ff6b6b; font-weight: 600;">
+                                        ↓ Kém ${diff.toFixed(0)} (-${diffPercent.toFixed(1)}%)
+                                    </span>
+                                </p>
+                            ` : '<p style="margin-top: 10px; font-weight: 600; color: #ffd700;">⭐ FARM Ở ĐÂY!</p>'}
+                        </div>
+                    `;
+                }).join('');
+            
+            // Tính khoảng cách giữa set tốt nhất và set thứ 2
+            const sortedSets = Object.keys(results1000)
+                .sort((a, b) => results1000[b].finalRevenue - results1000[a].finalRevenue);
+            const secondBestRevenue = sortedSets.length > 1 ? results1000[sortedSets[1]].finalRevenue : 0;
+            const advantage = maxRevenue - secondBestRevenue;
             
             document.getElementById('setComparison').innerHTML = `
+                <p style="text-align: center; font-size: 1.1em; margin-bottom: 20px; padding: 15px; background: rgba(255,255,255,0.2); border-radius: 8px;">
+                    <strong>${results1000[bestSet].setName}</strong> cho thu nhập <strong>${maxRevenue.toFixed(0)}</strong>
+                    ${sortedSets.length > 1 ? `— Lời hơn set gần nhất <strong style="color: #ffd700;">${advantage.toFixed(0)}</strong>` : ''}
+                </p>
                 <div class="set-comparison">
                     ${comparisonHTML}
                 </div>
             `;
             
+            // Tính chênh lệch so với set tốt nhất
+            const comparisonDetails = Object.keys(results1000)
+                .filter(setKey => setKey !== bestSet)
+                .map(setKey => {
+                    const result = results1000[setKey];
+                    const diff = results1000[bestSet].finalRevenue - result.finalRevenue;
+                    const diffPercent = result.finalRevenue > 0 ? (diff / result.finalRevenue * 100) : 0;
+                    return {
+                        setName: result.setName,
+                        revenue: result.finalRevenue,
+                        diff: diff,
+                        diffPercent: diffPercent
+                    };
+                })
+                .sort((a, b) => b.revenue - a.revenue); // Sắp xếp theo thu nhập giảm dần
+
             // Phân tích tổng thể
             const overallHTML = `
                 <div class="strategy-item">
@@ -860,24 +943,114 @@
                     <p>Thu nhập: <strong>${results1000[bestSet].finalRevenue.toFixed(0)}</strong></p>
                     <p>Lợi nhuận: <strong>+${results1000[bestSet].profitIncrease.toFixed(0)} (+${results1000[bestSet].profitPercent.toFixed(1)}%)</strong></p>
                     
+                    ${comparisonDetails.length > 0 ? `
+                        <div style="margin-top: 20px; padding: 15px; background: rgba(255,255,255,0.1); border-radius: 8px;">
+                            <h4 style="margin-bottom: 10px;">📉 So Sánh Với Các Set Khác:</h4>
+                            ${comparisonDetails.map(comp => `
+                                <p style="font-size: 0.95em; margin: 8px 0;">
+                                    • Farm tại <strong>${comp.setName}</strong>: 
+                                    ${comp.revenue.toFixed(0)} 
+                                    <span style="color: #ff6b6b; font-weight: 600;">
+                                        (-${comp.diff.toFixed(0)} hoặc -${comp.diffPercent.toFixed(1)}%)
+                                    </span>
+                                </p>
+                            `).join('')}
+                            <p style="margin-top: 12px; color: #ffd700; font-weight: 600;">
+                                → Lợi thế farm ${results1000[bestSet].setName}: Lời hơn ${comparisonDetails[0].diff.toFixed(0)} so với set gần nhất!
+                            </p>
+                        </div>
+                    ` : ''}
+                    
                     <h4 style="margin-top: 20px;">📋 Chiến lược nấu món tại ${results1000[bestSet].setName}:</h4>
                     ${results1000[bestSet].strategy.map((item, index) => 
                         `<p>${index + 1}. <strong>${item.dish.name}</strong>: Nấu ${item.count} món → ${item.revenue.toFixed(0)}</p>`
                     ).join('')}
                 </div>
                 
-                <div class="strategy-item">
-                    <h3>📊 So Sánh Chi Tiết Giữa Các Set</h3>
-                    ${Object.keys(results1000).map(setKey => {
+                ${Object.keys(results1000)
+                    .filter(setKey => setKey !== bestSet)
+                    .sort((a, b) => results1000[b].finalRevenue - results1000[a].finalRevenue)
+                    .map(setKey => {
                         const result = results1000[setKey];
-                        const diff = result.finalRevenue - results1000[bestSet].finalRevenue;
+                        const diff = results1000[bestSet].finalRevenue - result.finalRevenue;
                         return `
-                            <p><strong>${result.setName}</strong>: 
-                                ${result.finalRevenue.toFixed(0)} 
-                                ${setKey !== bestSet ? `<span style="color: #dc3545;">(${diff.toFixed(0)})</span>` : '<span style="color: #28a745;">✓ TỐT NHẤT</span>'}
-                            </p>
+                            <div class="strategy-item" style="background: rgba(255,255,255,0.15); border-left: 4px solid #ff6b6b;">
+                                <h3>📋 Chiến Lược Tại ${result.setName}</h3>
+                                <p style="color: #ffb3b3; margin-bottom: 10px;">
+                                    Thu nhập: ${result.finalRevenue.toFixed(0)} 
+                                    <span style="color: #ff6b6b; font-weight: 600;">(Kém ${diff.toFixed(0)})</span>
+                                </p>
+                                ${result.strategy.length > 0 ? `
+                                    ${result.strategy.map((item, index) => 
+                                        `<p style="font-size: 0.95em;">${index + 1}. <strong>${item.dish.name}</strong>: Nấu ${item.count} món → ${item.revenue.toFixed(0)}</p>`
+                                    ).join('')}
+                                ` : '<p style="color: #ff6b6b;">Không có chiến lược lợi nhuận (nên bán lẻ)</p>'}
+                            </div>
                         `;
                     }).join('')}
+                
+                <div class="strategy-item" style="background: rgba(23, 162, 184, 0.2);">
+                    <h3>💡 Cách Tính Toán (Thuật Toán Cải Tiến)</h3>
+                    <p><strong>Trước đây:</strong> Sắp xếp món theo lợi nhuận/món (có thể sai!)</p>
+                    <p><strong>Bây giờ:</strong> Sắp xếp món theo <strong>Hiệu suất</strong></p>
+                    <p style="margin-top: 10px;"><strong>Hiệu suất = Lợi nhuận ÷ Trọng số nguyên liệu</strong></p>
+                    <p style="font-size: 0.9em; margin-top: 5px;">
+                        • Food1 (65% rơi) → Trọng số 1.54<br>
+                        • Food2 (25% rơi) → Trọng số 4.00 (khan hiếm hơn 2.6x)<br>
+                        • Food3 (10% rơi) → Trọng số 10.00 (hiếm nhất)
+                    </p>
+                    <p style="margin-top: 10px;"><strong>Ví dụ:</strong></p>
+                    <p style="font-size: 0.9em;">
+                        • Món A: Lợi nhuận 452, cần 10-6-0 → Hiệu suất = 452 ÷ (10×1.54 + 6×4.00) = <strong>11.5</strong><br>
+                        • Món B: Lợi nhuận 424, cần 8-4-0 → Hiệu suất = 424 ÷ (8×1.54 + 4×4.00) = <strong>16.2</strong> ⭐
+                    </p>
+                    <p style="margin-top: 10px; color: #ffd700;">
+                        → <strong>Món B hiệu quả hơn</strong> vì tốn ít Food2 (khan hiếm), nấu được nhiều món hơn!
+                    </p>
+                </div>
+                
+                <div class="strategy-item">
+                    <h3>📊 Bảng So Sánh Toàn Bộ Các Set</h3>
+                    <table style="width: 100%; margin-top: 15px; border-collapse: collapse;">
+                        <thead>
+                            <tr style="background: rgba(255,255,255,0.1);">
+                                <th style="padding: 10px; text-align: left;">Set</th>
+                                <th style="padding: 10px; text-align: right;">Thu Nhập</th>
+                                <th style="padding: 10px; text-align: right;">Lợi Nhuận</th>
+                                <th style="padding: 10px; text-align: right;">Chênh Lệch</th>
+                                <th style="padding: 10px; text-align: center;">Xếp Hạng</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            ${Object.keys(results1000)
+                                .sort((a, b) => results1000[b].finalRevenue - results1000[a].finalRevenue)
+                                .map((setKey, index) => {
+                                    const result = results1000[setKey];
+                                    const diff = result.finalRevenue - results1000[bestSet].finalRevenue;
+                                    const isBest = setKey === bestSet;
+                                    return `
+                                        <tr style="background: ${isBest ? 'rgba(255, 215, 0, 0.2)' : 'transparent'};">
+                                            <td style="padding: 10px; font-weight: 600;">
+                                                ${isBest ? '🏆 ' : ''}${result.setName}
+                                            </td>
+                                            <td style="padding: 10px; text-align: right; font-weight: 600;">
+                                                ${result.finalRevenue.toFixed(0)}
+                                            </td>
+                                            <td style="padding: 10px; text-align: right; color: ${result.profitIncrease >= 0 ? '#90EE90' : '#FF6B6B'};">
+                                                ${result.profitIncrease >= 0 ? '+' : ''}${result.profitIncrease.toFixed(0)}
+                                                (${result.profitPercent.toFixed(1)}%)
+                                            </td>
+                                            <td style="padding: 10px; text-align: right; color: ${isBest ? '#FFD700' : '#FF6B6B'}; font-weight: 600;">
+                                                ${isBest ? '—' : diff.toFixed(0)}
+                                            </td>
+                                            <td style="padding: 10px; text-align: center; font-size: 1.2em;">
+                                                ${index === 0 ? '🥇' : index === 1 ? '🥈' : index === 2 ? '🥉' : ''}
+                                            </td>
+                                        </tr>
+                                    `;
+                                }).join('')}
+                        </tbody>
+                    </table>
                 </div>
             `;
             
