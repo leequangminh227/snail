@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Bảo Tàng - Hệ Thống Nâng Cấp</title>
+    <title>Bảo Tàng</title>
     <link href="https://fonts.googleapis.com/css2?family=Noto+Serif:wght@400;600;700&family=Crimson+Pro:wght@400;500;600;700&display=swap" rel="stylesheet">
     <style>
         * {
@@ -603,7 +603,6 @@
     <div class="container">
         <div class="header">
             <h1>🏛️ Bảo Tàng</h1>
-            <p>Hệ Thống Nâng Cấp Bảo Tàng Các Vùng Đất</p>
         </div>
 
         <div class="nav-buttons">
@@ -633,7 +632,7 @@
 
             <!-- Tree View -->
             <div class="tree-container">
-                <div class="tree-title" id="mapTitle">Cây Nâng Cấp - Cao Liên</div>
+                <div class="tree-title" id="mapTitle">Bảo tàng Cao Liên</div>
 
                 <div class="tree-wrapper" id="treeWrapper">
                     <svg class="tree-svg" id="treeSvg"></svg>
@@ -736,6 +735,7 @@
                         name: 'Học Giả Lịch Sử',
                         row: 2, col: COLS.RIGHT, colName: 'RIGHT',
                         requires: [3],
+                        isOne: true,
                         milestones: [
                             { level: 1, points: 50, effects: ['Mở khoá khách đặc biệt'] },
                             { level: 2, points: 100, effects: ['Khách đặc biệt này +10%'] },
@@ -762,6 +762,7 @@
                         name: 'Nữ Đoàn Tập Luyện',
                         row: 4, col: COLS.LEFT, colName: 'LEFT',
                         requires: [7],
+                        isOne: true,
                         milestones: [
                             { level: 1, points: 100, effects: ['Mở khoá khách đặc biệt'] },
                             { level: 2, points: 150, effects: ['Khách đặc biệt này +10%'] },
@@ -832,6 +833,7 @@
                         name: 'Thương Nhân Cổ Vật',
                         row: 6, col: COLS.RIGHT, colName: 'RIGHT',
                         requires: [11],
+                        isOne: true,
                         milestones: [
                             { level: 1, points: 100, effects: ['Mở khoá khách đặc biệt'] },
                             { level: 2, points: 150, effects: ['Khách đặc biệt này +10%'] },
@@ -881,6 +883,7 @@
                         name: 'Văn Vật Điệp Tử',
                         row: 8, col: COLS.MID_RIGHT, colName: 'MID_RIGHT',
                         requires: [15],
+                        isOne: true,
                         milestones: [
                             { level: 1, points: 300, effects: ['Mở khoá khách đặc biệt'] },
                             { level: 2, points: 400, effects: ['Khách đặc biệt này +10%'] },
@@ -996,6 +999,7 @@
                         name: 'Khuyến Khích',
                         row: 3, col: COLS.LEFT, colName: 'LEFT',
                         requires: [21],
+                        isOne: true,
                         milestones: [
                             { level: 1, points: 300, effects: ['Mở khoá khách đặc biệt'] },
                             { level: 2, points: 400, effects: ['Sản lượng khách đặc biệt này +10%'] },
@@ -1040,6 +1044,7 @@
                         name: 'Giúp Sức Sản Xuất',
                         row: 5, col: COLS.RIGHT, colName: 'RIGHT',
                         requires: [27],
+                        isOne: true,
                         milestones: [
                             { level: 1, points: 400, effects: ['Mở khoá khách đặc biệt'] },
                             { level: 2, points: 500, effects: ['Sản lượng khách đặc biệt này +10%'] },
@@ -1108,6 +1113,7 @@
                         name: 'Nguyên Liệu Hiếm',
                         row: 7, col: COLS.RIGHT, colName: 'RIGHT',
                         requires: [31],
+                        isOne: true,
                         milestones: [
                             { level: 1, points: 450, effects: ['Mở khoá khách đặc biệt'] },
                             { level: 2, points: 600, effects: ['Sản lượng khách đặc biệt này +10%'] },
@@ -1263,6 +1269,7 @@
                         name: 'Hoạt Động Tiếp Thị',
                         row: 2, col: COLS.RIGHT, colName: 'RIGHT',
                         requires: [37],
+                        isOne: true,
                         milestones: [
                             { level: 1, points: 800, effects: ['Mở khoá khách đặc biệt'] },
                             { level: 2, points: 1000, effects: ['Sản lượng khách đặc biệt này +10%'] },
@@ -1298,6 +1305,7 @@
                         name: 'Hoạt Động Tiếp Thị',
                         row: 3, col: COLS.RIGHT, colName: 'RIGHT',
                         requires: [40],
+                        isOne: true,
                         milestones: [
                             { level: 1, points: 1000, effects: ['Mở khoá khách đặc biệt'] },
                             { level: 2, points: 1200, effects: ['Sản lượng khách đặc biệt này +10%'] },
@@ -1333,6 +1341,7 @@
                         name: 'Hoạt Động Tiếp Thị',
                         row: 4, col: COLS.RIGHT, colName: 'RIGHT',
                         requires: [47],
+                        isOne: true,
                         milestones: [
                             { level: 1, points: 1000, effects: ['Mở khoá khách đặc biệt'] },
                             { level: 2, points: 1200, effects: ['Sản lượng khách đặc biệt này +10%'] },
@@ -1522,6 +1531,7 @@
                         name: 'Du Lịch Xã Chiêu Tiêu',
                         row: 2, col: COLS.RIGHT, colName: 'RIGHT',
                         requires: [56],
+                        isOne: true,
                         milestones: [
                             { level: 1, points: 1500, effects: ['Mở khoá khách đặc biệt'] },
                             { level: 2, points: 2000, effects: ['Sản lượng khách đặc biệt này +10%'] },
@@ -1544,6 +1554,7 @@
                         name: 'Du Lịch Xã Chiêu Tiêu',
                         row: 4, col: COLS.LEFT, colName: 'LEFT',
                         requires: [60],
+                        isOne: true,
                         milestones: [
                             { level: 1, points: 2000, effects: ['Mở khoá khách đặc biệt'] },
                             { level: 2, points: 2250, effects: ['Sản lượng khách đặc biệt này +10%'] },
@@ -1612,6 +1623,7 @@
                         name: 'Du Lịch Xã Chiêu Tiêu',
                         row: 6, col: COLS.RIGHT, colName: 'RIGHT',
                         requires: [64],
+                        isOne: true,
                         milestones: [
                             { level: 1, points: 2500, effects: ['Mở khoá khách đặc biệt'] },
                             { level: 2, points: 2800, effects: ['Sản lượng khách đặc biệt này +10%'] },
@@ -1780,6 +1792,7 @@
                         name: 'Du Lịch Xã Chiêu Tiêu',
                         row: 2, col: COLS.RIGHT, colName: 'RIGHT',
                         requires: [74],
+                        isOne: true,
                         milestones: [
                             { level: 1, points: 2400, effects: ['Mở khoá khách đặc biệt'] },
                             { level: 2, points: 2800, effects: ['Khách du lịch đặc biệt, điểm thích +10%'] },
@@ -1802,6 +1815,7 @@
                         name: 'Du Lịch Xã Chiêu Tiêu',
                         row: 4, col: COLS.LEFT, colName: 'LEFT',
                         requires: [78],
+                        isOne: true,
                         milestones: [
                             { level: 1, points: 2500, effects: ['Mở khoá khách đặc biệt'] },
                             { level: 2, points: 3000, effects: ['Sản lượng khách đặc biệt này +10%'] },
@@ -1870,6 +1884,7 @@
                         name: 'Du Lịch Xã Chiêu Tiêu',
                         row: 6, col: COLS.RIGHT, colName: 'RIGHT',
                         requires: [82],
+                        isOne: true,
                         milestones: [
                             { level: 1, points: 3200, effects: ['Mở khoá khách đặc biệt'] },
                             { level: 2, points: 3600, effects: ['Sản lượng khách đặc biệt này +10%'] },
@@ -2057,6 +2072,7 @@
                         name: 'Du Lịch Xã Chiêu Tiêu',
                         row: 1, col: COLS.RIGHT, colName: 'RIGHT',
                         requires: [93],
+                        isOne: true,
                         milestones: [
                             { level: 1, points: 5500, effects: ['Mở khoá khách đặc biệt'] },
                             { level: 2, points: 6000, effects: ['Sản lượng khách đặc biệt này +10%'] },
@@ -2091,6 +2107,7 @@
                         name: 'Du Lịch Xã Chiêu Tiêu',
                         row: 2, col: COLS.RIGHT, colName: 'RIGHT',
                         requires: [95],
+                        isOne: true,
                         milestones: [
                             { level: 1, points: 6000, effects: ['Mở khoá khách đặc biệt'] },
                             { level: 2, points: 7000, effects: ['Sản lượng khách đặc biệt này +10%'] },
@@ -2135,6 +2152,7 @@
                         name: 'Du Lịch Xã Chiêu Tiêu',
                         row: 4, col: COLS.RIGHT, colName: 'RIGHT',
                         requires: [100],
+                        isOne: true,
                         milestones: [
                             { level: 1, points: 7000, effects: ['Mở khoá khách đặc biệt'] },
                             { level: 2, points: 8000, effects: ['Sản lượng khách đặc biệt này +10%'] },
@@ -2172,6 +2190,7 @@
                         name: 'Du Lịch Xã Chiêu Tiêu',
                         row: 6, col: COLS.RIGHT, colName: 'RIGHT',
                         requires: [103],
+                        isOne: true,
                         milestones: [
                             { level: 1, points: 6500, effects: ['Mở khoá khách đặc biệt'] },
                             { level: 2, points: 8000, effects: ['Sản lượng khách đặc biệt này +10%'] },
@@ -2415,6 +2434,7 @@
                         name: 'Du Lịch Xã Chiêu Tiêu',
                         row: 3, col: COLS.RIGHT, colName: 'RIGHT',
                         requires: [115],
+                        isOne: true,
                         milestones: [
                             { level: 1, points: 9000, effects: ['Mở khoá khách đặc biệt'] },
                             { level: 2, points: 10500, effects: ['Khách đặc biệt này +10%'] },
@@ -2449,6 +2469,7 @@
                         name: 'Du Lịch Xã Chiêu Tiêu',
                         row: 4, col: COLS.RIGHT, colName: 'RIGHT',
                         requires: [117],
+                        isOne: true,
                         milestones: [
                             { level: 1, points: 10000, effects: ['Mở khoá khách đặc biệt'] },
                             { level: 2, points: 12000, effects: ['Khách đặc biệt này +10%'] },
@@ -2493,6 +2514,7 @@
                         name: 'Du Lịch Xã Chiêu Tiêu',
                         row: 6, col: COLS.RIGHT, colName: 'RIGHT',
                         requires: [121],
+                        isOne: true,
                         milestones: [
                             { level: 1, points: 12000, effects: ['Mở khoá khách đặc biệt'] },
                             { level: 2, points: 14000, effects: ['Khách đặc biệt này +10%'] },
@@ -2756,6 +2778,7 @@
                         name: 'Du Lịch Xã Chiêu Tiêu',
                         row: 3, col: COLS.RIGHT, colName: 'RIGHT',
                         requires: [135],
+                        isOne: true,
                         milestones: [
                             { level: 1, points: 13000, effects: ['Mở khoá khách đặc biệt: Khổ hạnh tăng'] },
                             { level: 2, points: 16000, effects: ['Khách đặc biệt này +10%'] },
@@ -2791,6 +2814,7 @@
                         name: 'Du Lịch Xã Chiêu Tiêu',
                         row: 4, col: COLS.RIGHT, colName: 'RIGHT',
                         requires: [137],
+                        isOne: true,
                         milestones: [
                             { level: 1, points: 16000, effects: ['Mở khoá khách đặc biệt: Ngoại quốc tĩnh tu khách'] },
                             { level: 2, points: 19000, effects: ['Khách đặc biệt này +10%'] },
@@ -2837,6 +2861,7 @@
                         name: 'Du Lịch Xã Chiêu Tiêu',
                         row: 6, col: COLS.RIGHT, colName: 'RIGHT',
                         requires: [141],
+                        isOne: true,
                         milestones: [
                             { level: 1, points: 16000, effects: ['Mở khoá khách đặc biệt: Thất thập nhị đại khương nhân'] },
                             { level: 2, points: 20000, effects: ['Khách đặc biệt này +10%'] },
@@ -3140,10 +3165,13 @@
                 const specialClass = node.isSpecial ? 'special-node' : '';
                 const displayId = isEmptyNode ? '☯' : node.id;
                 const nodeIdStr = typeof node.id === 'string' ? `'${node.id}'` : node.id;
+                
+                // Add red color styling if isOne is true
+                const textStyle = node.isOne ? 'color: #ef4444;' : '';
 
                 return `
                     <div class="node ${nodeClass} ${isSelected ? 'selected' : ''} ${specialClass} ${isEmptyNode ? 'empty-node' : ''}"
-                         style="left: ${x}px; top: ${y}px;"
+                         style="left: ${x}px; top: ${y}px; ${textStyle}"
                          onclick="selectNode(${nodeIdStr})"
                          data-id="${node.id}"
                          title="${node.name} [${node.colName}]">
@@ -3250,11 +3278,11 @@
                         </div>
                         <ul class="milestone-effects">
                             ${milestone.effects.map(effect => {
-                                let effectClass = '';
-                                if (effect.includes('+')) effectClass = 'effect-positive';
-                                else if (effect.includes('Mở khóa')) effectClass = 'effect-unlock';
-                                else if (effect.includes('Nhận')) effectClass = 'effect-special';
-                                else if (effect.includes('%')) effectClass = 'effect-positive';
+                                let effectClass = 'effect-positive';
+                                // if (effect.includes('+')) effectClass = 'effect-positive';
+                                // else if (effect.includes('Mở khóa')) effectClass = 'effect-unlock';
+                                // else if (effect.includes('Nhận')) effectClass = 'effect-special';
+                                // else if (effect.includes('%')) effectClass = 'effect-positive';
                                 return `<li class="${effectClass}">${effect}</li>`;
                             }).join('')}
                         </ul>
@@ -3361,7 +3389,7 @@
         // Initialize
         function init() {
             // Update title based on current map
-            document.getElementById('mapTitle').textContent = `Cây Nâng Cấp - ${MUSEUMS[currentMap].name}`;
+            document.getElementById('mapTitle').textContent = `Bảo tàng ${MUSEUMS[currentMap].name}`;
             
             renderMuseumList();
             renderTree();
