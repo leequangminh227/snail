@@ -731,10 +731,21 @@
             const dropRate = setStates[setKey].foodDropRate;
             
             // Trọng số khan hiếm dựa trên tỷ lệ rơi (số càng cao = càng khan hiếm)
+            // Nếu tỷ lệ rơi = 0, chỉ tính trọng số nếu món cần loại nguyên liệu đó
+            // Nếu món không cần loại đó (dish.foodX = 0), trọng số = 0 để không ảnh hưởng
+            const getWeight = (rate, needed) => {
+                if (rate <= 0) {
+                    // Nếu tỷ lệ rơi = 0 và món cần nguyên liệu này -> Infinity (không thể nấu)
+                    // Nếu tỷ lệ rơi = 0 nhưng món không cần -> 0 (không ảnh hưởng)
+                    return needed > 0 ? Infinity : 0;
+                }
+                return 1 / rate;
+            };
+            
             const scarcityWeights = {
-                food1: 1 / dropRate.food1,
-                food2: 1 / dropRate.food2,
-                food3: 1 / dropRate.food3
+                food1: getWeight(dropRate.food1, dish.food1),
+                food2: getWeight(dropRate.food2, dish.food2),
+                food3: getWeight(dropRate.food3, dish.food3)
             };
             
             // Tổng chi phí có trọng số (weighted cost)
@@ -745,7 +756,8 @@
             
             // Hiệu suất = Lợi nhuận / Chi phí có trọng số
             // Món nào hiệu suất cao = tận dụng nguyên liệu tốt hơn
-            const efficiency = weightedCost > 0 ? profit / weightedCost : 0;
+            // Nếu weightedCost = Infinity (cần nguyên liệu không rơi) -> hiệu suất = 0
+            const efficiency = (weightedCost > 0 && isFinite(weightedCost)) ? profit / weightedCost : 0;
             
             return { profit, efficiency, weightedCost };
         }
