@@ -1,0 +1,3382 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bảo Tàng - Hệ Thống Nâng Cấp</title>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Serif:wght@400;600;700&family=Crimson+Pro:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Crimson Pro', 'Noto Serif', Georgia, serif;
+            background: linear-gradient(180deg, #1a1a2e 0%, #16213e 50%, #0f3460 100%);
+            min-height: 100vh;
+            color: #e8d5b7;
+        }
+
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        /* Header */
+        .header {
+            text-align: center;
+            padding: 30px 20px;
+            background: linear-gradient(135deg, rgba(139, 90, 43, 0.3) 0%, rgba(79, 55, 48, 0.4) 100%);
+            border-radius: 20px;
+            margin-bottom: 30px;
+            border: 2px solid rgba(212, 175, 55, 0.3);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .header::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23d4af37' fill-opacity='0.05'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
+            opacity: 0.5;
+        }
+
+        .header h1 {
+            font-size: 2.8em;
+            color: #d4af37;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+            margin-bottom: 10px;
+            position: relative;
+            z-index: 1;
+        }
+
+        .header p {
+            font-size: 1.2em;
+            color: #c4a77d;
+            position: relative;
+            z-index: 1;
+        }
+
+        /* Navigation */
+        .nav-buttons {
+            display: flex;
+            gap: 15px;
+            justify-content: center;
+            flex-wrap: wrap;
+            margin-bottom: 30px;
+        }
+
+        .nav-btn {
+            padding: 12px 28px;
+            background: linear-gradient(135deg, #8b5a2b 0%, #4f3730 100%);
+            border: 2px solid #d4af37;
+            border-radius: 12px;
+            color: #e8d5b7;
+            font-family: inherit;
+            font-size: 1em;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-decoration: none;
+        }
+
+        .nav-btn:hover {
+            background: linear-gradient(135deg, #a0522d 0%, #5d4037 100%);
+            transform: translateY(-2px);
+            box-shadow: 0 4px 15px rgba(212, 175, 55, 0.3);
+        }
+
+
+        /* Main Layout with Sidebar */
+        .main-layout {
+            display: grid;
+            grid-template-columns: 280px 1fr 400px;
+            gap: 25px;
+        }
+
+        @media (max-width: 1400px) {
+            .main-layout {
+                grid-template-columns: 250px 1fr 350px;
+            }
+        }
+
+        @media (max-width: 1100px) {
+            .main-layout {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        /* Left Sidebar */
+        .left-sidebar {
+            background: rgba(26, 26, 46, 0.8);
+            border-radius: 20px;
+            padding: 20px;
+            border: 2px solid rgba(212, 175, 55, 0.2);
+            position: sticky;
+            top: 20px;
+            max-height: calc(100vh - 40px);
+            overflow-y: auto;
+        }
+
+        .sidebar-section {
+            margin-bottom: 25px;
+        }
+
+        .sidebar-title {
+            font-size: 0.85em;
+            color: #c4a77d;
+            margin-bottom: 10px;
+            text-align: center;
+        }
+
+        .sidebar-total-points {
+            font-size: 2.5em;
+            font-weight: 700;
+            color: #d4af37;
+            text-align: center;
+            margin-bottom: 20px;
+            text-shadow: 0 0 20px rgba(212, 175, 55, 0.5);
+        }
+
+        .sidebar-reset-btn {
+            width: 100%;
+            padding: 12px 20px;
+            background: linear-gradient(135deg, #dc3545 0%, #c82333 100%);
+            border: 2px solid #dc3545;
+            border-radius: 12px;
+            color: white;
+            font-family: inherit;
+            font-size: 1em;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            margin-bottom: 25px;
+        }
+
+        .sidebar-reset-btn:hover {
+            background: linear-gradient(135deg, #c82333 0%, #bd2130 100%);
+            transform: translateY(-2px);
+            box-shadow: 0 4px 15px rgba(220, 53, 69, 0.4);
+        }
+
+        .museum-list {
+            list-style: none;
+        }
+
+        .museum-item {
+            padding: 15px;
+            margin-bottom: 10px;
+            background: rgba(139, 90, 43, 0.2);
+            border: 2px solid rgba(212, 175, 55, 0.3);
+            border-radius: 12px;
+            cursor: pointer;
+            transition: all 0.3s;
+            text-align: center;
+            font-weight: 600;
+            color: #c4a77d;
+        }
+
+        .museum-item:hover {
+            background: rgba(139, 90, 43, 0.4);
+            border-color: rgba(212, 175, 55, 0.5);
+            transform: translateX(5px);
+        }
+
+        .museum-item.active {
+            background: linear-gradient(135deg, #8b5a2b 0%, #4f3730 100%);
+            border-color: #d4af37;
+            color: #d4af37;
+            box-shadow: 0 4px 15px rgba(212, 175, 55, 0.3);
+        }
+
+        /* Tree Container */
+        .tree-container {
+            background: rgba(26, 26, 46, 0.8);
+            border-radius: 20px;
+            padding: 30px;
+            border: 2px solid rgba(212, 175, 55, 0.2);
+            position: relative;
+            overflow: auto;
+            min-height: 800px;
+        }
+
+        .tree-title {
+            text-align: center;
+            color: #d4af37;
+            font-size: 1.5em;
+            margin-bottom: 20px;
+            padding-bottom: 15px;
+            border-bottom: 2px solid rgba(212, 175, 55, 0.3);
+        }
+
+        /* Tree SVG & Nodes */
+        .tree-wrapper {
+            position: relative;
+            width: 100%;
+            min-height: 1200px;
+            padding: 20px 0;
+        }
+
+        .tree-svg {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 0;
+        }
+
+        .tree-nodes {
+            position: relative;
+            z-index: 1;
+            width: 100%;
+            min-height: 1200px;
+        }
+
+        .node {
+            position: absolute;
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-weight: 700;
+            font-size: 1.3em;
+            border: 4px solid;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.4);
+            transform: translateX(-50%);
+        }
+
+        .node:hover {
+            transform: translateX(-50%) scale(1.15);
+            z-index: 10;
+        }
+
+        .node.selected {
+            transform: translateX(-50%) scale(1.2);
+            z-index: 10;
+            box-shadow: 0 0 30px rgba(212, 175, 55, 0.8);
+        }
+
+        /* Node States */
+        .node.locked {
+            background: linear-gradient(135deg, #2d2d44 0%, #1a1a2e 100%);
+            border-color: #444;
+            color: #666;
+        }
+
+        .node.available {
+            background: linear-gradient(135deg, #1e5128 0%, #0f3d0f 100%);
+            border-color: #4ade80;
+            color: #4ade80;
+            animation: pulse-available 2s infinite;
+        }
+
+        @keyframes pulse-available {
+            0%, 100% { box-shadow: 0 4px 15px rgba(74, 222, 128, 0.4); }
+            50% { box-shadow: 0 4px 25px rgba(74, 222, 128, 0.7); }
+        }
+
+        .node.in-progress {
+            background: linear-gradient(135deg, #7c4a03 0%, #5c3503 100%);
+            border-color: #fbbf24;
+            color: #fbbf24;
+        }
+
+        .node.completed {
+            background: linear-gradient(135deg, #0ea5e9 0%, #0369a1 100%);
+            border-color: #38bdf8;
+            color: #fff;
+        }
+
+        .node.maxed {
+            background: linear-gradient(135deg, #4ade80 0%, #22c55e 100%) !important;
+            border-color: #86efac !important;
+            color: #1a1a2e !important;
+        }
+
+        /* Special nodes (between columns) */
+        .node.special-node {
+            border-style: dashed;
+        }
+
+        .node.empty-node {
+            font-size: 1.6em;
+        }
+
+        .node.empty-node.in-progress {
+            background: linear-gradient(135deg, #fbbf24 0%, #f59e0b 100%) !important;
+            border-color: #fcd34d !important;
+            color: #1a1a2e !important;
+        }
+
+        .node.empty-node.maxed {
+            background: linear-gradient(135deg, #4ade80 0%, #22c55e 100%) !important;
+            border-color: #86efac !important;
+            color: #1a1a2e !important;
+        }
+
+        /* Node Progress Ring */
+        .node-progress {
+            position: absolute;
+            width: 80px;
+            height: 80px;
+            top: -5px;
+            left: -5px;
+            pointer-events: none;
+        }
+
+        /* Detail Panel */
+        .detail-panel {
+            background: rgba(26, 26, 46, 0.95);
+            border-radius: 20px;
+            padding: 25px;
+            border: 2px solid rgba(212, 175, 55, 0.3);
+            position: sticky;
+            top: 20px;
+            max-height: calc(100vh - 40px);
+            overflow-y: auto;
+        }
+
+        .detail-header {
+            text-align: center;
+            margin-bottom: 20px;
+            padding-bottom: 15px;
+            border-bottom: 2px solid rgba(212, 175, 55, 0.3);
+        }
+
+        .detail-header h2 {
+            color: #d4af37;
+            font-size: 1.6em;
+            margin-bottom: 5px;
+        }
+
+        .detail-header .node-id {
+            background: linear-gradient(135deg, #8b5a2b 0%, #4f3730 100%);
+            padding: 5px 15px;
+            border-radius: 20px;
+            display: inline-block;
+            font-size: 0.9em;
+            margin-top: 10px;
+        }
+
+        .milestone-list {
+            margin-bottom: 25px;
+        }
+
+        .milestone-item {
+            background: rgba(139, 90, 43, 0.15);
+            border: 2px solid rgba(212, 175, 55, 0.2);
+            border-radius: 12px;
+            padding: 15px;
+            margin-bottom: 12px;
+            transition: all 0.3s;
+        }
+
+        .milestone-item.current {
+            border-color: #fbbf24;
+            background: rgba(251, 191, 36, 0.15);
+        }
+
+        .milestone-item.completed {
+            border-color: #4ade80;
+            background: rgba(74, 222, 128, 0.1);
+        }
+
+        .milestone-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 10px;
+        }
+
+        .milestone-level {
+            font-weight: 700;
+            color: #d4af37;
+        }
+
+        .milestone-points {
+            background: rgba(212, 175, 55, 0.2);
+            padding: 4px 12px;
+            border-radius: 15px;
+            font-size: 0.9em;
+            color: #e8d5b7;
+        }
+
+        .milestone-points.completed {
+            background: rgba(74, 222, 128, 0.3);
+            color: #4ade80;
+        }
+
+        .milestone-effects {
+            font-size: 0.95em;
+            line-height: 1.6;
+            color: #c4a77d;
+        }
+
+        .milestone-effects li {
+            margin-bottom: 5px;
+            padding-left: 5px;
+        }
+
+        .effect-positive {
+            color: #4ade80;
+        }
+
+        .effect-special {
+            color: #f472b6;
+        }
+
+        .effect-unlock {
+            color: #38bdf8;
+        }
+
+        /* Progress Input */
+        .progress-section {
+            background: rgba(139, 90, 43, 0.2);
+            border-radius: 15px;
+            padding: 20px;
+            margin-top: 20px;
+        }
+
+        .progress-section h3 {
+            color: #d4af37;
+            margin-bottom: 15px;
+            font-size: 1.1em;
+        }
+
+        .progress-input-group {
+            display: flex;
+            gap: 10px;
+            align-items: center;
+        }
+
+        .progress-input {
+            flex: 1;
+            padding: 12px 15px;
+            background: rgba(26, 26, 46, 0.8);
+            border: 2px solid rgba(212, 175, 55, 0.3);
+            border-radius: 10px;
+            color: #e8d5b7;
+            font-size: 1.1em;
+            font-family: inherit;
+        }
+
+        .progress-input:focus {
+            outline: none;
+            border-color: #d4af37;
+        }
+
+        .progress-btn {
+            padding: 12px 20px;
+            background: linear-gradient(135deg, #8b5a2b 0%, #4f3730 100%);
+            border: 2px solid #d4af37;
+            border-radius: 10px;
+            color: #d4af37;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s;
+            font-family: inherit;
+        }
+
+        .progress-btn:hover {
+            background: linear-gradient(135deg, #a0522d 0%, #5d4037 100%);
+        }
+
+        .quick-btns {
+            display: flex;
+            gap: 8px;
+            margin-top: 10px;
+            flex-wrap: wrap;
+        }
+
+        .quick-btn {
+            padding: 8px 14px;
+            background: rgba(212, 175, 55, 0.1);
+            border: 1px solid rgba(212, 175, 55, 0.3);
+            border-radius: 8px;
+            color: #c4a77d;
+            font-size: 0.85em;
+            cursor: pointer;
+            transition: all 0.3s;
+            font-family: inherit;
+        }
+
+        .quick-btn:hover {
+            background: rgba(212, 175, 55, 0.2);
+            border-color: #d4af37;
+        }
+
+
+        /* Connection Lines */
+        .tree-line {
+            stroke: rgba(212, 175, 55, 0.7);
+            stroke-width: 4;
+            fill: none;
+        }
+
+        .tree-line.completed {
+            stroke: #4ade80;
+            stroke-width: 5;
+        }
+
+        .tree-line.active {
+            stroke: #fbbf24;
+            stroke-width: 5;
+            stroke-dasharray: 8 4;
+            animation: dash 1s linear infinite;
+        }
+
+        .tree-line.special-line {
+            stroke-dasharray: 5 3;
+        }
+
+        @keyframes dash {
+            to { stroke-dashoffset: -12; }
+        }
+
+
+        /* No Selection State */
+        .no-selection {
+            text-align: center;
+            padding: 50px 20px;
+            color: #666;
+        }
+
+        .no-selection-icon {
+            font-size: 4em;
+            margin-bottom: 20px;
+            opacity: 0.5;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .header h1 {
+                font-size: 2em;
+            }
+
+            .node {
+                width: 55px;
+                height: 55px;
+                font-size: 1.1em;
+            }
+            
+            .left-sidebar {
+                position: static;
+                max-height: none;
+            }
+        }
+
+        /* Scrollbar */
+        ::-webkit-scrollbar {
+            width: 8px;
+            height: 8px;
+        }
+
+        ::-webkit-scrollbar-track {
+            background: rgba(26, 26, 46, 0.5);
+            border-radius: 4px;
+        }
+
+        ::-webkit-scrollbar-thumb {
+            background: rgba(212, 175, 55, 0.3);
+            border-radius: 4px;
+        }
+
+        ::-webkit-scrollbar-thumb:hover {
+            background: rgba(212, 175, 55, 0.5);
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>🏛️ Bảo Tàng</h1>
+            <p>Hệ Thống Nâng Cấp Bảo Tàng Các Vùng Đất</p>
+        </div>
+
+        <div class="nav-buttons">
+            <a href="/" class="nav-btn">← Trang Chủ</a>
+            <a href="/coo-king.html" class="nav-btn">🍳 Coo-king</a>
+        </div>
+
+        <div class="main-layout">
+            <!-- Left Sidebar -->
+            <div class="left-sidebar">
+                <div class="sidebar-section">
+                    <div class="sidebar-title">Tổng Điểm Cần Dùng</div>
+                    <div class="sidebar-total-points" id="totalPointsAllMaps">0</div>
+                </div>
+                
+                <button class="sidebar-reset-btn" onclick="resetAllNodes()">
+                    🔄 Reset Toàn Bộ Node
+                </button>
+                
+                <div class="sidebar-section">
+                    <div class="sidebar-title">Danh Sách Bảo Tàng</div>
+                    <ul class="museum-list" id="museumList">
+                        <!-- Generated by JS -->
+                    </ul>
+                </div>
+            </div>
+
+            <!-- Tree View -->
+            <div class="tree-container">
+                <div class="tree-title" id="mapTitle">Cây Nâng Cấp - Cao Liên</div>
+
+                <div class="tree-wrapper" id="treeWrapper">
+                    <svg class="tree-svg" id="treeSvg"></svg>
+                    <div class="tree-nodes" id="treeNodes">
+                        <!-- Generated by JS -->
+                    </div>
+                </div>
+            </div>
+
+            <!-- Detail Panel -->
+            <div class="detail-panel" id="detailPanel">
+                <div class="no-selection">
+                    <div class="no-selection-icon">🏛️</div>
+                    <p>Chọn một node trên cây để xem chi tiết</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Museum Data Structure - Row-based layout
+        // 3 columns: LEFT (25%), MIDDLE (50%), RIGHT (75%)
+        // Special positions: LEFT-MID (37%), MID-RIGHT (63%)
+        const ROW_HEIGHT = 100;
+        const COLS = {
+            LEFT: 20,
+            LEFT_MID: 35,
+            MIDDLE: 50,
+            MID_RIGHT: 65,
+            RIGHT: 80
+        };
+        
+        const MUSEUMS = {
+            caoLien: {
+                id: 'caoLien',
+                name: 'Cao Liên',
+                description: 'Bảo tàng vùng Cao Liên',
+                nodes: {
+                    // Row 0 - Top (MIDDLE)
+                    1: {
+                        id: 1,
+                        name: 'Khởi Đầu',
+                        row: 0, col: COLS.MIDDLE, colName: 'MIDDLE',
+                        requires: [],
+                        milestones: [
+                            { level: 1, points: 10, effects: ['Kinh doanh +100'] },
+                            { level: 2, points: 50, effects: ['Kinh doanh +200'] }
+                        ]
+                    },
+                    // Row 1: 2 (LEFT), 3 (MIDDLE)
+                    2: {
+                        id: 2,
+                        name: 'Giấy Phép Kinh Doanh',
+                        row: 1, col: COLS.LEFT, colName: 'LEFT',
+                        requires: [1],
+                        milestones: [
+                            { level: 1, points: 50, effects: [
+                                'Nhận Thẻ hoạt động bảo tàng',
+                                'Tốc độ ký hợp đồng thường +10%',
+                                'Giới hạn lưu trữ hợp đồng thường +4'
+                            ]}
+                        ]
+                    },
+                    3: {
+                        id: 3,
+                        name: 'Đồ Giám Du Khách',
+                        row: 1, col: COLS.MIDDLE, colName: 'MIDDLE',
+                        requires: [1],
+                        milestones: [
+                            { level: 1, points: 50, effects: ['Kinh doanh +100'] },
+                            { level: 2, points: 100, effects: ['Kinh doanh +200'] },
+                            { level: 3, points: 150, effects: ['Kinh doanh +300'] }
+                        ]
+                    },
+                    // Row 2: 4 (LEFT), 7 (MIDDLE), 6 (RIGHT)
+                    4: {
+                        id: 4,
+                        name: 'Cửa Hàng Bảo Tàng',
+                        row: 2, col: COLS.LEFT, colName: 'LEFT',
+                        requires: [3],
+                        milestones: [
+                            { level: 1, points: 25, effects: ['Số lần mua hợp đồng thường +1'] },
+                            { level: 2, points: 50, effects: ['Số lần mua hợp đồng thường +2'] },
+                            { level: 3, points: 100, effects: ['Số lần mua hợp đồng thường +3'] }
+                        ]
+                    },
+                    7: {
+                        id: 7,
+                        name: 'Đèn Đá Sư Tử I',
+                        row: 2, col: COLS.MIDDLE, colName: 'MIDDLE',
+                        requires: [3],
+                        milestones: [
+                            { level: 1, points: 100, effects: ['Kinh doanh +200'] },
+                            { level: 2, points: 150, effects: ['Kinh doanh +400'] },
+                            { level: 3, points: 200, effects: ['Nhận 20 mảnh đèn đá sư tử'] }
+                        ]
+                    },
+                    6: {
+                        id: 6,
+                        name: 'Học Giả Lịch Sử',
+                        row: 2, col: COLS.RIGHT, colName: 'RIGHT',
+                        requires: [3],
+                        milestones: [
+                            { level: 1, points: 50, effects: ['Mở khoá khách đặc biệt'] },
+                            { level: 2, points: 100, effects: ['Khách đặc biệt này +10%'] },
+                            { level: 3, points: 150, effects: ['Khách đặc biệt này +20%'] }
+                        ]
+                    },
+                    // Row 3: 5 (con của cột trái 4)
+                    5: {
+                        id: 5,
+                        name: 'Hợp Đồng Nâng Cao',
+                        row: 3, col: COLS.LEFT, colName: 'LEFT',
+                        requires: [4],
+                        milestones: [
+                            { level: 1, points: 100, effects: [
+                                'Tốc độ ký hợp đồng thường +10%',
+                                'Giới hạn lưu trữ hợp đồng thường +4',
+                                'Mở khóa trang trí khu triển lãm Lam Bình (Sảnh Trụ)'
+                            ]}
+                        ]
+                    },
+                    // Row 4: 10, 11, 8 (con của cột giữa 7 - thấp hơn row 3)
+                    10: {
+                        id: 10,
+                        name: 'Nữ Đoàn Tập Luyện',
+                        row: 4, col: COLS.LEFT, colName: 'LEFT',
+                        requires: [7],
+                        milestones: [
+                            { level: 1, points: 100, effects: ['Mở khoá khách đặc biệt'] },
+                            { level: 2, points: 150, effects: ['Khách đặc biệt này +10%'] },
+                            { level: 3, points: 200, effects: ['Khách đặc biệt này +20%'] }
+                        ]
+                    },
+                    11: {
+                        id: 11,
+                        name: 'Đèn Đá Sư Tử II',
+                        row: 4, col: COLS.MIDDLE, colName: 'MIDDLE',
+                        requires: [7],
+                        milestones: [
+                            { level: 1, points: 150, effects: ['Kinh doanh +200'] },
+                            { level: 2, points: 200, effects: ['Kinh doanh +400'] },
+                            { level: 3, points: 250, effects: ['Kinh doanh +600'] },
+                            { level: 4, points: 300, effects: ['Kinh doanh +800, nhận 20 mảnh đèn đá sư tử'] }
+                        ]
+                    },
+                    8: {
+                        id: 8,
+                        name: 'Điểm Thích Du Khách',
+                        row: 4, col: COLS.RIGHT, colName: 'RIGHT',
+                        requires: [7],
+                        milestones: [
+                            { level: 1, points: 50, effects: ['Du khách thường tham quan, điểm thích +10%'] },
+                            { level: 2, points: 100, effects: ['Du khách thường tham quan, điểm thích +20%'] },
+                            { level: 3, points: 200, effects: ['Du khách thường tham quan, điểm thích +30%'] }
+                        ]
+                    },
+                    // Row 5: 9 (con của 8 - cột phải)
+                    9: {
+                        id: 9,
+                        name: 'Điểm Thích Toàn Bộ',
+                        row: 5, col: COLS.RIGHT, colName: 'RIGHT',
+                        requires: [8],
+                        milestones: [
+                            { level: 1, points: 100, effects: [
+                                'Tất cả du khách tham quan, điểm thích +5%'
+                            ]}
+                        ]
+                    },
+                    // Row 6: 12, 15, 14 (con của 11 - cột giữa, phải thấp hơn row 5)
+                    12: {
+                        id: 12,
+                        name: 'Điểm Thích Đặc Biệt',
+                        row: 6, col: COLS.LEFT, colName: 'LEFT',
+                        requires: [11],
+                        milestones: [
+                            { level: 1, points: 100, effects: ['Du khách đặc biệt tham quan, điểm thích +30%'] },
+                            { level: 2, points: 150, effects: ['Du khách đặc biệt tham quan, điểm thích +30%'] },
+                            { level: 3, points: 200, effects: ['Du khách đặc biệt tham quan, điểm thích +30%'] }
+                        ]
+                    },
+                    15: {
+                        id: 15,
+                        name: 'Đèn Đá Sư Tử III',
+                        row: 6, col: COLS.MIDDLE, colName: 'MIDDLE',
+                        requires: [11],
+                        milestones: [
+                            { level: 1, points: 200, effects: ['Kinh doanh +250'] },
+                            { level: 2, points: 250, effects: ['Kinh doanh +500'] },
+                            { level: 3, points: 300, effects: ['Kinh doanh +750'] },
+                            { level: 4, points: 350, effects: ['Kinh doanh +1000, nhận 20 mảnh đèn đá sư tử'] }
+                        ]
+                    },
+                    14: {
+                        id: 14,
+                        name: 'Thương Nhân Cổ Vật',
+                        row: 6, col: COLS.RIGHT, colName: 'RIGHT',
+                        requires: [11],
+                        milestones: [
+                            { level: 1, points: 100, effects: ['Mở khoá khách đặc biệt'] },
+                            { level: 2, points: 150, effects: ['Khách đặc biệt này +10%'] },
+                            { level: 3, points: 200, effects: ['Khách đặc biệt này +20%'] }
+                        ]
+                    },
+                    // Row 7: 13 (con của 12 - cột trái)
+                    13: {
+                        id: 13,
+                        name: 'Trang Trí Đặc Sắc',
+                        row: 7, col: COLS.LEFT, colName: 'LEFT',
+                        requires: [12],
+                        milestones: [
+                            { level: 1, points: 100, effects: [
+                                'Tất cả du khách tham quan, điểm thích +5%',
+                                'Mở khóa trang trí đặc sắc khu triển lãm Lam Bình'
+                            ]}
+                        ]
+                    },
+                    // Row 8: 16, 25, 20 (con của 15 - cột giữa, phải thấp hơn row 7)
+                    16: {
+                        id: 16,
+                        name: 'Khu Triển Lãm Phù Tang',
+                        row: 8, col: COLS.LEFT_MID, colName: 'LEFT_MID',
+                        requires: [15],
+                        milestones: [
+                            { level: 1, points: 200, effects: [
+                                'Nhận giấy phép xây dựng khu triển lãm Đông Phú'
+                            ]}
+                        ]
+                    },
+                    25: {
+                        id: 25,
+                        name: 'Đèn Đá Sư Tử IV',
+                        row: 8, col: COLS.MIDDLE, colName: 'MIDDLE',
+                        requires: [15],
+                        milestones: [
+                            { level: 1, points: 250, effects: ['Kinh doanh +300'] },
+                            { level: 2, points: 300, effects: ['Kinh doanh +600'] },
+                            { level: 3, points: 350, effects: ['Kinh doanh +900'] },
+                            { level: 4, points: 400, effects: ['Kinh doanh +1200'] },
+                            { level: 5, points: 450, effects: ['Kinh doanh +1500, nhận 20 mảnh đèn đá sư tử'] }
+                        ]
+                    },
+                    20: {
+                        id: 20,
+                        name: 'Văn Vật Điệp Tử',
+                        row: 8, col: COLS.MID_RIGHT, colName: 'MID_RIGHT',
+                        requires: [15],
+                        milestones: [
+                            { level: 1, points: 300, effects: ['Mở khoá khách đặc biệt'] },
+                            { level: 2, points: 400, effects: ['Khách đặc biệt này +10%'] },
+                            { level: 3, points: 500, effects: ['Khách đặc biệt này +20%'] }
+                        ]
+                    },
+                    // Row 9: 26, empty (con của 25 - cột giữa)
+                    26: {
+                        id: 26,
+                        name: 'Hoàn Thiện',
+                        row: 9, col: COLS.LEFT_MID, colName: 'LEFT_MID',
+                        requires: [25],
+                        milestones: [
+                            { level: 1, points: 200, effects: [
+                                'Tốc độ ký hợp đồng thường +10%',
+                                'Giới hạn lưu trữ hợp đồng thường +4',
+                                'Mở khóa trang trí khu triển lãm Lam Bình (Tường Vẽ)'
+                            ]}
+                        ]
+                    },
+                    'empty': {
+                        id: 'empty',
+                        name: 'Cải Thiện Môi Trường',
+                        row: 9, col: COLS.MID_RIGHT, colName: 'MID_RIGHT',
+                        requires: [25],
+                        isEmpty: true,
+                        milestones: [
+                            { level: 1, points: 300, effects: [
+                                'Du khách thường tham quan, 5% xác suất nhân 2',
+                                'Giới hạn tặng hoa +10'
+                            ]},
+                            { level: 2, points: 400, effects: [
+                                'Du khách thường tham quan, 10% xác suất nhân 2',
+                                'Giới hạn tặng hoa +20'
+                            ]}
+                        ]
+                    }
+                },
+                // Connections based on the image (FINAL CORRECTED)
+                connections: [
+                    // From node 1
+                    [1, 2], [1, 3],
+                    // From node 3 (connects to 4, 7, 6)
+                    [3, 4], [3, 7], [3, 6],
+                    // From node 4
+                    [4, 5],
+                    // From node 7 - connects to 8 and 11
+                    [7, 8], [7,10], [7, 11],
+                    // From node 8
+                    [8, 9],
+                    [11, 12], [11, 14], [11, 15],
+                    // From node 12
+                    [12, 13],
+                    // From node 15 - connects to 16, 20, and 25
+                    [15, 16], [15, 20], [15, 25],
+                    // From node 25 - to both special nodes (NOT from 16 or 20!)
+                    [25, 26], [25, 'empty']
+                ]
+            },
+            dongPhu: {
+                id: 'dongPhu',
+                name: 'Đông Phủ',
+                description: 'Bảo tàng vùng Đông Phủ',
+                nodes: {
+                    // Row 0 - Top (MIDDLE)
+                    17: {
+                        id: 17,
+                        name: 'Điểm Xuất Phát',
+                        row: 0, col: COLS.MIDDLE, colName: 'MIDDLE',
+                        requires: [],
+                        milestones: [
+                            { level: 1, points: 100, effects: ['Kinh doanh +100'] },
+                            { level: 2, points: 250, effects: ['Kinh doanh +200'] },
+                            { level: 3, points: 350, effects: ['Kinh doanh +300, Nhận 20 thư bậc thầy nổi tiếng '] }
+                        ]
+                    },
+                    // Row 1: 18 (LEFT), 21 (RIGHT)
+                    18: {
+                        id: 18,
+                        name: 'Trình Độ',
+                        row: 1, col: COLS.LEFT, colName: 'LEFT',
+                        requires: [17],
+                        milestones: [
+                            { level: 1, points: 100, effects: ['Bán 1h tăng tốc luyện hố giun +1'] },
+                            { level: 2, points: 150, effects: ['Bán 1h tăng tốc luyện hố giun +2'] },
+                            { level: 3, points: 200, effects: ['Bán 1h tăng tốc luyện hố giun +3'] }
+                        ]
+                    },
+                    21: {
+                        id: 21,
+                        name: 'Điểm Mỹ Vật',
+                        row: 1, col: COLS.MIDDLE, colName: 'RIGHT',
+                        requires: [17],
+                        milestones: [
+                            { level: 1, points: 300, effects: ['Kinh doanh +150'] },
+                            { level: 2, points: 350, effects: ['Kinh doanh +300'] },
+                            { level: 3, points: 400, effects: ['Kinh doanh +450, Nhận 20 thư bậc thầy nổi tiếng'] }
+                        ]
+                    },
+                    // Row 2: 19 (LEFT)
+                    19: {
+                        id: 19,
+                        name: 'Nhiệm Vụ Giao Hàng',
+                        row: 2, col: COLS.LEFT, colName: 'LEFT',
+                        requires: [18],
+                        milestones: [
+                            { level: 1, points: 200, effects: ['Tốc độ ký hợp đồng giao hàng +10%', 'Giới hạn lưu trữ hợp đồng giao hàng +4, mở khóa hội đồng khu triển lãm (Sân treo)'] }
+                        ]
+                    },
+                    // Row 3: 24 (LEFT, red border), 27 (MIDDLE), 22 (RIGHT)
+                    24: {
+                        id: 24,
+                        name: 'Khuyến Khích',
+                        row: 3, col: COLS.LEFT, colName: 'LEFT',
+                        requires: [21],
+                        milestones: [
+                            { level: 1, points: 300, effects: ['Mở khoá khách đặc biệt'] },
+                            { level: 2, points: 400, effects: ['Sản lượng khách đặc biệt này +10%'] },
+                            { level: 3, points: 500, effects: ['Sản lượng khách đặc biệt này +20%'] }
+                        ]
+                    },
+                    27: {
+                        id: 27,
+                        name: 'Kho Nguyên Liệu',
+                        row: 3, col: COLS.MIDDLE, colName: 'MIDDLE',
+                        requires: [21],
+                        milestones: [
+                            { level: 1, points: 400, effects: ['Kinh doanh +200'] },
+                            { level: 2, points: 500, effects: ['Kinh doanh +400, giới hạn kho chứa nguyên liệu +100'] },
+                            { level: 3, points: 600, effects: ['Kinh doanh +600'] },
+                            { level: 4, points: 700, effects: ['Kinh doanh +800, giới hạn 20 kỹ sư'] }
+                        ]
+                    },
+                    22: {
+                        id: 22,
+                        name: 'Lòng Ham Thích',
+                        row: 3, col: COLS.RIGHT, colName: 'RIGHT',
+                        requires: [21],
+                        milestones: [
+                            { level: 1, points: 200, effects: ['Du khách thường tham quan, điểm thích +10%'] },
+                            { level: 2, points: 300, effects: ['Du khách thường tham quan, điểm thích +20%'] },
+                            { level: 3, points: 400, effects: ['Du khách thường tham quan, điểm thích +30%'] }
+                        ]
+                    },
+                    // Row 4: 28 (MIDDLE)
+                    23: {
+                        id: 23,
+                        name: 'Lòng Hào Hứng',
+                        row: 4, col: COLS.RIGHT, colName: 'RIGHT',
+                        requires: [22],
+                        milestones: [
+                            { level: 1, points: 300, effects: ['Tất cả du khách tham quan, tỉ lệ thích quan trọng +5%'] }
+                        ]
+                    },
+                    28: {
+                        id: 28,
+                        name: 'Giúp Sức Sản Xuất',
+                        row: 5, col: COLS.RIGHT, colName: 'RIGHT',
+                        requires: [27],
+                        milestones: [
+                            { level: 1, points: 400, effects: ['Mở khoá khách đặc biệt'] },
+                            { level: 2, points: 500, effects: ['Sản lượng khách đặc biệt này +10%'] },
+                            { level: 3, points: 600, effects: ['Sản lượng khách đặc biệt này +20%'] }
+                        ]
+                    },
+                    // Row 5: 29 (LEFT), 31 (MIDDLE), 32 (RIGHT - moved from row 7)
+                    29: {
+                        id: 29,
+                        name: 'Thưởng Năng Lượng',
+                        row: 5, col: COLS.LEFT, colName: 'LEFT',
+                        requires: [27],
+                        milestones: [
+                            { level: 1, points: 400, effects: ['Xác suất khách rất hài lòng +5%'] },
+                            { level: 2, points: 600, effects: ['Xác suất khách rất hài lòng +10%'] }
+                        ]
+                    },
+                    31: {
+                        id: 31,
+                        name: 'Kho Nguyên Liệu Nâng Cao',
+                        row: 5, col: COLS.MIDDLE, colName: 'MIDDLE',
+                        requires: [27],
+                        milestones: [
+                            { level: 1, points: 500, effects: ['Kinh doanh +250'] },
+                            { level: 2, points: 600, effects: ['Kinh doanh +500'] },
+                            { level: 3, points: 750, effects: ['Kinh doanh +750'] },
+                            { level: 4, points: 850, effects: ['Kinh doanh +1000, 20 Mảnh bv'] }
+                        ]
+                    },
+                    // Row 6: 30 (LEFT)
+                    30: {
+                        id: 30,
+                        name: 'Nguồn Năng Lượng',
+                        row: 6, col: COLS.LEFT, colName: 'LEFT',
+                        requires: [29],
+                        milestones: [
+                            { level: 1, points: 600, effects: ['Lợi nhuận khi khách rất hài lòng +10%'] }
+                        ]
+                    },
+                    // Row 7: 33 (LEFT), 43 (MIDDLE, special), 32 (RIGHT, red border)
+                    33: {
+                        id: 33,
+                        name: 'Lợi Nhuận',
+                        row: 7, col: COLS.LEFT, colName: 'LEFT',
+                        requires: [31],
+                        milestones: [
+                            { level: 1, points: 400, effects: ['Điểm kinh doanh +350'] },
+                            { level: 2, points: 600, effects: ['Điểm kinh doanh +700, Mở khóa khu vực thu Long Thổ'] }
+                        ]
+                    },
+                    43: {
+                        id: 43,
+                        name: 'Vật Phẩm Văn Hóa',
+                        row: 7, col: COLS.MIDDLE, colName: 'MIDDLE',
+                        requires: [31],
+                        milestones: [
+                            { level: 1, points: 600, effects: ['Kinh doanh +300'] },
+                            { level: 2, points: 750, effects: ['Kinh doanh +600'] },
+                            { level: 3, points: 900, effects: ['Kinh doanh +900'] },
+                            { level: 4, points: 1050, effects: ['Kinh doanh +1200'] },
+                            { level: 5, points: 1200, effects: ['Kinh doanh +1500, 20 Mảnh bv'] }
+                        ]
+                    },
+                    32: {
+                        id: 32,
+                        name: 'Nguyên Liệu Hiếm',
+                        row: 7, col: COLS.RIGHT, colName: 'RIGHT',
+                        requires: [31],
+                        milestones: [
+                            { level: 1, points: 450, effects: ['Mở khoá khách đặc biệt'] },
+                            { level: 2, points: 600, effects: ['Sản lượng khách đặc biệt này +10%'] },
+                            { level: 3, points: 800, effects: ['Sản lượng khách đặc biệt này +20%'] }
+                        ]
+                    },
+                    // Row 8: 46 (LEFT), 44 (MIDDLE), empty (RIGHT)
+                    46: {
+                        id: 46,
+                        name: 'Giám Thưởng Gia',
+                        row: 8, col: COLS.LEFT, colName: 'LEFT',
+                        requires: [43],
+                        milestones: [
+                            { level: 1, points: 800, effects: ['Tất cả du khách tham quan, điểm thích +10%'] }
+                        ]
+                    },
+                    44: {
+                        id: 44,
+                        name: 'Năng Lượng Giúp Việc',
+                        row: 8, col: COLS.MIDDLE, colName: 'MIDDLE',
+                        requires: [43],
+                        milestones: [
+                            { level: 1, points: 600, effects: ['Kinh doanh +350'] },
+                            { level: 2, points: 900, effects: ['Kinh doanh +700'] },
+                            { level: 3, points: 1100, effects: ['Kinh doanh +1050'] },
+                            { level: 4, points: 1300, effects: ['Kinh doanh +1400'] },
+                            { level: 5, points: 1500, effects: ['Kinh doanh +1750, 20 mảnh bv'] }
+                        ]
+                    },
+                    'empty2': {
+                        id: 'empty2',
+                        name: 'Phủ Diện Khu Vực',
+                        row: 8, col: COLS.RIGHT, colName: 'RIGHT',
+                        requires: [43],
+                        isEmpty: true,
+                        milestones: [
+                            { level: 1, points: 500, effects: ['Giới hạn nòng nọc +1000', '5% xác xuất gấp đôi nòng nọc trắng'] },
+                            { level: 2, points: 600, effects: ['Giới hạn nòng nọc +2000', '10% xác xuất gấp đôi nòng nọc trắng'] }
+                        ]
+                    },
+                    // Row 9: 45 (MIDDLE)
+                    45: {
+                        id: 45,
+                        name: 'Giúp Tay Nhiệt Tình',
+                        row: 9, col: COLS.MIDDLE, colName: 'MIDDLE',
+                        requires: [44],
+                        milestones: [
+                            { level: 1, points: 1200, effects: [
+                                'Tốc độ ký hợp đồng thường +10%',
+                                'Giới hạn lưu trữ hợp đồng thường +4',
+                                'Mở khóa trang trí'
+                            ] }
+                        ]
+                    }
+                },
+                connections: [
+                    // From node 17
+                    [17, 18], [17, 21],
+                    // From node 18
+                    [18, 19],
+                    // From node 21
+                    [21, 24], [21, 27], [21, 22],
+                    // From node 22
+                    [22, 23],
+                    // From node 27
+                    [27, 28], [27, 29], [27, 31],
+                    // From node 29
+                    [29, 30],
+                    // From node 31
+                    [31, 33], [31, 43], [31, 32],
+                    // From node 43
+                    [43, 46], [43, 44], [43, 'empty2'],
+                    // From node 44
+                    [44, 45]
+                ]
+            },
+            longTho: {
+                id: 'longTho',
+                name: 'Long Thổ',
+                description: 'Bảo tàng vùng Long Thổ',
+                nodes: {
+                    // Row 0 - Top (MIDDLE)
+                    34: {
+                        id: 34,
+                        name: 'Sinh Hoạt Văn Hóa 1',
+                        row: 0, col: COLS.MIDDLE, colName: 'MIDDLE',
+                        requires: [],
+                        milestones: [
+                            { level: 1, points: 500, effects: ['Kinh doanh +150'] },
+                            { level: 2, points: 600, effects: ['Kinh doanh +300'] },
+                            { level: 3, points: 750, effects: ['Kinh doanh +450, nhận 20 Thư tay bậc thầy'] }
+                        ]
+                    },
+                    // Row 1: 35 (LEFT), 37 (MIDDLE), 36 (RIGHT)
+                    35: {
+                        id: 35,
+                        name: 'Giảng Viên Bồi Dưỡng',
+                        row: 1, col: COLS.LEFT, colName: 'LEFT',
+                        requires: [34],
+                        milestones: [
+                            { level: 1, points: 500, effects: ['Tất cả du khách tham quan, điểm thích +10%'] },
+                            { level: 2, points: 750, effects: ['Tất cả du khách tham quan, điểm thích +20%'] },
+                            { level: 3, points: 1000, effects: ['Tất cả du khách tham quan, điểm thích +30%'] }
+                        ]
+                    },
+                    37: {
+                        id: 37,
+                        name: 'Sinh Hoạt Văn Hóa 2',
+                        row: 1, col: COLS.MIDDLE, colName: 'MIDDLE',
+                        requires: [34],
+                        milestones: [
+                            { level: 1, points: 600, effects: ['Kinh doanh +200'] },
+                            { level: 2, points: 700, effects: ['Kinh doanh +400'] },
+                            { level: 3, points: 800, effects: ['Kinh doanh +600, nhận 20 Thư tay bậc thầy văn hoá'] }
+                        ]
+                    },
+                    36: {
+                        id: 36,
+                        name: 'Du Lịch Xã Chiêu Tiêu',
+                        row: 1, col: COLS.RIGHT, colName: 'RIGHT',
+                        requires: [34],
+                        milestones: [
+                            { level: 1, points: 600, effects: ['Mở khóa khách đặc biệt'] },
+                            { level: 2, points: 800, effects: ['Sản lượng khách đặc biệt này +10%'] },
+                            { level: 3, points: 1000, effects: ['Sản lượng khách đặc biệt này +20%'] }
+                        ]
+                    },
+                    // Row 2: 38 (LEFT), 40 (MIDDLE), 39 (RIGHT)
+                    38: {
+                        id: 38,
+                        name: 'Ngọc Trước Chuyên Đề Triển Lãm',
+                        row: 2, col: COLS.LEFT, colName: 'LEFT',
+                        requires: [37],
+                        milestones: [
+                            { level: 1, points: 600, effects: ['Khách nam tham quan, điểm thích +10%'] },
+                            { level: 2, points: 800, effects: ['Khách nam tham quan, điểm thích +20%'] },
+                            { level: 3, points: 1000, effects: ['Khách nam tham quan, điểm thích +30%'] }
+                        ]
+                    },
+                    40: {
+                        id: 40,
+                        name: 'Sinh Hoạt Văn Hóa 3',
+                        row: 2, col: COLS.MIDDLE, colName: 'MIDDLE',
+                        requires: [37],
+                        milestones: [
+                            { level: 1, points: 750, effects: ['Kinh doanh +250'] },
+                            { level: 2, points: 900, effects: ['Kinh doanh +500'] },
+                            { level: 3, points: 1100, effects: ['Kinh doanh +750, nhận 20 Thư tay bậc thầy văn hoá'] }
+                        ]
+                    },
+                    39: {
+                        id: 39,
+                        name: 'Hoạt Động Tiếp Thị',
+                        row: 2, col: COLS.RIGHT, colName: 'RIGHT',
+                        requires: [37],
+                        milestones: [
+                            { level: 1, points: 800, effects: ['Mở khoá khách đặc biệt'] },
+                            { level: 2, points: 1000, effects: ['Sản lượng khách đặc biệt này +10%'] },
+                            { level: 3, points: 1200, effects: ['Sản lượng khách đặc biệt này +20%'] }
+                        ]
+                    },
+                    // Row 3: 41 (LEFT), 47 (MIDDLE), 42 (RIGHT)
+                    41: {
+                        id: 41,
+                        name: 'Trạm Nhóm Bảo Quản',
+                        row: 3, col: COLS.LEFT, colName: 'LEFT',
+                        requires: [40],
+                        milestones: [
+                            { level: 1, points: 800, effects: ['Khách nữ tham quan, điểm thích +10%'] },
+                            { level: 2, points: 1000, effects: ['Khách nữ tham quan, điểm thích +20%'] },
+                            { level: 3, points: 1200, effects: ['Khách nữ tham quan, điểm thích +30%'] }
+                        ]
+                    },
+                    47: {
+                        id: 47,
+                        name: 'Sinh Hoạt Văn Hóa 4',
+                        row: 3, col: COLS.MIDDLE, colName: 'MIDDLE',
+                        requires: [40],
+                        milestones: [
+                            { level: 1, points: 900, effects: ['Kinh doanh +300'] },
+                            { level: 2, points: 1050, effects: ['Kinh doanh +600'] },
+                            { level: 3, points: 1200, effects: ['Kinh doanh +900'] },
+                            { level: 4, points: 1350, effects: ['Kinh doanh +1200, 20 mảnh bv'] }
+                        ]
+                    },
+                    42: {
+                        id: 42,
+                        name: 'Hoạt Động Tiếp Thị',
+                        row: 3, col: COLS.RIGHT, colName: 'RIGHT',
+                        requires: [40],
+                        milestones: [
+                            { level: 1, points: 1000, effects: ['Mở khoá khách đặc biệt'] },
+                            { level: 2, points: 1200, effects: ['Sản lượng khách đặc biệt này +10%'] },
+                            { level: 3, points: 1500, effects: ['Sản lượng khách đặc biệt này +20%'] }
+                        ]
+                    },
+                    // Row 4: 49 (LEFT), 51 (MIDDLE), 48 (RIGHT)
+                    49: {
+                        id: 49,
+                        name: 'Văn Hóa Sản Phẩm Giao',
+                        row: 4, col: COLS.LEFT, colName: 'LEFT',
+                        requires: [47],
+                        milestones: [
+                            { level: 1, points: 1000, effects: ['Bán 2h luyện giun +1'] },
+                            { level: 2, points: 1200, effects: ['Bán 2h luyện giun +2'] },
+                            { level: 3, points: 1500, effects: ['Bán 2h luyện giun +3'] }
+                        ]
+                    },
+                    51: {
+                        id: 51,
+                        name: 'Sinh Hoạt Văn Hóa 5',
+                        row: 4, col: COLS.MIDDLE, colName: 'MIDDLE',
+                        requires: [47],
+                        milestones: [
+                            { level: 1, points: 1000, effects: ['Kinh doanh +350'] },
+                            { level: 2, points: 1200, effects: ['Kinh doanh +700'] },
+                            { level: 3, points: 1400, effects: ['Kinh doanh +1050'] },
+                            { level: 4, points: 1600, effects: ['Kinh doanh +1400, 20 mảnh bv'] }
+                        ]
+                    },
+                    48: {
+                        id: 48,
+                        name: 'Hoạt Động Tiếp Thị',
+                        row: 4, col: COLS.RIGHT, colName: 'RIGHT',
+                        requires: [47],
+                        milestones: [
+                            { level: 1, points: 1000, effects: ['Mở khoá khách đặc biệt'] },
+                            { level: 2, points: 1200, effects: ['Sản lượng khách đặc biệt này +10%'] },
+                            { level: 3, points: 1400, effects: ['Sản lượng khách đặc biệt này +20%'] }
+                        ]
+                    },
+                    // Row 5: 50 (LEFT)
+                    50: {
+                        id: 50,
+                        name: 'Khuyến Khích Giảng Viên',
+                        row: 5, col: COLS.LEFT, colName: 'LEFT',
+                        requires: [49],
+                        milestones: [
+                            { level: 1, points: 1200, effects: ['Tất cả du khách tham quan, điểm thích +5%'] }
+                        ]
+                    },
+                    // Row 6: 52 (LEFT), 67 (MIDDLE)
+                    52: {
+                        id: 52,
+                        name: 'Nâng Cấp Bảo Quản',
+                        row: 6, col: COLS.LEFT, colName: 'LEFT',
+                        requires: [51],
+                        milestones: [
+                            { level: 1, points: 500, effects: ['+ điểm kinh doanh'] },
+                            { level: 2, points: 1000, effects: ['+ điểm kinh doanh, mở khoá Tân Địa'] }
+                        ]
+                    },
+                    67: {
+                        id: 67,
+                        name: 'Sinh Hoạt Văn Hóa 6',
+                        row: 6, col: COLS.MIDDLE, colName: 'MIDDLE',
+                        requires: [51],
+                        milestones: [
+                            { level: 1, points: 1200, effects: ['Kinh doanh +400'] },
+                            { level: 2, points: 1400, effects: ['Kinh doanh +800'] },
+                            { level: 3, points: 1600, effects: ['Kinh doanh +1200'] },
+                            { level: 4, points: 1800, effects: ['Kinh doanh +1600'] },
+                            { level: 5, points: 2000, effects: ['Kinh doanh +2000, 20 mảnh bv'] }
+                        ]
+                    },
+                    // Row 7: empty3 (LEFT), 68 (MIDDLE), empty4 (RIGHT)
+                    'empty3': {
+                        id: 'empty3',
+                        name: 'Phân Bố Nội Bộ',
+                        row: 7, col: COLS.LEFT, colName: 'LEFT',
+                        requires: [67],
+                        isEmpty: true,
+                        milestones: [
+                            { level: 1, points: 1000, effects: ['Bán 4h luyện giun +1'] },
+                            { level: 2, points: 1400, effects: ['Bán 4h luyện giun +2'] },
+                            { level: 3, points: 1800, effects: ['Bán 4h luyện giun +3'] }
+                        ]
+                    },
+                    68: {
+                        id: 68,
+                        name: 'Sinh Hoạt Văn Hóa 7',
+                        row: 7, col: COLS.MIDDLE, colName: 'MIDDLE',
+                        requires: [67],
+                        milestones: [
+                            { level: 1, points: 1500, effects: ['Kinh doanh +450'] },
+                            { level: 2, points: 1750, effects: ['Kinh doanh +900'] },
+                            { level: 3, points: 2000, effects: ['Kinh doanh +1350'] },
+                            { level: 4, points: 2250, effects: ['Kinh doanh +1800'] },
+                            { level: 5, points: 2500, effects: ['Kinh doanh +2250, 20 mảnh bv'] }
+                        ]
+                    },
+                    'empty4': {
+                        id: 'empty4',
+                        name: 'Phân Bố Nội Bộ',
+                        row: 7, col: COLS.RIGHT, colName: 'RIGHT',
+                        requires: [67],
+                        isEmpty: true,
+                        milestones: [
+                            { level: 1, points: 1200, effects: ['Giới hạn tặng hoa, xác xuất gấp đôi hoa'] },
+                            { level: 2, points: 1800, effects: ['Giới hạn tặng hoa, xác xuất gấp đôi hoa'] }
+                        ]
+                    },
+                    // Row 8: 69 (MID_RIGHT)
+                    69: {
+                        id: 69,
+                        name: 'Hoạt Động Thị Trường',
+                        row: 8, col: COLS.MID_RIGHT, colName: 'MID_RIGHT',
+                        requires: [68],
+                        milestones: [
+                            { level: 1, points: 2000, effects: [
+                                'Tốc độ ký hợp đồng thường +10%',
+                                'Giới hạn lưu trữ hợp đồng thường +4',
+                                'Mở khóa trang trí'
+                            ] }
+                        ]
+                    }
+                },
+                connections: [
+                    // From node 34
+                    [34, 35], [34, 37], [34, 36],
+                    // From node 37
+                    [37, 38], [37, 40], [37, 39],
+                    // From node 40
+                    [40, 41], [40, 47], [40, 42],
+                    // From node 47
+                    [47, 49], [47, 51], [47, 48],
+                    // From node 49
+                    [49, 50],
+                    // From node 51
+                    [51, 52], [51, 67],
+                    // From node 67
+                    [67, 'empty3'], [67, 68], [67, 'empty4'],
+                    // From node 68
+                    [68, 69]
+                ]
+            },
+            tanDia: {
+                id: 'tanDia',
+                name: 'Tân Địa',
+                description: 'Bảo tàng vùng Tân Địa (米国展区)',
+                nodes: {
+                    // Row 0 - Top (MIDDLE)
+                    53: {
+                        id: 53,
+                        name: 'Mỹ Quốc Văn Vật Tu Phục 1',
+                        row: 0, col: COLS.MIDDLE, colName: 'MIDDLE',
+                        requires: [],
+                        milestones: [
+                            { level: 1, points: 1000, effects: ['+Kinh doanh'] },
+                            { level: 2, points: 1200, effects: ['+Kinh doanh'] },
+                            { level: 3, points: 1400, effects: ['+Kinh doanh, 20 bv'] }
+                        ]
+                    },
+                    // Row 1: 54 (LEFT), 56 (MIDDLE), 55 (RIGHT)
+                    54: {
+                        id: 54,
+                        name: 'Giảng Viên Hướng Dẫn',
+                        row: 1, col: COLS.LEFT, colName: 'LEFT',
+                        requires: [53],
+                        milestones: [
+                            { level: 1, points: 1000, effects: ['Điểm thích +30%'] },
+                            { level: 2, points: 1250, effects: ['Điểm thích +30%'] },
+                            { level: 3, points: 1500, effects: ['Điểm thích +30%'] }
+                        ]
+                    },
+                    56: {
+                        id: 56,
+                        name: 'Mỹ Quốc Văn Vật Tu Phục 2',
+                        row: 1, col: COLS.MIDDLE, colName: 'MIDDLE',
+                        requires: [53],
+                        milestones: [
+                            { level: 1, points: 1200, effects: ['+Kinh doanh'] },
+                            { level: 2, points: 1400, effects: ['+Kinh doanh'] },
+                            { level: 3, points: 1600, effects: ['+Kinh doanh, 20 bv'] }
+                        ]
+                    },
+                    55: {
+                        id: 55,
+                        name: 'Giảng Viên Xuất Sắc',
+                        row: 1, col: COLS.RIGHT, colName: 'RIGHT',
+                        requires: [53],
+                        milestones: [
+                            { level: 1, points: 1500, effects: ['Tất cả du khách tham quan, Điểm thích +5%'] }
+                        ]
+                    },
+                    // Row 2: 57 (LEFT), 60 (MIDDLE), 59 (RIGHT)
+                    57: {
+                        id: 57,
+                        name: 'Văn Sáng Sản Phẩm Nghiên Phát',
+                        row: 2, col: COLS.LEFT, colName: 'LEFT',
+                        requires: [56],
+                        milestones: [
+                            { level: 1, points: 1500, effects: ['Bán tăng tốc nghiên cứu 30 phút +1'] },
+                            { level: 2, points: 1750, effects: ['Bán tăng tốc nghiên cứu 30 phút +2'] },
+                            { level: 3, points: 2000, effects: ['Bán tăng tốc nghiên cứu 30 phút +3'] }
+                        ]
+                    },
+                    60: {
+                        id: 60,
+                        name: 'Mỹ Quốc Văn Vật Tu Phục 3',
+                        row: 2, col: COLS.MIDDLE, colName: 'MIDDLE',
+                        requires: [56],
+                        milestones: [
+                            { level: 1, points: 1250, effects: ['+Kinh doanh'] },
+                            { level: 2, points: 1500, effects: ['+Kinh doanh'] },
+                            { level: 3, points: 1750, effects: ['+Kinh doanh'] },
+                            { level: 4, points: 2000, effects: ['+Kinh doanh, 20 bv'] }
+                        ]
+                    },
+                    59: {
+                        id: 59,
+                        name: 'Du Lịch Xã Chiêu Tiêu',
+                        row: 2, col: COLS.RIGHT, colName: 'RIGHT',
+                        requires: [56],
+                        milestones: [
+                            { level: 1, points: 1500, effects: ['Mở khoá khách đặc biệt'] },
+                            { level: 2, points: 2000, effects: ['Sản lượng khách đặc biệt này +10%'] },
+                            { level: 3, points: 2000, effects: ['Sản lượng khách đặc biệt này +20%'] }
+                        ]
+                    },
+                    // Row 3: 58 (LEFT)
+                    58: {
+                        id: 58,
+                        name: 'Du Lịch Xã Ký Ước',
+                        row: 3, col: COLS.LEFT, colName: 'LEFT',
+                        requires: [57],
+                        milestones: [
+                            { level: 1, points: 1800, effects: ['Tốc độ ký hợp đồng thường +10%, giới hạn lưu trữ hợp đồng thường +4'] }
+                        ]
+                    },
+                    // Row 4: 63 (LEFT), 64 (MIDDLE), 61 (RIGHT)
+                    63: {
+                        id: 63,
+                        name: 'Du Lịch Xã Chiêu Tiêu',
+                        row: 4, col: COLS.LEFT, colName: 'LEFT',
+                        requires: [60],
+                        milestones: [
+                            { level: 1, points: 2000, effects: ['Mở khoá khách đặc biệt'] },
+                            { level: 2, points: 2250, effects: ['Sản lượng khách đặc biệt này +10%'] },
+                            { level: 3, points: 2500, effects: ['Sản lượng khách đặc biệt này +20%'] }
+                        ]
+                    },
+                    64: {
+                        id: 64,
+                        name: 'Mỹ Quốc Văn Vật Tu Phục 4',
+                        row: 4, col: COLS.MIDDLE, colName: 'MIDDLE',
+                        requires: [60],
+                        milestones: [
+                            { level: 1, points: 1500, effects: ['+Kinh doanh'] },
+                            { level: 2, points: 1800, effects: ['+Kinh doanh'] },
+                            { level: 3, points: 2100, effects: ['+Kinh doanh'] },
+                            { level: 4, points: 2400, effects: ['+Kinh doanh, 20 bv'] }
+                        ]
+                    },
+                    61: {
+                        id: 61,
+                        name: 'Văn Sáng Sản Phẩm Nghiên Phát',
+                        row: 4, col: COLS.RIGHT, colName: 'RIGHT',
+                        requires: [60],
+                        milestones: [
+                            { level: 1, points: 1800, effects: ['Bán tăng tốc nghiên cứu 1 giờ +1'] },
+                            { level: 2, points: 2100, effects: ['Bán tăng tốc nghiên cứu 1 giờ +2'] },
+                            { level: 3, points: 2400, effects: ['Bán tăng tốc nghiên cứu 1 giờ +3'] }
+                        ]
+                    },
+                    // Row 5: 62 (RIGHT)
+                    62: {
+                        id: 62,
+                        name: 'Du Lịch Xã Ký Ước',
+                        row: 5, col: COLS.RIGHT, colName: 'RIGHT',
+                        requires: [61],
+                        milestones: [
+                            { level: 1, points: 2000, effects: ['Tốc độ ký hợp đồng thường +10%, giới hạn lưu trữ hợp đồng thường +4'] }
+                        ]
+                    },
+                    // Row 6: 65 (LEFT), 70 (MIDDLE), 66 (RIGHT)
+                    65: {
+                        id: 65,
+                        name: 'Đặc Thù Văn Vật Triển Lãm',
+                        row: 6, col: COLS.LEFT, colName: 'LEFT',
+                        requires: [64],
+                        milestones: [
+                            { level: 1, points: 2000, effects: ['Khách du lịch đặc biệt, điểm thích +10%'] },
+                            { level: 2, points: 2400, effects: ['Khách du lịch đặc biệt, điểm thích +20%'] },
+                            { level: 3, points: 2800, effects: ['Khách du lịch đặc biệt, điểm thích +30%'] }
+                        ]
+                    },
+                    70: {
+                        id: 70,
+                        name: 'Mỹ Quốc Văn Vật Tu Phục 5',
+                        row: 6, col: COLS.MIDDLE, colName: 'MIDDLE',
+                        requires: [64],
+                        milestones: [
+                            { level: 1, points: 1600, effects: ['+Kinh doanh'] },
+                            { level: 2, points: 2000, effects: ['+Kinh doanh'] },
+                            { level: 3, points: 2400, effects: ['+Kinh doanh'] },
+                            { level: 4, points: 2800, effects: ['+Kinh doanh, 20 bv'] }
+                        ]
+                    },
+                    66: {
+                        id: 66,
+                        name: 'Du Lịch Xã Chiêu Tiêu',
+                        row: 6, col: COLS.RIGHT, colName: 'RIGHT',
+                        requires: [64],
+                        milestones: [
+                            { level: 1, points: 2500, effects: ['Mở khoá khách đặc biệt'] },
+                            { level: 2, points: 2800, effects: ['Sản lượng khách đặc biệt này +10%'] },
+                            { level: 3, points: 3200, effects: ['Sản lượng khách đặc biệt này +20%'] }
+                        ]
+                    },
+                    // Row 7: 71 (LEFT), 88 (MIDDLE)
+                    71: {
+                        id: 71,
+                        name: 'Triển Khu Mở Rộng Đồ Chí',
+                        row: 7, col: COLS.LEFT, colName: 'LEFT',
+                        requires: [70],
+                        milestones: [
+                            { level: 1, points: 2000, effects: ['+Kinh doanh'] },
+                            { level: 2, points: 2500, effects: ['Mở khoá bảo tàng Đại Luân'] }
+                        ]
+                    },
+                    88: {
+                        id: 88,
+                        name: 'Mỹ Quốc Văn Vật Tu Phục 6',
+                        row: 7, col: COLS.MIDDLE, colName: 'MIDDLE',
+                        requires: [70],
+                        milestones: [
+                            { level: 1, points: 2000, effects: ['+Kinh doanh'] },
+                            { level: 2, points: 2500, effects: ['+Kinh doanh'] },
+                            { level: 3, points: 3000, effects: ['+Kinh doanh'] },
+                            { level: 4, points: 3500, effects: ['+Kinh doanh'] },
+                            { level: 5, points: 4000, effects: ['+Kinh doanh, 20 bv'] }
+                        ]
+                    },
+                    // Row 8: 89 (MIDDLE), empty5 (RIGHT)
+                    89: {
+                        id: 89,
+                        name: 'Mỹ Quốc Văn Vật Tu Phục 7',
+                        row: 8, col: COLS.MIDDLE, colName: 'MIDDLE',
+                        requires: [88],
+                        milestones: [
+                            { level: 1, points: 2500, effects: ['+Kinh doanh'] },
+                            { level: 2, points: 3000, effects: ['+Kinh doanh'] },
+                            { level: 3, points: 3500, effects: ['+Kinh doanh'] },
+                            { level: 4, points: 4000, effects: ['+Kinh doanh'] },
+                            { level: 5, points: 4500, effects: ['+Kinh doanh, 20 bv'] }
+                        ]
+                    },
+                    'empty5': {
+                        id: 'empty5',
+                        name: 'Triển Khu Môi Trường Cải Thiện',
+                        row: 8, col: COLS.RIGHT, colName: 'RIGHT',
+                        requires: [88],
+                        isEmpty: true,
+                        milestones: [
+                            { level: 1, points: 2400, effects: ['Giới hạn hoa'] },
+                            { level: 2, points: 2800, effects: ['Giới hạn hoa'] }
+                        ]
+                    },
+                    // Row 9: 90 (LEFT_MID), empty6 (MID_RIGHT)
+                    90: {
+                        id: 90,
+                        name: 'Du Lịch Xã Ký Ước',
+                        row: 9, col: COLS.LEFT_MID, colName: 'LEFT_MID',
+                        requires: [89],
+                        milestones: [
+                            { level: 1, points: 2500, effects: ['Tốc độ ký hợp đồng thường +10%, giới hạn lưu trữ hợp đồng thường +4'] }
+                        ]
+                    },
+                    'empty6': {
+                        id: 'empty6',
+                        name: 'Văn Sáng Sản Phẩm Nghiên Phát',
+                        row: 9, col: COLS.MID_RIGHT, colName: 'MID_RIGHT',
+                        requires: [89],
+                        isEmpty: true,
+                        milestones: [
+                            { level: 1, points: 2500, effects: ['Bán tăng tốc nghiên cứu 2 giờ +1'] },
+                            { level: 2, points: 3000, effects: ['Bán tăng tốc nghiên cứu 2 giờ +2'] },
+                            { level: 3, points: 3500, effects: ['Bán tăng tốc nghiên cứu 2 giờ +3'] }
+                        ]
+                    }
+                },
+                connections: [
+                    // From node 53
+                    [53, 54], [53, 56], [53, 55],
+                    // From node 56
+                    [56, 57], [56, 60], [56, 59],
+                    // From node 57
+                    [57, 58],
+                    // From node 60
+                    [60, 63], [60, 64], [60, 61],
+                    // From node 61
+                    [61, 62],
+                    // From node 64
+                    [64, 65], [64, 70], [64, 66],
+                    // From node 70
+                    [70, 71], [70, 88],
+                    // From node 88
+                    [88, 89], [88, 'empty5'],
+                    // From node 89
+                    [89, 90], [89, 'empty6']
+                ]
+            },
+            daiLuan: {
+                id: 'daiLuan',
+                name: 'Đại Luân',
+                description: 'Bảo tàng vùng Đại Luân (英伦展区)',
+                nodes: {
+                    // Row 0 - Top (MIDDLE)
+                    72: {
+                        id: 72,
+                        name: 'Anh Luân Văn Vật Tu Phục 1',
+                        row: 0, col: COLS.MIDDLE, colName: 'MIDDLE',
+                        requires: [],
+                        milestones: [
+                            { level: 1, points: 1600, effects: ['+Kinh doanh'] },
+                            { level: 2, points: 2000, effects: ['+Kinh doanh'] },
+                            { level: 3, points: 2400, effects: ['+Kinh doanh, 20 Thư tay'] }
+                        ]
+                    },
+                    // Row 1: 73 (LEFT), 74 (MIDDLE)
+                    73: {
+                        id: 73,
+                        name: 'Đặc Thù Văn Vật Triển Lãm',
+                        row: 1, col: COLS.LEFT, colName: 'LEFT',
+                        requires: [72],
+                        milestones: [
+                            { level: 1, points: 2000, effects: ['Khách du lịch đặc biệt, điểm thích +10%'] },
+                            { level: 2, points: 2400, effects: ['Khách du lịch đặc biệt, điểm thích +20%'] },
+                            { level: 3, points: 2800, effects: ['Khách du lịch đặc biệt, điểm thích +30%'] }
+                        ]
+                    },
+                    74: {
+                        id: 74,
+                        name: 'Anh Luân Văn Vật Tu Phục 2',
+                        row: 1, col: COLS.MIDDLE, colName: 'MIDDLE',
+                        requires: [72],
+                        milestones: [
+                            { level: 1, points: 2000, effects: ['+Kinh doanh'] },
+                            { level: 2, points: 2500, effects: ['+Kinh doanh'] },
+                            { level: 3, points: 3000, effects: ['+Kinh doanh, 20 Thư tay'] }
+                        ]
+                    },
+                    // Row 2: 75 (LEFT), 78 (MIDDLE), 77 (RIGHT)
+                    75: {
+                        id: 75,
+                        name: 'Xã Hội Chuyên Đề Triển Lãm',
+                        row: 2, col: COLS.LEFT, colName: 'LEFT',
+                        requires: [74],
+                        milestones: [
+                            { level: 1, points: 2400, effects: ['Thanh niên tham quan, điểm thích +10%'] },
+                            { level: 2, points: 2800, effects: ['Thanh niên tham quan, điểm thích +20%'] },
+                            { level: 3, points: 3200, effects: ['Thanh niên tham quan, điểm thích +30%'] }
+                        ]
+                    },
+                    78: {
+                        id: 78,
+                        name: 'Anh Luân Văn Vật Tu Phục 3',
+                        row: 2, col: COLS.MIDDLE, colName: 'MIDDLE',
+                        requires: [74],
+                        milestones: [
+                            { level: 1, points: 2500, effects: ['Kinh doanh +1400'] },
+                            { level: 2, points: 3000, effects: ['Kinh doanh +1400'] },
+                            { level: 3, points: 3500, effects: ['Kinh doanh +1400'] },
+                            { level: 4, points: 4000, effects: ['Nghệ sĩ 20'] }
+                        ]
+                    },
+                    77: {
+                        id: 77,
+                        name: 'Du Lịch Xã Chiêu Tiêu',
+                        row: 2, col: COLS.RIGHT, colName: 'RIGHT',
+                        requires: [74],
+                        milestones: [
+                            { level: 1, points: 2400, effects: ['Mở khoá khách đặc biệt'] },
+                            { level: 2, points: 2800, effects: ['Khách du lịch đặc biệt, điểm thích +10%'] },
+                            { level: 3, points: 3200, effects: ['Khách du lịch đặc biệt, điểm thích +20%'] }
+                        ]
+                    },
+                    // Row 3: 76 (LEFT)
+                    76: {
+                        id: 76,
+                        name: 'Du Lịch Xã Ký Ước',
+                        row: 3, col: COLS.LEFT, colName: 'LEFT',
+                        requires: [75],
+                        milestones: [
+                            { level: 1, points: 2800, effects: ['Tốc độ ký hợp đồng thường +10%', 'Giới hạn lưu trữ hợp đồng thường +4'] }
+                        ]
+                    },
+                    // Row 4: 81 (LEFT), 82 (MIDDLE), 79 (RIGHT)
+                    81: {
+                        id: 81,
+                        name: 'Du Lịch Xã Chiêu Tiêu',
+                        row: 4, col: COLS.LEFT, colName: 'LEFT',
+                        requires: [78],
+                        milestones: [
+                            { level: 1, points: 2500, effects: ['Mở khoá khách đặc biệt'] },
+                            { level: 2, points: 3000, effects: ['Sản lượng khách đặc biệt này +10%'] },
+                            { level: 3, points: 3500, effects: ['Sản lượng khách đặc biệt này +20%'] }
+                        ]
+                    },
+                    82: {
+                        id: 82,
+                        name: 'Anh Luân Văn Vật Tu Phục 4',
+                        row: 4, col: COLS.MIDDLE, colName: 'MIDDLE',
+                        requires: [78],
+                        milestones: [
+                            { level: 1, points: 3000, effects: ['+Kinh doanh'] },
+                            { level: 2, points: 3500, effects: ['Kinh doanh'] },
+                            { level: 3, points: 4000, effects: ['Kinh doanh'] },
+                            { level: 4, points: 4500, effects: ['Kinh doanh, 20 mảnh bv'] }
+                        ]
+                    },
+                    79: {
+                        id: 79,
+                        name: 'Dục Phẩm Chuyên Đề Triển Lãm',
+                        row: 4, col: COLS.RIGHT, colName: 'RIGHT',
+                        requires: [78],
+                        milestones: [
+                            { level: 1, points: 2500, effects: ['Khách nữ tham quan, điểm thích +10%'] },
+                            { level: 2, points: 3000, effects: ['Khách nữ tham quan, điểm thích +20%'] },
+                            { level: 3, points: 3500, effects: ['Khách nữ tham quan, điểm thích +30%'] }
+                        ]
+                    },
+                    // Row 5: 80 (RIGHT)
+                    80: {
+                        id: 80,
+                        name: 'Du Lịch Xã Ký Ước',
+                        row: 5, col: COLS.RIGHT, colName: 'RIGHT',
+                        requires: [79],
+                        milestones: [
+                            { level: 1, points: 3200, effects: ['Tốc độ ký hợp đồng thường +10%', 'Giới hạn lưu trữ hợp đồng thường +4'] }
+                        ]
+                    },
+                    // Row 6: 83 (LEFT), 85 (MIDDLE), 84 (RIGHT)
+                    83: {
+                        id: 83,
+                        name: 'Khoa Học Chuyên Đề Triển Lãm',
+                        row: 6, col: COLS.LEFT, colName: 'LEFT',
+                        requires: [82],
+                        milestones: [
+                            { level: 1, points: 3200, effects: ['Khách nam tham quan, điểm thích +10%'] },
+                            { level: 2, points: 3600, effects: ['Khách nam tham quan, điểm thích +20%'] },
+                            { level: 3, points: 4000, effects: ['Khách nam tham quan, điểm thích +30%'] }
+                        ]
+                    },
+                    85: {
+                        id: 85,
+                        name: 'Anh Luân Văn Vật Tu Phục 5',
+                        row: 6, col: COLS.MIDDLE, colName: 'MIDDLE',
+                        requires: [82],
+                        milestones: [
+                            { level: 1, points: 3000, effects: ['+Kinh doanh'] },
+                            { level: 2, points: 3500, effects: ['+Kinh doanh'] },
+                            { level: 3, points: 4000, effects: ['+Kinh doanh'] },
+                            { level: 4, points: 4500, effects: ['+Kinh doanh, 20 mảnh bv'] }
+                        ]
+                    },
+                    84: {
+                        id: 84,
+                        name: 'Du Lịch Xã Chiêu Tiêu',
+                        row: 6, col: COLS.RIGHT, colName: 'RIGHT',
+                        requires: [82],
+                        milestones: [
+                            { level: 1, points: 3200, effects: ['Mở khoá khách đặc biệt'] },
+                            { level: 2, points: 3600, effects: ['Sản lượng khách đặc biệt này +10%'] },
+                            { level: 3, points: 4000, effects: ['Sản lượng khách đặc biệt này +20%'] }
+                        ]
+                    },
+                    // Row 7: 87 (LEFT)
+                    87: {
+                        id: 87,
+                        name: 'Giảng Viên Bồi Dưỡng',
+                        row: 7, col: COLS.LEFT, colName: 'LEFT',
+                        requires: [83],
+                        milestones: [
+                            { level: 1, points: 3600, effects: ['Khách du lịch thường thích +10%'] }
+                        ]
+                    },
+                    // Row 8: 91 (MIDDLE), 86 (RIGHT)
+                    91: {
+                        id: 91,
+                        name: 'Anh Luân Văn Vật Tu Phục 6',
+                        row: 8, col: COLS.MIDDLE, colName: 'MIDDLE',
+                        requires: [85],
+                        milestones: [
+                            { level: 1, points: 3500, effects: ['+Kinh doanh'] },
+                            { level: 2, points: 4000, effects: ['+Kinh doanh'] },
+                            { level: 3, points: 4500, effects: ['+Kinh doanh'] },
+                            { level: 4, points: 5000, effects: ['+Kinh doanh'] },
+                            { level: 5, points: 5500, effects: ['+Kinh doanh, 40 mảnh bv'] }
+                        ]
+                    },
+                    86: {
+                        id: 86,
+                        name: 'Giảng Viên Bồi Dưỡng',
+                        row: 8, col: COLS.RIGHT, colName: 'RIGHT',
+                        requires: [85],
+                        milestones: [
+                            { level: 1, points: 3500, effects: ['Tất cả du khách tham quan, điểm thích +5%'] },
+                            { level: 2, points: 4000, effects: ['Tất cả du khách tham quan, điểm thích +10%, Mở khóa trang trí'] }
+                        ]
+                    },
+                    // Row 9: 92 (LEFT), empty7 (MIDDLE)
+                    92: {
+                        id: 92,
+                        name: 'Triển Khu Mở Rộng Đồ Chí',
+                        row: 9, col: COLS.LEFT, colName: 'LEFT',
+                        requires: [91],
+                        milestones: [
+                            { level: 1, points: 4000, effects: ['+Kinh doanh'] },
+                            { level: 2, points: 4500, effects: ['+Kinh doanh'] },
+                            { level: 3, points: 5000, effects: ['+Kinh doanh, mở bảo tàng Đại Mạc'] }
+                        ]
+                    },
+                    'empty7': {
+                        id: 'empty7',
+                        name: 'Triển Khu Môi Trường Cải Thiện',
+                        row: 9, col: COLS.MIDDLE, colName: 'MIDDLE',
+                        requires: [91],
+                        isEmpty: true,
+                        milestones: [
+                            { level: 1, points: 4000, effects: ['+Kinh doanh'] },
+                            { level: 2, points: 4500, effects: ['+Kinh doanh'] },
+                            { level: 3, points: 5000, effects: ['+Kinh doanh'] },   
+                            { level: 4, points: 5500, effects: ['+Kinh doanh'] },
+                            { level: 5, points: 6000, effects: ['+Kinh doanh, 40 mảnh bv'] }
+                        ]
+                    },
+                    // Row 10: empty8 (LEFT), empty9 (MIDDLE), empty10 (RIGHT) - con của empty7
+                    'empty8': {
+                        id: 'empty8',
+                        name: 'Anh Luân Văn Vật Tu Phục 7',
+                        row: 10, col: COLS.LEFT, colName: 'LEFT',
+                        requires: ['empty7'],
+                        isEmpty: true,
+                        milestones: [
+                            { level: 3, points: 5000, effects: ['xác suất tăng hoa'] },
+                            { level: 4, points: 5500, effects: ['xác suất tăng hoa'] },
+                            { level: 5, points: 6000, effects: ['xác suất tăng hoa'] }
+                        ]
+                    },
+                    'empty9': {
+                        id: 'empty9',
+                        name: 'Nghiên Cứu Giao Lưu',
+                        row: 10, col: COLS.MIDDLE, colName: 'MIDDLE',
+                        requires: ['empty7'],
+                        isEmpty: true,
+                        milestones: [
+                            { level: 1, points: 5000, effects: ['+Kinh doanh'] },
+                            { level: 2, points: 6000, effects: ['+Kinh doanh'] },
+                            { level: 3, points: 7000, effects: ['+Kinh doanh'] },
+                            { level: 4, points: 8000, effects: ['+Kinh doanh'] },
+                            { level: 5, points: 9000, effects: ['+Kinh doanh, 40 mảnh bv'] }
+                        ]
+                    },
+                    'empty10': {
+                        id: 'empty10',
+                        name: 'Anh Luân Văn Vật Tu Phục 8',
+                        row: 10, col: COLS.RIGHT, colName: 'RIGHT',
+                        requires: ['empty7'],
+                        isEmpty: true,
+                        milestones: [
+                            { level: 1, points: 6000, effects: ['???'] },
+                            { level: 2, points: 7000, effects: ['???'] }
+                        ]
+                    },
+                    // Row 11: empty11 (MID_RIGHT) - con của empty9
+                    'empty11': {
+                        id: 'empty11',
+                        name: 'Khảo Cổ Thám Hiểm',
+                        row: 11, col: COLS.MID_RIGHT, colName: 'MID_RIGHT',
+                        requires: ['empty9'],
+                        isEmpty: true,
+                        milestones: [
+                            { level: 1, points: 6000, effects: ['40 mảnh bv'] },
+                            { level: 2, points: 7000, effects: ['40 mảnh bv'] },
+                            { level: 3, points: 8000, effects: ['40 mảnh bv'] }
+                        ]
+                    }
+                },
+                connections: [
+                    // From node 72
+                    [72, 73], [72, 74],
+                    // From node 74
+                    [74, 75], [74, 78], [74, 77],
+                    // From node 75
+                    [75, 76],
+                    // From node 78
+                    [78, 81], [78, 82], [78, 79],
+                    // From node 79
+                    [79, 80],
+                    // From node 82
+                    [82, 83], [82, 85], [82, 84],
+                    // From node 83
+                    [83, 87],
+                    // From node 85
+                    [85, 91], [85, 86],
+                    // From node 91
+                    [91, 92], [91, 'empty7'],
+                    // From empty7
+                    ['empty7', 'empty8'], ['empty7', 'empty9'], ['empty7', 'empty10'],
+                    // From empty9
+                    ['empty9', 'empty11']
+                ]
+            },
+            daiMac: {
+                id: 'daiMac',
+                name: 'Đại Mạc',
+                description: 'Bảo tàng vùng Đại Mạc (埃罗展区)',
+                nodes: {
+                    // Row 0 - Top (MIDDLE)
+                    93: {
+                        id: 93,
+                        name: 'Đại Mạc Văn Vật Tu Phục 1',
+                        row: 0, col: COLS.MIDDLE, colName: 'MIDDLE',
+                        requires: [],
+                        milestones: [
+                            { level: 1, points: 4500, effects: ['+Kinh doanh'] },
+                            { level: 2, points: 5000, effects: ['+Kinh doanh'] },
+                            { level: 3, points: 5500, effects: ['+Kinh doanh, 20 Thư tay'] }
+                        ]
+                    },
+                    // Row 1: 99 (LEFT), 95 (MIDDLE), 94 (RIGHT)
+                    99: {
+                        id: 99,
+                        name: 'Cao Cấp Học Thuật Giảng Tọa',
+                        row: 1, col: COLS.LEFT, colName: 'LEFT',
+                        requires: [93],
+                        milestones: [
+                            { level: 1, points: 5000, effects: ['Khách du lịch đặc biệt, điểm thích +10%'] },
+                            { level: 2, points: 5500, effects: ['Khách du lịch đặc biệt, điểm thích +20%'] },
+                        ]
+                    },
+                    95: {
+                        id: 95,
+                        name: 'Đại Mạc Văn Vật Tu Phục 2',
+                        row: 1, col: COLS.MIDDLE, colName: 'MIDDLE',
+                        requires: [93],
+                        milestones: [
+                            { level: 1, points: 5000, effects: ['+Kinh doanh'] },
+                            { level: 2, points: 5500, effects: ['+Kinh doanh'] },
+                            { level: 3, points: 6000, effects: ['+Kinh doanh, 20 Thư tay'] }
+                        ]
+                    },
+                    94: {
+                        id: 94,
+                        name: 'Du Lịch Xã Chiêu Tiêu',
+                        row: 1, col: COLS.RIGHT, colName: 'RIGHT',
+                        requires: [93],
+                        milestones: [
+                            { level: 1, points: 5500, effects: ['Mở khoá khách đặc biệt'] },
+                            { level: 2, points: 6000, effects: ['Sản lượng khách đặc biệt này +10%'] },
+                            { level: 3, points: 6500, effects: ['Sản lượng khách đặc biệt này +20%'] }
+                        ]
+                    },
+                    // Row 2: 97 (LEFT), 100 (MIDDLE), 96 (RIGHT)
+                    97: {
+                        id: 97,
+                        name: 'Cao Cấp Học Thuật Giảng Tọa',
+                        row: 2, col: COLS.LEFT, colName: 'LEFT',
+                        requires: [95],
+                        milestones: [
+                            { level: 1, points: 5000, effects: ['Đặc biệt du khách tham quan, điểm thích +10%'] },
+                            { level: 2, points: 5500, effects: ['Đặc biệt du khách tham quan, điểm thích +20%'] }
+                        ]
+                    },
+                    100: {
+                        id: 100,
+                        name: 'Đại Mạc Văn Vật Tu Phục 3',
+                        row: 2, col: COLS.MIDDLE, colName: 'MIDDLE',
+                        requires: [95],
+                        milestones: [
+                            { level: 1, points: 5500, effects: ['+Kinh doanh'] },
+                            { level: 2, points: 6000, effects: ['+Kinh doanh'] },
+                            { level: 3, points: 7000, effects: ['+Kinh doanh'] },
+                            { level: 4, points: 8000, effects: ['+Kinh doanh, 20 Thư tay'] }
+                        ]
+                    },
+                    96: {
+                        id: 96,
+                        name: 'Du Lịch Xã Chiêu Tiêu',
+                        row: 2, col: COLS.RIGHT, colName: 'RIGHT',
+                        requires: [95],
+                        milestones: [
+                            { level: 1, points: 6000, effects: ['Mở khoá khách đặc biệt'] },
+                            { level: 2, points: 7000, effects: ['Sản lượng khách đặc biệt này +10%'] },
+                            { level: 3, points: 8000, effects: ['Sản lượng khách đặc biệt này +20%'] }
+                        ]
+                    },
+                    // Row 3: 98 (LEFT)
+                    98: {
+                        id: 98,
+                        name: 'Du Lịch Xã Ký Ước',
+                        row: 3, col: COLS.LEFT, colName: 'LEFT',
+                        requires: [97],
+                        milestones: [
+                            { level: 1, points: 6000, effects: ['Tốc độ ký hợp đồng thường +10%', 'Giới hạn lưu trữ hợp đồng thường +4'] }
+                        ]
+                    },
+                    // Row 4: 102 (LEFT), 103 (MIDDLE), 101 (RIGHT)
+                    102: {
+                        id: 102,
+                        name: 'Học Thuật Giảng Tọa',
+                        row: 4, col: COLS.LEFT, colName: 'LEFT',
+                        requires: [100],
+                        milestones: [
+                            { level: 1, points: 6000, effects: ['Khách du lịch thường, điểm thích +10%'] },
+                            { level: 2, points: 7500, effects: ['Khách du lịch thường, điểm thích +20%'] }
+                        ]
+                    },
+                    103: {
+                        id: 103,
+                        name: 'Đại Mạc Văn Vật Tu Phục 4',
+                        row: 4, col: COLS.MIDDLE, colName: 'MIDDLE',
+                        requires: [100],
+                        milestones: [
+                            { level: 1, points: 6000, effects: ['+Kinh doanh'] },
+                            { level: 2, points: 7000, effects: ['+Kinh doanh'] },
+                            { level: 3, points: 8000, effects: ['+Kinh doanh'] },
+                            { level: 4, points: 9000, effects: ['+Kinh doanh, 20 bv'] }
+                        ]
+                    },
+                    101: {
+                        id: 101,
+                        name: 'Du Lịch Xã Chiêu Tiêu',
+                        row: 4, col: COLS.RIGHT, colName: 'RIGHT',
+                        requires: [100],
+                        milestones: [
+                            { level: 1, points: 7000, effects: ['Mở khoá khách đặc biệt'] },
+                            { level: 2, points: 8000, effects: ['Sản lượng khách đặc biệt này +10%'] },
+                            { level: 3, points: 9000, effects: ['Sản lượng khách đặc biệt này +20%'] }
+                        ]
+                    },
+                    // Row 6: 105 (LEFT), 107 (MIDDLE), 104 (RIGHT)
+                    105: {
+                        id: 105,
+                        name: 'Triển Lãm Chi Lực',
+                        row: 6, col: COLS.LEFT, colName: 'LEFT',
+                        requires: [103],
+                        milestones: [
+                            { level: 1, points: 6500, effects: ['Mỗi lần 1000 du khách, máu thêm +200'] },
+                            { level: 2, points: 8000, effects: ['Mỗi lần 1000 du khách, máu thêm +200'] },
+                            { level: 3, points: 9500, effects: ['Mỗi lần 1000 du khách, máu thêm +200'] },
+                            { level: 4, points: 11000, effects: ['Mỗi lần 1000 du khách, máu thêm +200'] }
+                        ]
+                    },
+                    107: {
+                        id: 107,
+                        name: 'Đại Mạc Văn Vật Tu Phục 5',
+                        row: 6, col: COLS.MIDDLE, colName: 'MIDDLE',
+                        requires: [103],
+                        milestones: [
+                            { level: 1, points: 7000, effects: ['+Kinh doanh'] },
+                            { level: 2, points: 8000, effects: ['+Kinh doanh'] },
+                            { level: 3, points: 9000, effects: ['+Kinh doanh'] },
+                            { level: 4, points: 10000, effects: ['+Kinh doanh'] },
+                            { level: 5, points: 11000, effects: ['+Kinh doanh, 40 bv'] }
+                        ]
+                    },
+                    104: {
+                        id: 104,
+                        name: 'Du Lịch Xã Chiêu Tiêu',
+                        row: 6, col: COLS.RIGHT, colName: 'RIGHT',
+                        requires: [103],
+                        milestones: [
+                            { level: 1, points: 6500, effects: ['Mở khoá khách đặc biệt'] },
+                            { level: 2, points: 8000, effects: ['Sản lượng khách đặc biệt này +10%'] },
+                            { level: 3, points: 10000, effects: ['Sản lượng khách đặc biệt này +20%'] }
+                        ]
+                    },
+                    // Row 7: 106 (LEFT)
+                    106: {
+                        id: 106,
+                        name: 'Chuyên Gia Văn Hóa Giảng Tọa',
+                        row: 7, col: COLS.LEFT, colName: 'LEFT',
+                        requires: [105],
+                        milestones: [
+                            { level: 1, points: 7500, effects: ['Tất cả du khách tham quan, điểm thích +5%'] }
+                        ]
+                    },
+                    // Row 8: 108 (LEFT), 109 (MIDDLE)
+                    108: {
+                        id: 108,
+                        name: 'Nghiên Cứu Giao Lưu',
+                        row: 8, col: COLS.LEFT, colName: 'LEFT',
+                        requires: [107],
+                        milestones: [
+                            { level: 1, points: 7500, effects: ['???'] },
+                            { level: 2, points: 9000, effects: ['???'] }
+                        ]
+                    },
+                    109: {
+                        id: 109,
+                        name: 'Đại Mạc Văn Vật Tu Phục 6',
+                        row: 8, col: COLS.MIDDLE, colName: 'MIDDLE',
+                        requires: [107],
+                        milestones: [
+                            { level: 1, points: 7000, effects: ['+Kinh doanh'] },
+                            { level: 2, points: 8500, effects: ['+Kinh doanh'] },
+                            { level: 3, points: 10000, effects: ['+Kinh doanh'] },
+                            { level: 4, points: 11500, effects: ['+Kinh doanh'] },
+                            { level: 5, points: 13000, effects: ['+Kinh doanh, 40 bv'] }
+                        ]
+                    },
+                    // Row 9: 124 (MIDDLE), 110 (RIGHT)
+                    124: {
+                        id: 124,
+                        name: 'Đại Mạc Văn Vật Tu Phục 7',
+                        row: 9, col: COLS.MIDDLE, colName: 'MIDDLE',
+                        requires: [109],
+                        milestones: [
+                            { level: 1, points: 9000, effects: ['+Kinh doanh'] },
+                            { level: 2, points: 10500, effects: ['+Kinh doanh'] },
+                            { level: 3, points: 12000, effects: ['+Kinh doanh'] },
+                            { level: 4, points: 13500, effects: ['+Kinh doanh'] },
+                            { level: 5, points: 15000, effects: ['+Kinh doanh, 40 bv'] }
+                        ]
+                    },
+                    110: {
+                        id: 110,
+                        name: 'Triển Khu Mở Rộng Đồ Chí',
+                        row: 9, col: COLS.RIGHT, colName: 'RIGHT',
+                        requires: [109],
+                        milestones: [
+                            { level: 1, points: 8000, effects: ['+Kinh doanh'] },
+                            { level: 2, points: 10000, effects: ['+Kinh doanh'] },
+                            { level: 3, points: 12000, effects: ['+Kinh doanh, mở bảo tàng Cổ Hy'] }
+                        ]
+                    },
+                    // Row 10: 125 (LEFT), empty12 (MIDDLE), empty13 (RIGHT)
+                    125: {
+                        id: 125,
+                        name: 'Chuyên Gia Học Thuật Giảng Tọa',
+                        row: 10, col: COLS.LEFT, colName: 'LEFT',
+                        requires: [124],
+                        milestones: [
+                            { level: 1, points: 10000, effects: ['Tất cả du khách tham quan, điểm thích +10%'] }
+                        ]
+                    },
+                    'empty12': {
+                        id: 'empty12',
+                        name: 'Đại Mạc Văn Vật Tu Phục 8',
+                        row: 10, col: COLS.MIDDLE, colName: 'MIDDLE',
+                        requires: [124],
+                        isEmpty: true,
+                        milestones: [
+                            { level: 1, points: 10000, effects: ['+Kinh doanh'] },
+                            { level: 2, points: 12000, effects: ['+Kinh doanh'] },
+                            { level: 3, points: 14000, effects: ['+Kinh doanh'] },
+                            { level: 4, points: 16000, effects: ['+Kinh doanh'] },
+                            { level: 5, points: 18000, effects: ['+Kinh doanh, 40 bv'] }
+                        ]
+                    },
+                    'empty13': {
+                        id: 'empty13',
+                        name: 'Triển Khu Môi Trường Cải Thiện',
+                        row: 10, col: COLS.RIGHT, colName: 'RIGHT',
+                        requires: [124],
+                        isEmpty: true,
+                        milestones: [
+                            { level: 1, points: 10000, effects: ['xác suất nnt x2, tăng giới hạn'] },
+                            { level: 2, points: 12000, effects: ['xác suất nnt x2, tăng giới hạn'] },
+                            { level: 3, points: 14000, effects: ['xác suất nnt x2, tăng giới hạn'] }
+                        ]
+                    },
+                    // Row 11: empty14 (LEFT_MID) - con của empty12
+                    'empty14': {
+                        id: 'empty14',
+                        name: 'Khảo Cổ Thám Hiểm',
+                        row: 11, col: COLS.LEFT_MID, colName: 'LEFT_MID',
+                        requires: ['empty12'],
+                        isEmpty: true,
+                        milestones: [
+                            { level: 1, points: 10000, effects: ['Nhận 120 nãi bố sĩ bối thượng gia'] },
+                            { level: 2, points: 12500, effects: ['Nhận 120 nãi bố sĩ bối thượng gia'] },
+                            { level: 3, points: 15000, effects: ['Nhận 120 nãi bố sĩ bối thượng gia'] }
+                        ]
+                    }
+                },
+                connections: [
+                    // From node 93
+                    [93, 99], [93, 95], [93, 94],
+                    // From node 95
+                    [95, 97], [95, 100], [95, 96],
+                    // From node 97
+                    [97, 98],
+                    // From node 100
+                    [100, 102], [100, 103], [100, 101],
+                    // From node 103
+                    [103, 105], [103, 107], [103, 104],
+                    // From node 105
+                    [105, 106],
+                    // From node 107
+                    [107, 108], [107, 109],
+                    // From node 109
+                    [109, 124], [109, 110],
+                    // From node 124
+                    [124, 125], [124, 'empty12'], [124, 'empty13'],
+                    // From empty12
+                    ['empty12', 'empty14']
+                ]
+            },
+            coHy: {
+                id: 'coHy',
+                name: 'Cổ Hy',
+                description: 'Bảo tàng vùng Cổ Hy (希域展区)',
+                nodes: {
+                    // Row 0 - Top (MIDDLE)
+                    111: {
+                        id: 111,
+                        name: 'Hy Vực Văn Vật Tu Phục 1',
+                        row: 0, col: COLS.MIDDLE, colName: 'MIDDLE',
+                        requires: [],
+                        milestones: [
+                            { level: 1, points: 7000, effects: ['+Kinh doanh'] },
+                            { level: 2, points: 8000, effects: ['+Kinh doanh'] },
+                            { level: 3, points: 9000, effects: ['+Kinh doanh, 20 cuộn'] }
+                        ]
+                    },
+                    // Row 1: 112 (LEFT), 113 (MIDDLE)
+                    112: {
+                        id: 112,
+                        name: 'Du Lịch Xã Ký Ước',
+                        row: 1, col: COLS.LEFT, colName: 'LEFT',
+                        requires: [111],
+                        milestones: [
+                            { level: 1, points: 8000, effects: ['Tốc độ ký hợp đồng thường +10%, giới hạn lưu trữ hợp đồng thường +4'] },
+                            { level: 2, points: 10000, effects: ['Tốc độ ký hợp đồng thường +20%, giới hạn lưu trữ hợp đồng thường +8'] }
+                        ]
+                    },
+                    113: {
+                        id: 113,
+                        name: 'Hy Vực Văn Vật Tu Phục 2',
+                        row: 1, col: COLS.MIDDLE, colName: 'MIDDLE',
+                        requires: [111],
+                        milestones: [
+                            { level: 1, points: 8000, effects: ['+Kinh doanh'] },
+                            { level: 2, points: 9000, effects: ['+Kinh doanh'] },
+                            { level: 3, points: 10000, effects: ['+Kinh doanh, 20 cuộn'] }
+                        ]
+                    },
+                    // Row 2: empty15 (LEFT), 115 (MIDDLE), 114 (RIGHT)
+                    'empty15': {
+                        id: 'empty15',
+                        name: 'Văn Hóa Sáng Tạo Nghiên Phát',
+                        row: 2, col: COLS.LEFT, colName: 'LEFT',
+                        requires: [113],
+                        isEmpty: true,
+                        milestones: [
+                            { level: 1, points: 8000, effects: ['Bán 2h tăng tốc hố giun +1'] },
+                            { level: 2, points: 9500, effects: ['Bán 2h tăng tốc hố giun +2'] },
+                            { level: 3, points: 11000, effects: ['Bán 2h tăng tốc hố giun +3'] }
+                        ]
+                    },
+                    115: {
+                        id: 115,
+                        name: 'Hy Vực Văn Vật Tu Phục 3',
+                        row: 2, col: COLS.MIDDLE, colName: 'MIDDLE',
+                        requires: [113],
+                        milestones: [
+                            { level: 1, points: 9000, effects: ['+Kinh doanh'] },
+                            { level: 2, points: 10500, effects: ['+Kinh doanh'] },
+                            { level: 3, points: 12000, effects: ['+Kinh doanh'] },
+                            { level: 4, points: 13500, effects: ['+Kinh doanh, 20 cuộn'] }
+                        ]
+                    },
+                    114: {
+                        id: 114,
+                        name: 'Đặc Thù Văn Vật Triển Lãm',
+                        row: 2, col: COLS.RIGHT, colName: 'RIGHT',
+                        requires: [113],
+                        milestones: [
+                            { level: 1, points: 6000, effects: ['Khách đặc biệt tham quan, điểm thích +10%'] },
+                            { level: 2, points: 10000, effects: ['Khách đặc biệt tham quan, điểm thích +20%'] },
+                            { level: 3, points: 12000, effects: ['Khách đặc biệt tham quan, điểm thích +30%'] }
+                        ]
+                    },
+                    // Row 3: empty16 (LEFT), 117 (MIDDLE), 116 (RIGHT)
+                    'empty16': {
+                        id: 'empty16',
+                        name: 'Văn Hóa Sáng Tạo Nghiên Phát',
+                        row: 3, col: COLS.LEFT, colName: 'LEFT',
+                        requires: [115],
+                        isEmpty: true,
+                        milestones: [
+                            { level: 1, points: 9000, effects: ['Bán 4h tăng tốc hố giun +1'] },
+                            { level: 2, points: 10500, effects: ['Bán 4h tăng tốc hố giun +2'] },
+                            { level: 3, points: 12000, effects: ['Bán 4h tăng tốc hố giun +3'] }
+                        ]
+                    },
+                    117: {
+                        id: 117,
+                        name: 'Hy Vực Văn Vật Tu Phục 4',
+                        row: 3, col: COLS.MIDDLE, colName: 'MIDDLE',
+                        requires: [115],
+                        milestones: [
+                            { level: 1, points: 10000, effects: ['+Kinh doanh'] },
+                            { level: 2, points: 11500, effects: ['+Kinh doanh'] },
+                            { level: 3, points: 13000, effects: ['+Kinh doanh'] },
+                            { level: 4, points: 15000, effects: ['+Kinh doanh, 20 cuộn'] }
+                        ]
+                    },
+                    116: {
+                        id: 116,
+                        name: 'Du Lịch Xã Chiêu Tiêu',
+                        row: 3, col: COLS.RIGHT, colName: 'RIGHT',
+                        requires: [115],
+                        milestones: [
+                            { level: 1, points: 9000, effects: ['Mở khoá khách đặc biệt'] },
+                            { level: 2, points: 10500, effects: ['Khách đặc biệt này +10%'] },
+                            { level: 3, points: 12000, effects: ['Khách đặc biệt này +20%'] }
+                        ]
+                    },
+                    // Row 4: 118 (LEFT), 121 (MIDDLE), 119 (RIGHT)
+                    118: {
+                        id: 118,
+                        name: 'Văn Hóa Giảng Tọa',
+                        row: 4, col: COLS.LEFT, colName: 'LEFT',
+                        requires: [117],
+                        milestones: [
+                            { level: 1, points: 10000, effects: ['Tất cả du khách tham quan, điểm thích +10%'] },
+                            { level: 2, points: 12000, effects: ['Tất cả du khách tham quan, điểm thích +20%'] }
+                        ]
+                    },
+                    121: {
+                        id: 121,
+                        name: 'Hy Vực Văn Vật Tu Phục 5',
+                        row: 4, col: COLS.MIDDLE, colName: 'MIDDLE',
+                        requires: [117],
+                        milestones: [
+                            { level: 1, points: 10500, effects: ['+Kinh doanh'] },
+                            { level: 2, points: 12000, effects: ['+Kinh doanh'] },
+                            { level: 3, points: 14000, effects: ['+Kinh doanh'] },
+                            { level: 4, points: 16000, effects: ['+Kinh doanh, 20 cuộn'] }
+                        ]
+                    },
+                    119: {
+                        id: 119,
+                        name: 'Du Lịch Xã Chiêu Tiêu',
+                        row: 4, col: COLS.RIGHT, colName: 'RIGHT',
+                        requires: [117],
+                        milestones: [
+                            { level: 1, points: 10000, effects: ['Mở khoá khách đặc biệt'] },
+                            { level: 2, points: 12000, effects: ['Khách đặc biệt này +10%'] },
+                            { level: 3, points: 14000, effects: ['Khách đặc biệt này +20%'] }
+                        ]
+                    },
+                    // Row 5: 120 (LEFT)
+                    120: {
+                        id: 120,
+                        name: 'Học Thuật Giảng Tọa',
+                        row: 5, col: COLS.LEFT, colName: 'LEFT',
+                        requires: [118],
+                        milestones: [
+                            { level: 1, points: 13000, effects: ['Tất cả du khách tham quan, điểm thích hài lòng +10%'] }
+                        ]
+                    },
+                    // Row 6: 123 (LEFT), 126 (MIDDLE), 122 (RIGHT)
+                    123: {
+                        id: 123,
+                        name: 'Chuyên Gia Học Thuật Giảng Tọa',
+                        row: 6, col: COLS.LEFT, colName: 'LEFT',
+                        requires: [121],
+                        milestones: [
+                            { level: 1, points: 12000, effects: ['Tất cả du khách tham quan, điểm thích +10%'] }
+                        ]
+                    },
+                    126: {
+                        id: 126,
+                        name: 'Hy Vực Văn Vật Tu Phục 6',
+                        row: 6, col: COLS.MIDDLE, colName: 'MIDDLE',
+                        requires: [121],
+                        milestones: [
+                            { level: 1, points: 12000, effects: ['+Kinh doanh'] },
+                            { level: 2, points: 13000, effects: ['+Kinh doanh'] },
+                            { level: 3, points: 14000, effects: ['+Kinh doanh'] },
+                            { level: 4, points: 16000, effects: ['+Kinh doanh'] },
+                            { level: 5, points: 18000, effects: ['+Kinh doanh, 40 bv'] }
+                        ]
+                    },
+                    122: {
+                        id: 122,
+                        name: 'Du Lịch Xã Chiêu Tiêu',
+                        row: 6, col: COLS.RIGHT, colName: 'RIGHT',
+                        requires: [121],
+                        milestones: [
+                            { level: 1, points: 12000, effects: ['Mở khoá khách đặc biệt'] },
+                            { level: 2, points: 14000, effects: ['Khách đặc biệt này +10%'] },
+                            { level: 3, points: 16000, effects: ['Khách đặc biệt này +20%'] }
+                        ]
+                    },
+                    // Row 7: empty17 (LEFT), 127 (MIDDLE), empty18 (RIGHT)
+                    'empty17': {
+                        id: 'empty17',
+                        name: 'Triển Lãm Chi Lực',
+                        row: 7, col: COLS.LEFT, colName: 'LEFT',
+                        requires: [126],
+                        isEmpty: true,
+                        milestones: [
+                            { level: 1, points: 12000, effects: ['Mỗi 1000 khách, truy kích +20'] },
+                            { level: 2, points: 14000, effects: ['Mỗi 1000 khách, truy kích +20'] },
+                            { level: 3, points: 16000, effects: ['Mỗi 1000 khách, truy kích +20'] },
+                            { level: 4, points: 18000, effects: ['Mỗi 1000 khách, truy kích +20'] }
+                        ]
+                    },
+                    127: {
+                        id: 127,
+                        name: 'Hy Vực Văn Vật Tu Phục 7',
+                        row: 7, col: COLS.MIDDLE, colName: 'MIDDLE',
+                        requires: [126],
+                        milestones: [
+                            { level: 1, points: 12000, effects: ['+Kinh doanh'] },
+                            { level: 2, points: 14000, effects: ['+Kinh doanh'] },
+                            { level: 3, points: 16000, effects: ['+Kinh doanh'] },
+                            { level: 4, points: 18500, effects: ['+Kinh doanh'] },
+                            { level: 5, points: 21000, effects: ['+Kinh doanh, 40 bv'] }
+                        ]
+                    },
+                    'empty18': {
+                        id: 'empty18',
+                        name: 'Triển Lãm Chi Lực',
+                        row: 7, col: COLS.RIGHT, colName: 'RIGHT',
+                        requires: [126],
+                        isEmpty: true,
+                        milestones: [
+                            { level: 1, points: 12000, effects: ['Mỗi 1000 khách, máu +50'] },
+                            { level: 2, points: 14000, effects: ['Mỗi 1000 khách, máu +50'] },
+                            { level: 3, points: 16000, effects: ['Mỗi 1000 khách, máu +50'] },
+                            { level: 4, points: 18000, effects: ['Mỗi 1000 khách, máu +50'] }
+                        ]
+                    },
+                    // Row 8: empty19 (LEFT), 128 (MIDDLE)
+                    'empty19': {
+                        id: 'empty19',
+                        name: 'Triển Lãm Chi Lực',
+                        row: 8, col: COLS.LEFT, colName: 'LEFT',
+                        requires: [127],
+                        isEmpty: true,
+                        milestones: [
+                            { level: 1, points: 12000, effects: ['Mỗi 1000 khách, tấn công thêm +20'] },
+                            { level: 2, points: 14000, effects: ['Mỗi 1000 khách, tấn công thêm +20'] },
+                            { level: 3, points: 16000, effects: ['Mỗi 1000 khách, tấn công thêm +20'] },
+                            { level: 4, points: 18000, effects: ['Mỗi 1000 khách, tấn công thêm +20'] }
+                        ]
+                    },
+                    128: {
+                        id: 128,
+                        name: 'Hy Vực Văn Vật Tu Phục 8',
+                        row: 8, col: COLS.MIDDLE, colName: 'MIDDLE',
+                        requires: [127],
+                        milestones: [
+                            { level: 1, points: 12000, effects: ['+Kinh doanh'] },
+                            { level: 2, points: 14000, effects: ['+Kinh doanh'] },
+                            { level: 3, points: 16000, effects: ['+Kinh doanh'] },
+                            { level: 4, points: 18500, effects: ['+Kinh doanh'] },
+                            { level: 5, points: 21000, effects: ['+Kinh doanh, 40 bv'] }
+                        ]
+                    },
+                    // Row 9: 129 (LEFT), empty20 (MIDDLE), 130 (RIGHT)
+                    129: {
+                        id: 129,
+                        name: 'Triển Lãm Môi Trường Cải Thiện',
+                        row: 9, col: COLS.LEFT, colName: 'LEFT',
+                        requires: [128],
+                        milestones: [
+                            { level: 1, points: 15000, effects: ['Thành viên đánh giá, mỗi lần số lượng +20'] },
+                            { level: 2, points: 17500, effects: ['Thành viên đánh giá, mỗi lần số lượng +40'] },
+                            { level: 3, points: 20000, effects: ['Thành viên đánh giá, mỗi lần số lượng +60'] }
+                        ]
+                    },
+                    'empty20': {
+                        id: 'empty20',
+                        name: 'Hy Vực Văn Vật Tu Phục 9',
+                        row: 9, col: COLS.MIDDLE, colName: 'MIDDLE',
+                        requires: [128],
+                        isEmpty: true,
+                        milestones: [
+                            { level: 1, points: 15000, effects: ['+Kinh doanh'] },
+                            { level: 2, points: 17500, effects: ['+Kinh doanh'] },
+                            { level: 3, points: 20000, effects: ['+Kinh doanh'] },
+                            { level: 4, points: 22500, effects: ['+Kinh doanh'] },
+                            { level: 5, points: 25000, effects: ['+Kinh doanh, 40 bv'] }
+                        ]
+                    },
+                    130: {
+                        id: 130,
+                        name: 'Triển Khu Mở Rộng Đồ Chí',
+                        row: 9, col: COLS.RIGHT, colName: 'RIGHT',
+                        requires: [128],
+                        milestones: [
+                            { level: 1, points: 15000, effects: ['+Kinh doanh'] },
+                            { level: 2, points: 17500, effects: ['+Kinh doanh'] },
+                            { level: 3, points: 20000, effects: ['+Kinh doanh, Bảo tàng Nam Trúc'] }
+                        ]
+                    },
+                    // Row 10: empty21 (LEFT_MID), empty22 (MID_RIGHT) - con của empty20
+                    'empty21': {
+                        id: 'empty21',
+                        name: 'Triển Lãm Môi Trường Cải Thiện',
+                        row: 10, col: COLS.LEFT_MID, colName: 'LEFT_MID',
+                        requires: ['empty20'],
+                        isEmpty: true,
+                        milestones: [
+                            { level: 1, points: 15000, effects: ['Tăng xác suất hoa'] },
+                            { level: 2, points: 17500, effects: ['Tăng xác suất hoa'] },
+                            { level: 3, points: 20000, effects: ['Tăng xác suất hoa'] }
+                        ]
+                    },
+                    'empty22': {
+                        id: 'empty22',
+                        name: 'Khảo Cổ Thám Hiểm',
+                        row: 10, col: COLS.MID_RIGHT, colName: 'MID_RIGHT',
+                        requires: ['empty20'],
+                        isEmpty: true,
+                        milestones: [
+                            { level: 1, points: 15000, effects: ['40 bv'] },
+                            { level: 2, points: 18000, effects: ['40 bv'] },
+                            { level: 3, points: 21000, effects: ['40 bv'] }
+                        ]
+                    }
+                },
+                connections: [
+                    // From node 111
+                    [111, 112], [111, 113],
+                    // From node 113
+                    [113, 'empty15'], [113, 115], [113, 114],
+                    // From node 115
+                    [115, 'empty16'], [115, 117], [115, 116],
+                    // From node 117
+                    [117, 118], [117, 121], [117, 119],
+                    // From node 118
+                    [118, 120],
+                    // From node 121
+                    [121, 123], [121, 126], [121, 122],
+                    // From node 126
+                    [126, 'empty17'], [126, 127], [126, 'empty18'],
+                    // From node 127
+                    [127, 'empty19'], [127, 128],
+                    // From node 128
+                    [128, 129], [128, 'empty20'], [128, 130],
+                    // From empty20
+                    ['empty20', 'empty21'], ['empty20', 'empty22']
+                ]
+            },
+            namTruc: {
+                id: 'namTruc',
+                name: 'Nam Trúc',
+                description: 'Bảo tàng vùng Nam Trúc (天竺展区)',
+                nodes: {
+                    // Row 0 - Top (MIDDLE)
+                    131: {
+                        id: 131,
+                        name: 'Thiên Trúc Văn Vật Tu Phục 1',
+                        row: 0, col: COLS.MIDDLE, colName: 'MIDDLE',
+                        requires: [],
+                        milestones: [
+                            { level: 1, points: 10000, effects: ['+Kinh doanh'] },
+                            { level: 2, points: 12000, effects: ['+Kinh doanh'] },
+                            { level: 3, points: 14000, effects: ['+Kinh doanh, 20 cuộn'] }
+                        ]
+                    },
+                    // Row 1: 132 (LEFT), 133 (MIDDLE)
+                    132: {
+                        id: 132,
+                        name: 'Du Lịch Xã Ký Ước',
+                        row: 1, col: COLS.LEFT, colName: 'LEFT',
+                        requires: [131],
+                        milestones: [
+                            { level: 1, points: 11000, effects: ['Tốc độ giấy tờ hợp đồng thường +10%, giới hạn +4'] },
+                            { level: 2, points: 14000, effects: ['Tốc độ giấy tờ hợp đồng thường +20%, giới hạn +8'] }
+                        ]
+                    },
+                    133: {
+                        id: 133,
+                        name: 'Thiên Trúc Văn Vật Tu Phục 2',
+                        row: 1, col: COLS.MIDDLE, colName: 'MIDDLE',
+                        requires: [131],
+                        milestones: [
+                            { level: 1, points: 12000, effects: ['+Kinh doanh'] },
+                            { level: 2, points: 14000, effects: ['+Kinh doanh'] },
+                            { level: 3, points: 16000, effects: ['+Kinh doanh, 20 cuộn'] }
+                        ]
+                    },
+                    // Row 2: empty23 (LEFT), 135 (MIDDLE), 134 (RIGHT)
+                    'empty23': {
+                        id: 'empty23',
+                        name: 'Văn Sáng Sản Phẩm Nghiên Phát',
+                        row: 2, col: COLS.LEFT, colName: 'LEFT',
+                        requires: [133],
+                        isEmpty: true,
+                        milestones: [
+                            { level: 1, points: 13000, effects: ['Bán 1 giờ tăng tốc nghiên cứu +1'] },
+                            { level: 2, points: 15000, effects: ['Bán 1 giờ tăng tốc nghiên cứu +2'] },
+                            { level: 3, points: 17000, effects: ['Bán 1 giờ tăng tốc nghiên cứu +3'] }
+                        ]
+                    },
+                    135: {
+                        id: 135,
+                        name: 'Thiên Trúc Văn Vật Tu Phục 3',
+                        row: 2, col: COLS.MIDDLE, colName: 'MIDDLE',
+                        requires: [133],
+                        milestones: [
+                            { level: 1, points: 12500, effects: ['+Kinh doanh'] },
+                            { level: 2, points: 15000, effects: ['+Kinh doanh'] },
+                            { level: 3, points: 17500, effects: ['+Kinh doanh'] },
+                            { level: 4, points: 20000, effects: ['+Kinh doanh, 20 cuộn'] }
+                        ]
+                    },
+                    134: {
+                        id: 134,
+                        name: 'Giảng Viên Bồi Dưỡng',
+                        row: 2, col: COLS.RIGHT, colName: 'RIGHT',
+                        requires: [133],
+                        milestones: [
+                            { level: 1, points: 14000, effects: ['Tất cả du khách tham quan, điểm thích +10%'] },
+                            { level: 2, points: 17000, effects: ['Tất cả du khách tham quan, điểm thích +20%'] }
+                        ]
+                    },
+                    // Row 3: empty24 (LEFT), 137 (MIDDLE), 136 (RIGHT)
+                    'empty24': {
+                        id: 'empty24',
+                        name: 'Văn Sáng Sản Phẩm Nghiên Phát',
+                        row: 3, col: COLS.LEFT, colName: 'LEFT',
+                        requires: [135],
+                        isEmpty: true,
+                        milestones: [
+                            { level: 1, points: 13000, effects: ['Bán 2 giờ tăng tốc nghiên cứu +1'] },
+                            { level: 2, points: 15000, effects: ['Bán 2 giờ tăng tốc nghiên cứu +2'] },
+                            { level: 3, points: 17000, effects: ['Bán 2 giờ tăng tốc nghiên cứu +3'] }
+                        ]
+                    },
+                    137: {
+                        id: 137,
+                        name: 'Thiên Trúc Văn Vật Tu Phục 4',
+                        row: 3, col: COLS.MIDDLE, colName: 'MIDDLE',
+                        requires: [135],
+                        milestones: [
+                            { level: 1, points: 15000, effects: ['+Kinh doanh'] },
+                            { level: 2, points: 17500, effects: ['+Kinh doanh'] },
+                            { level: 3, points: 20000, effects: ['+Kinh doanh'] },
+                            { level: 4, points: 22500, effects: ['+Kinh doanh, 20 cuộn'] }
+                        ]
+                    },
+                    136: {
+                        id: 136,
+                        name: 'Du Lịch Xã Chiêu Tiêu',
+                        row: 3, col: COLS.RIGHT, colName: 'RIGHT',
+                        requires: [135],
+                        milestones: [
+                            { level: 1, points: 13000, effects: ['Mở khoá khách đặc biệt: Khổ hạnh tăng'] },
+                            { level: 2, points: 16000, effects: ['Khách đặc biệt này +10%'] },
+                            { level: 3, points: 19000, effects: ['Khách đặc biệt này +20%'] }
+                        ]
+                    },
+                    // Row 4: 139 (LEFT), 141 (MIDDLE), 138 (RIGHT)
+                    139: {
+                        id: 139,
+                        name: 'Văn Sáng Sản Phẩm Nghiên Phát',
+                        row: 4, col: COLS.LEFT, colName: 'LEFT',
+                        requires: [137],
+                        milestones: [
+                            { level: 1, points: 15000, effects: ['Bán 8h tăng tốc nhân bản +1'] },
+                            { level: 2, points: 18000, effects: ['Bán 8h tăng tốc nhân bản +2'] },
+                            { level: 3, points: 21000, effects: ['Bán 8h tăng tốc nhân bản +3'] }
+                        ]
+                    },
+                    141: {
+                        id: 141,
+                        name: 'Thiên Trúc Văn Vật Tu Phục 5',
+                        row: 4, col: COLS.MIDDLE, colName: 'MIDDLE',
+                        requires: [137],
+                        milestones: [
+                            { level: 1, points: 15000, effects: ['+Kinh doanh'] },
+                            { level: 2, points: 18000, effects: ['+Kinh doanh'] },
+                            { level: 3, points: 21000, effects: ['+Kinh doanh'] },
+                            { level: 4, points: 24000, effects: ['+Kinh doanh, 20 cuộn'] }
+                        ]
+                    },
+                    138: {
+                        id: 138,
+                        name: 'Du Lịch Xã Chiêu Tiêu',
+                        row: 4, col: COLS.RIGHT, colName: 'RIGHT',
+                        requires: [137],
+                        milestones: [
+                            { level: 1, points: 16000, effects: ['Mở khoá khách đặc biệt: Ngoại quốc tĩnh tu khách'] },
+                            { level: 2, points: 19000, effects: ['Khách đặc biệt này +10%'] },
+                            { level: 3, points: 22000, effects: ['Khách đặc biệt này +20%'] }
+                        ]
+                    },
+                    // Row 5: 140 (LEFT)
+                    140: {
+                        id: 140,
+                        name: 'Cao Cấp Văn Hóa Giảng Tọa',
+                        row: 5, col: COLS.LEFT, colName: 'LEFT',
+                        requires: [139],
+                        milestones: [
+                            { level: 1, points: 18000, effects: ['Đặc biệt du khách tham quan, điểm thích +5%'] }
+                        ]
+                    },
+                    // Row 6: 143 (LEFT), 144 (MIDDLE), 142 (RIGHT)
+                    143: {
+                        id: 143,
+                        name: 'Nghiên Cứu Giao Lưu',
+                        row: 6, col: COLS.LEFT, colName: 'LEFT',
+                        requires: [141],
+                        milestones: [
+                            { level: 1, points: 16000, effects: ['Thành viên đánh giá, mỗi lần số lượng +60'] },
+                            { level: 2, points: 19000, effects: ['Thành viên đánh giá, mỗi lần số lượng +60'] },
+                            { level: 3, points: 22000, effects: ['Thành viên đánh giá, mỗi lần số lượng +60'] }
+                        ]
+                    },
+                    144: {
+                        id: 144,
+                        name: 'Thiên Trúc Văn Vật Tu Phục 6',
+                        row: 6, col: COLS.MIDDLE, colName: 'MIDDLE',
+                        requires: [141],
+                        milestones: [
+                            { level: 1, points: 18000, effects: ['+Kinh doanh'] },
+                            { level: 2, points: 21000, effects: ['+Kinh doanh'] },
+                            { level: 3, points: 24000, effects: ['+Kinh doanh'] },
+                            { level: 4, points: 27000, effects: ['+Kinh doanh'] },
+                            { level: 5, points: 30000, effects: ['+Kinh doanh, 40 bv'] }
+                        ]
+                    },
+                    142: {
+                        id: 142,
+                        name: 'Du Lịch Xã Chiêu Tiêu',
+                        row: 6, col: COLS.RIGHT, colName: 'RIGHT',
+                        requires: [141],
+                        milestones: [
+                            { level: 1, points: 16000, effects: ['Mở khoá khách đặc biệt: Thất thập nhị đại khương nhân'] },
+                            { level: 2, points: 20000, effects: ['Khách đặc biệt này +10%'] },
+                            { level: 3, points: 24000, effects: ['Khách đặc biệt này +20%'] }
+                        ]
+                    },
+                    // Row 7: 145 (MIDDLE), empty25 (RIGHT)
+                    145: {
+                        id: 145,
+                        name: 'Thiên Trúc Văn Vật Tu Phục 7',
+                        row: 7, col: COLS.MIDDLE, colName: 'MIDDLE',
+                        requires: [144],
+                        milestones: [
+                            { level: 1, points: 20000, effects: ['+Kinh doanh'] },
+                            { level: 2, points: 22500, effects: ['+Kinh doanh'] },
+                            { level: 3, points: 25000, effects: ['+Kinh doanh'] },
+                            { level: 4, points: 28000, effects: ['+Kinh doanh'] },
+                            { level: 5, points: 32000, effects: ['+Kinh doanh, 40 bv'] }
+                        ]
+                    },
+                    'empty25': {
+                        id: 'empty25',
+                        name: 'Triển Lãm Môi Trường Cải Thiện',
+                        row: 7, col: COLS.RIGHT, colName: 'RIGHT',
+                        requires: [144],
+                        isEmpty: true,
+                        milestones: [
+                            { level: 1, points: 20000, effects: ['Tăng nnt'] },
+                            { level: 2, points: 22500, effects: ['Tăng nnt'] },
+                            { level: 3, points: 25000, effects: ['Tăng nnt'] }
+                        ]
+                    },
+                    // Row 8: empty26 (LEFT), 146 (MIDDLE), empty27 (RIGHT)
+                    'empty26': {
+                        id: 'empty26',
+                        name: 'Triển Lãm Chi Lực',
+                        row: 8, col: COLS.LEFT, colName: 'LEFT',
+                        requires: [145],
+                        isEmpty: true,
+                        milestones: [
+                            { level: 1, points: 20000, effects: ['Mỗi lần hoàn thành 1 bảo tàng, máu +1000'] },
+                            { level: 2, points: 22500, effects: ['Mỗi lần hoàn thành 1 bảo tàng, máu +1000'] },
+                            { level: 3, points: 25000, effects: ['Mỗi lần hoàn thành 1 bảo tàng, máu +1000'] },
+                            { level: 4, points: 28000, effects: ['Mỗi lần hoàn thành 1 bảo tàng, máu +1000'] }
+                        ]
+                    },
+                    146: {
+                        id: 146,
+                        name: 'Thiên Trúc Văn Vật Tu Phục 7',
+                        row: 8, col: COLS.MIDDLE, colName: 'MIDDLE',
+                        requires: [145],
+                        milestones: [
+                            { level: 1, points: 24000, effects: ['+Kinh doanh'] },
+                            { level: 2, points: 27000, effects: ['+Kinh doanh'] },
+                            { level: 3, points: 30000, effects: ['+Kinh doanh'] },
+                            { level: 4, points: 33000, effects: ['+Kinh doanh'] },
+                            { level: 5, points: 36000, effects: ['+Kinh doanh, 40 bv'] }
+                        ]
+                    },
+                    'empty27': {
+                        id: 'empty27',
+                        name: 'Triển Lãm Chi Lực',
+                        row: 8, col: COLS.RIGHT, colName: 'RIGHT',
+                        requires: [145],
+                        isEmpty: true,
+                        milestones: [
+                            { level: 1, points: 21000, effects: ['Mỗi lần hoàn thành 1 bảo tàng, truy kích +100'] },
+                            { level: 2, points: 24000, effects: ['Mỗi lần hoàn thành 1 bảo tàng, truy kích +100'] },
+                            { level: 3, points: 27000, effects: ['Mỗi lần hoàn thành 1 bảo tàng, truy kích +100'] },
+                            { level: 4, points: 30000, effects: ['Mỗi lần hoàn thành 1 bảo tàng, truy kích +100'] }
+                        ]
+                    },
+                    // Row 9: empty28 (LEFT), 147 (MIDDLE), empty29 (RIGHT)
+                    'empty28': {
+                        id: 'empty28',
+                        name: 'Triển Lãm Chi Lực',
+                        row: 9, col: COLS.LEFT, colName: 'LEFT',
+                        requires: [146],
+                        isEmpty: true,
+                        milestones: [
+                            { level: 1, points: 21000, effects: ['Mỗi lần hoàn thành 1 bảo tàng, tấn công +100'] },
+                            { level: 2, points: 24000, effects: ['Mỗi lần hoàn thành 1 bảo tàng, tấn công +100'] },
+                            { level: 3, points: 27000, effects: ['Mỗi lần hoàn thành 1 bảo tàng, tấn công +100'] },
+                            { level: 4, points: 30000, effects: ['Mỗi lần hoàn thành 1 bảo tàng, tấn công +100'] }
+                        ]
+                    },
+                    147: {
+                        id: 147,
+                        name: 'Thiên Trúc Văn Vật Tu Phục 7',
+                        row: 9, col: COLS.MIDDLE, colName: 'MIDDLE',
+                        requires: [146],
+                        milestones: [
+                            { level: 1, points: 24000, effects: ['+Kinh doanh'] },
+                            { level: 2, points: 28000, effects: ['+Kinh doanh'] },
+                            { level: 3, points: 32000, effects: ['+Kinh doanh'] },
+                            { level: 4, points: 36000, effects: ['+Kinh doanh'] },
+                            { level: 5, points: 40000, effects: ['+Kinh doanh, 40 bv'] }
+                        ]
+                    },
+                    'empty29': {
+                        id: 'empty29',
+                        name: 'Triển Lãm Chi Lực',
+                        row: 9, col: COLS.RIGHT, colName: 'RIGHT',
+                        requires: [146],
+                        isEmpty: true,
+                        milestones: [
+                            { level: 1, points: 22500, effects: ['Mỗi lần hoàn thành 1 bảo tàng, phòng thủ +100'] },
+                            { level: 2, points: 25000, effects: ['Mỗi lần hoàn thành 1 bảo tàng, phòng thủ +100'] },
+                            { level: 3, points: 27500, effects: ['Mỗi lần hoàn thành 1 bảo tàng, phòng thủ +100'] },
+                            { level: 4, points: 30000, effects: ['Mỗi lần hoàn thành 1 bảo tàng, phòng thủ +100'] }
+                        ]
+                    },
+                    // Row 10: 148 (LEFT_MID), empty30 (MID_RIGHT)
+                    148: {
+                        id: 148,
+                        name: 'Triển Khu Mở Rộng Đồ Chí',
+                        row: 10, col: COLS.LEFT_MID, colName: 'LEFT_MID',
+                        requires: [147],
+                        milestones: [
+                            { level: 1, points: 25000, effects: ['Kinh doanh +2550'] },
+                            { level: 2, points: 30000, effects: ['Kinh doanh +5100'] },
+                            { level: 3, points: 35000, effects: ['Kinh doanh +7650, bảo tàng thời không'] }
+                        ]
+                    },
+                    'empty30': {
+                        id: 'empty30',
+                        name: 'Khảo Cổ Thám Hiểm',
+                        row: 10, col: COLS.MID_RIGHT, colName: 'MID_RIGHT',
+                        requires: [147],
+                        isEmpty: true,
+                        milestones: [
+                            { level: 1, points: 30000, effects: ['40 bv'] },
+                            { level: 2, points: 35000, effects: ['40 bv'] },
+                            { level: 3, points: 40000, effects: ['40 bv'] }
+                        ]
+                    }
+                },
+                connections: [
+                    // From node 131
+                    [131, 132], [131, 133],
+                    // From node 133
+                    [133, 'empty23'], [133, 135], [133, 134],
+                    // From node 135
+                    [135, 'empty24'], [135, 137], [135, 136],
+                    // From node 137
+                    [137, 139], [137, 141], [137, 138],
+                    // From node 139
+                    [139, 140],
+                    // From node 141
+                    [141, 143], [141, 144], [141, 142],
+                    // From node 144
+                    [144, 145], [144, 'empty25'],
+                    // From node 145
+                    [145, 'empty26'], [145, 146], [145, 'empty27'],
+                    // From node 146
+                    [146, 'empty28'], [146, 147], [146, 'empty29'],
+                    // From node 147
+                    [147, 148], [147, 'empty30']
+                ]
+            }
+            // More maps can be added here
+        };
+
+        // State Management
+        let currentMap = loadCurrentMap();
+        let selectedNode = null;
+        let progress = loadProgress();
+
+        function loadCurrentMap() {
+            const saved = localStorage.getItem('museum-current-map');
+            return saved || 'caoLien';
+        }
+
+        function saveCurrentMap(mapId) {
+            localStorage.setItem('museum-current-map', mapId);
+        }
+
+        function loadProgress() {
+            const saved = localStorage.getItem('museum-progress');
+            if (saved) {
+                try {
+                    return JSON.parse(saved);
+                } catch (e) {
+                    console.error('Error loading progress:', e);
+                }
+            }
+            return {
+                caoLien: {
+                    currentPoints: 4500,
+                    maxPoints: 20000,
+                    nodes: {}
+                }
+            };
+        }
+
+        function saveProgress() {
+            localStorage.setItem('museum-progress', JSON.stringify(progress));
+        }
+
+        function getNodeProgress(mapId, nodeId) {
+            if (!progress[mapId]) progress[mapId] = { currentPoints: 0, maxPoints: 20000, nodes: {} };
+            if (!progress[mapId].nodes[nodeId]) progress[mapId].nodes[nodeId] = { currentLevel: 0 };
+            return progress[mapId].nodes[nodeId];
+        }
+
+        function setNodeProgress(mapId, nodeId, level) {
+            if (!progress[mapId]) progress[mapId] = { currentPoints: 0, maxPoints: 20000, nodes: {} };
+            progress[mapId].nodes[nodeId] = { currentLevel: level };
+            saveProgress();
+            renderTree();
+            updateStats();
+            if (selectedNode === nodeId) {
+                showNodeDetail(nodeId);
+            }
+        }
+
+        function getNodeState(mapId, nodeId) {
+            const museum = MUSEUMS[mapId];
+            const node = museum.nodes[nodeId];
+            const nodeProgress = getNodeProgress(mapId, nodeId);
+            const totalMilestones = node.milestones.length;
+
+            // Check if all requirements are met
+            const requirementsMet = node.requires.every(reqId => {
+                const reqProgress = getNodeProgress(mapId, reqId);
+                const reqNode = museum.nodes[reqId];
+                return reqProgress.currentLevel >= reqNode.milestones.length;
+            });
+
+            if (nodeProgress.currentLevel >= totalMilestones) {
+                return 'maxed';
+            } else if (nodeProgress.currentLevel > 0) {
+                return 'in-progress';
+            } else if (requirementsMet || node.requires.length === 0) {
+                return 'available';
+            } else {
+                return 'locked';
+            }
+        }
+
+        // Rendering Functions
+        function renderMuseumList() {
+            const container = document.getElementById('museumList');
+            container.innerHTML = Object.keys(MUSEUMS).map(mapId => {
+                const museum = MUSEUMS[mapId];
+                return `
+                    <li class="museum-item ${mapId === currentMap ? 'active' : ''}" 
+                        onclick="switchMap('${mapId}')">
+                        🏛️ ${museum.name}
+                    </li>
+                `;
+            }).join('');
+        }
+
+        function switchMap(mapId) {
+            currentMap = mapId;
+            saveCurrentMap(mapId);
+            selectedNode = null;
+            renderMuseumList();
+            renderTree();
+            updateStats();
+            document.getElementById('mapTitle').textContent = `Bảo tàng ${MUSEUMS[mapId].name}`;
+            document.getElementById('detailPanel').innerHTML = `
+                <div class="no-selection">
+                    <div class="no-selection-icon">🏛️</div>
+                    <p>Chọn một node trên cây để xem chi tiết</p>
+                </div>
+            `;
+        }
+
+        function renderTree() {
+            const museum = MUSEUMS[currentMap];
+            const nodesContainer = document.getElementById('treeNodes');
+            const wrapper = document.getElementById('treeWrapper');
+            
+            // Calculate wrapper dimensions
+            const wrapperWidth = wrapper.offsetWidth || 600;
+            const nodeSize = 60;
+            const nodeRadius = nodeSize / 2;
+
+            // Render nodes
+            nodesContainer.innerHTML = Object.values(museum.nodes).map(node => {
+                const nodeProgress = getNodeProgress(currentMap, node.id);
+                const isSelected = selectedNode === node.id;
+                const totalMilestones = node.milestones.length;
+                
+                // Determine node state for coloring
+                let nodeClass = 'locked'; // Default: dark/locked
+                if (nodeProgress.currentLevel > 0 && nodeProgress.currentLevel < totalMilestones) {
+                    nodeClass = 'in-progress'; // Partial: yellow
+                } else if (nodeProgress.currentLevel >= totalMilestones) {
+                    nodeClass = 'maxed'; // Complete: gold
+                }
+                
+                // Calculate position based on row and col
+                const x = (node.col / 100) * wrapperWidth;
+                const y = node.row * ROW_HEIGHT + 20;
+                
+                // Special styling for empty node
+                const isEmptyNode = node.isEmpty === true;
+                const specialClass = node.isSpecial ? 'special-node' : '';
+                const displayId = isEmptyNode ? '☯' : node.id;
+                const nodeIdStr = typeof node.id === 'string' ? `'${node.id}'` : node.id;
+
+                return `
+                    <div class="node ${nodeClass} ${isSelected ? 'selected' : ''} ${specialClass} ${isEmptyNode ? 'empty-node' : ''}"
+                         style="left: ${x}px; top: ${y}px;"
+                         onclick="selectNode(${nodeIdStr})"
+                         data-id="${node.id}"
+                         title="${node.name} [${node.colName}]">
+                        ${displayId}
+                    </div>
+                `;
+            }).join('');
+
+            // Render connections after nodes are rendered
+            setTimeout(renderConnections, 10);
+        }
+
+        function renderConnections() {
+            const museum = MUSEUMS[currentMap];
+            const svgContainer = document.getElementById('treeSvg');
+            const wrapper = document.getElementById('treeWrapper');
+            const wrapperWidth = wrapper.offsetWidth || 600;
+            const nodeRadius = 30;
+
+            let svgContent = '';
+            
+            museum.connections.forEach(([fromId, toId]) => {
+                const fromNode = museum.nodes[fromId];
+                const toNode = museum.nodes[toId];
+                
+                if (!fromNode || !toNode) return;
+
+                // Calculate positions
+                const x1 = (fromNode.col / 100) * wrapperWidth;
+                const y1 = fromNode.row * ROW_HEIGHT + 20 + nodeRadius;
+                const x2 = (toNode.col / 100) * wrapperWidth;
+                const y2 = toNode.row * ROW_HEIGHT + 20 + nodeRadius;
+
+                // Always use default line class, no coloring
+                let lineClass = 'tree-line';
+                
+                // Special dashed line for special nodes
+                if (toNode.isSpecial) {
+                    lineClass += ' special-line';
+                }
+
+                svgContent += `<line class="${lineClass}" x1="${x1}" y1="${y1}" x2="${x2}" y2="${y2}"/>`;
+            });
+
+            svgContainer.innerHTML = svgContent;
+        }
+
+        function selectNode(nodeId) {
+            // Handle both string and number node IDs
+            selectedNode = nodeId;
+            renderTree();
+            showNodeDetail(nodeId);
+        }
+
+        function showNodeDetail(nodeId) {
+            const museum = MUSEUMS[currentMap];
+            const node = museum.nodes[nodeId];
+            const nodeProgress = getNodeProgress(currentMap, nodeId);
+            const state = getNodeState(currentMap, nodeId);
+
+            const panel = document.getElementById('detailPanel');
+            
+            // Check if this is the empty/special node
+            const isEmptyNode = node.isEmpty === true;
+            const isSpecialNode = node.isSpecial === true;
+            const displayId = isEmptyNode ? '☯' : node.id;
+            const nodeIdArg = typeof nodeId === 'string' ? `'${nodeId}'` : nodeId;
+            
+            let requirementsHTML = '';
+            if (node.requires.length > 0) {
+                requirementsHTML = `
+                    <div style="margin-bottom: 15px; padding: 10px; background: rgba(139, 90, 43, 0.2); border-radius: 8px;">
+                        <strong style="color: #d4af37;">Yêu cầu:</strong>
+                        <ul style="margin-top: 8px; list-style: none;">
+                            ${node.requires.map(reqId => {
+                                const reqNode = museum.nodes[reqId];
+                                const reqState = getNodeState(currentMap, reqId);
+                                const isComplete = reqState === 'maxed';
+                                const reqDisplayId = reqNode.isEmpty ? '☯' : reqId;
+                                return `
+                                    <li style="margin: 5px 0; color: ${isComplete ? '#4ade80' : '#ff6b6b'};">
+                                        ${isComplete ? '✓' : '✗'} Node ${reqDisplayId}: ${reqNode.name}
+                                    </li>
+                                `;
+                            }).join('')}
+                        </ul>
+                    </div>
+                `;
+            }
+
+            const milestonesHTML = node.milestones.map((milestone, index) => {
+                const isCompleted = nodeProgress.currentLevel > index;
+                const isCurrent = nodeProgress.currentLevel === index;
+                
+                return `
+                    <div class="milestone-item ${isCompleted ? 'completed' : ''} ${isCurrent ? 'current' : ''}">
+                        <div class="milestone-header">
+                            <span class="milestone-level">
+                                ${isCompleted ? '✓' : isCurrent ? '→' : '○'} Mốc ${milestone.level}
+                            </span>
+                            <span class="milestone-points ${isCompleted ? 'completed' : ''}">
+                                ${milestone.points} điểm
+                            </span>
+                        </div>
+                        <ul class="milestone-effects">
+                            ${milestone.effects.map(effect => {
+                                let effectClass = '';
+                                if (effect.includes('+')) effectClass = 'effect-positive';
+                                else if (effect.includes('Mở khóa')) effectClass = 'effect-unlock';
+                                else if (effect.includes('Nhận')) effectClass = 'effect-special';
+                                else if (effect.includes('%')) effectClass = 'effect-positive';
+                                return `<li class="${effectClass}">${effect}</li>`;
+                            }).join('')}
+                        </ul>
+                    </div>
+                `;
+            }).join('');
+
+            // Calculate total points spent on this node
+            let pointsSpent = 0;
+            for (let i = 0; i < nodeProgress.currentLevel; i++) {
+                pointsSpent += node.milestones[i].points;
+            }
+            
+            // Column info
+            const colInfo = node.colName ? `<span style="font-size: 0.8em; color: #888;">[Cột: ${node.colName}]</span>` : '';
+
+            panel.innerHTML = `
+                <div class="detail-header">
+                    <h2>${isEmptyNode ? '☯ ' : ''}${node.name}</h2>
+                    <span class="node-id">${isEmptyNode ? 'Node Đặc Biệt' : `Node ${displayId}`} ${colInfo}</span>
+                    ${isSpecialNode ? '<div style="margin-top: 5px; font-size: 0.85em; color: #f472b6;">✨ Node nhánh đặc biệt</div>' : ''}
+                    <div style="margin-top: 10px; color: ${
+                        state === 'maxed' ? '#d4af37' : 
+                        state === 'completed' ? '#38bdf8' :
+                        state === 'in-progress' ? '#fbbf24' :
+                        state === 'available' ? '#4ade80' : '#666'
+                    };">
+                        ${state === 'maxed' ? '⭐ ĐÃ MAX' : 
+                          state === 'in-progress' ? '🔄 ĐANG NÂNG' :
+                          state === 'available' ? '✓ CÓ THỂ NÂNG' : '🔒 CHƯA MỞ KHÓA'}
+                    </div>
+                </div>
+
+                ${requirementsHTML}
+
+                <div style="margin-bottom: 15px; text-align: center; color: #c4a77d;">
+                    Tiến độ: <strong style="color: #d4af37;">${nodeProgress.currentLevel}/${node.milestones.length}</strong>
+                    | Đã dùng: <strong style="color: #4ade80;">${pointsSpent}</strong> điểm
+                </div>
+
+                <div class="milestone-list">
+                    ${milestonesHTML}
+                </div>
+
+                <div class="progress-section">
+                    <h3>⚡ Cập Nhật Tiến Độ</h3>
+                    <div class="quick-btns">
+                        ${node.milestones.map((_, index) => `
+                            <button class="quick-btn ${nodeProgress.currentLevel === index + 1 ? 'style="background: rgba(74, 222, 128, 0.3); border-color: #4ade80;"' : ''}"
+                                    onclick="setNodeProgress('${currentMap}', ${nodeIdArg}, ${index + 1})">
+                                Mốc ${index + 1}
+                            </button>
+                        `).join('')}
+                        <button class="quick-btn" style="background: rgba(220, 53, 69, 0.2); border-color: #ff6b6b;"
+                                onclick="setNodeProgress('${currentMap}', ${nodeIdArg}, 0)">
+                            Reset
+                        </button>
+                    </div>
+                </div>
+            `;
+        }
+
+        function updateStats() {
+            // Calculate total points spent across ALL museums
+            let totalPointsAllMaps = 0;
+            
+            Object.keys(MUSEUMS).forEach(mapId => {
+                const museum = MUSEUMS[mapId];
+                const nodes = Object.values(museum.nodes);
+                
+                nodes.forEach(node => {
+                    const nodeProgress = getNodeProgress(mapId, node.id);
+                    
+                    for (let i = 0; i < nodeProgress.currentLevel; i++) {
+                        totalPointsAllMaps += node.milestones[i].points;
+                    }
+                });
+            });
+
+            document.getElementById('totalPointsAllMaps').textContent = totalPointsAllMaps.toLocaleString();
+        }
+
+        function resetAllNodes() {
+            if (confirm('Bạn có chắc muốn reset toàn bộ node về 0 (tất cả bảo tàng)?')) {
+                // Reset all nodes in all maps to level 0
+                Object.keys(MUSEUMS).forEach(mapId => {
+                    if (!progress[mapId]) progress[mapId] = { nodes: {} };
+                    const museum = MUSEUMS[mapId];
+                    Object.keys(museum.nodes).forEach(nodeId => {
+                        progress[mapId].nodes[nodeId] = { currentLevel: 0 };
+                    });
+                });
+                
+                saveProgress();
+                renderTree();
+                updateStats();
+                if (selectedNode !== null) {
+                    showNodeDetail(selectedNode);
+                }
+                alert('Đã reset toàn bộ node về 0! ✅');
+            }
+        }
+
+        // Initialize
+        function init() {
+            // Update title based on current map
+            document.getElementById('mapTitle').textContent = `Cây Nâng Cấp - ${MUSEUMS[currentMap].name}`;
+            
+            renderMuseumList();
+            renderTree();
+            updateStats();
+
+            // Handle resize for connection lines
+            let resizeTimeout;
+            window.addEventListener('resize', () => {
+                clearTimeout(resizeTimeout);
+                resizeTimeout = setTimeout(renderTree, 150);
+            });
+        }
+
+        init();
+    </script>
+</body>
+</html>
+
