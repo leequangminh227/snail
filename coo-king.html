@@ -909,16 +909,27 @@
             };
         }
 
-        // Tính toán cho 1000 food (dùng drop rate để so sánh)
+        // Tính toán cho 1000 food (dùng drop rate của từng set để so sánh)
         function calculate1000FoodStrategy() {
             const results = {};
+            const TOTAL_FOOD = 1000;
             
             Object.keys(SETS).forEach(setKey => {
-                // 1000 food theo tỷ lệ 65-25-10
+                // Lấy tỷ lệ rơi của set này
+                const dropRate = setStates[setKey].foodDropRate;
+                const totalRate = dropRate.food1 + dropRate.food2 + dropRate.food3;
+                
+                // Tính nguyên liệu theo tỷ lệ rơi của set (nếu tổng != 1, normalize)
+                const normalizedRate = totalRate > 0 ? {
+                    food1: dropRate.food1 / totalRate,
+                    food2: dropRate.food2 / totalRate,
+                    food3: dropRate.food3 / totalRate
+                } : { food1: 0.65, food2: 0.25, food3: 0.10 };
+                
                 const ingredients = {
-                    food1: 650,
-                    food2: 250,
-                    food3: 100
+                    food1: Math.round(TOTAL_FOOD * normalizedRate.food1),
+                    food2: Math.round(TOTAL_FOOD * normalizedRate.food2),
+                    food3: Math.round(TOTAL_FOOD * normalizedRate.food3)
                 };
                 
                 // Tính toán với drop rate
@@ -926,6 +937,8 @@
                 
                 results[setKey] = {
                     setName: SETS[setKey].name,
+                    ingredients: ingredients, // Lưu lại số nguyên liệu đã dùng
+                    dropRate: dropRate, // Lưu lại tỷ lệ rơi
                     finalRevenue: result.finalRevenue,
                     profitIncrease: result.profitIncrease,
                     profitPercent: result.profitPercent,
@@ -1071,12 +1084,26 @@
                 })
                 .sort((a, b) => b.revenue - a.revenue); // Sắp xếp theo thu nhập giảm dần
 
+            // Tạo text mô tả nguyên liệu của từng đảo
+            const ingredientDescriptions = Object.keys(results1000).map(setKey => {
+                const r = results1000[setKey];
+                return `${r.setName}: ${r.ingredients.food1}-${r.ingredients.food2}-${r.ingredients.food3}`;
+            }).join(' | ');
+
             // Phân tích tổng thể
             const overallHTML = `
                 <div class="strategy-item">
-                    <h3>🎯 KẾT LUẬN: Với 1000 Nguyên Liệu (650-250-100)</h3>
-                    <p style="font-size: 0.9em; opacity: 0.9; margin-bottom: 15px;">
-                        <em>So sánh này dựa trên tỷ lệ rơi đã cài đặt cho mỗi Set</em>
+                    <h3>🎯 KẾT LUẬN: Với 1000 Nguyên Liệu</h3>
+                    <p style="font-size: 0.9em; opacity: 0.9; margin-bottom: 10px;">
+                        <em>Phân bổ theo tỷ lệ rơi của từng đảo:</em>
+                    </p>
+                    <p style="font-size: 0.85em; opacity: 0.85; margin-bottom: 15px; padding: 10px; background: rgba(255,255,255,0.1); border-radius: 5px;">
+                        ${Object.keys(results1000).map(setKey => {
+                            const r = results1000[setKey];
+                            const rate = r.dropRate;
+                            return `<strong>${r.setName}</strong>: ${r.ingredients.food1}-${r.ingredients.food2}-${r.ingredients.food3} 
+                                    <span style="opacity: 0.7;">(${(rate.food1*100).toFixed(0)}%-${(rate.food2*100).toFixed(0)}%-${(rate.food3*100).toFixed(0)}%)</span>`;
+                        }).join('<br>')}
                     </p>
                     <p style="font-size: 1.2em; margin: 15px 0;">
                         <strong>→ NÊN FARM TẠI: ${results1000[bestSet].setName}</strong>
@@ -1131,24 +1158,31 @@
                     }).join('')}
                 
                 <div class="strategy-item" style="background: rgba(23, 162, 184, 0.2);">
-                    <h3>💡 Cách Tính Toán (Thuật Toán Cải Tiến)</h3>
+                    <h3>💡 Cách Tính Toán Hiệu Suất</h3>
                     <p style="margin-top: 10px;"><strong>Hiệu suất = Lợi nhuận ÷ Trọng số nguyên liệu</strong></p>
                     <p style="font-size: 0.9em; margin-top: 5px; color: #17a2b8;">
-                        <em>Trọng số được tính dựa vào tỷ lệ rơi của từng Set.<br>
-                        Mỗi Set có thể có tỷ lệ rơi khác nhau, bạn có thể chỉnh ở phần "Tỷ Lệ Rơi Nguyên Liệu" trong mỗi tab.</em>
+                        <em>Trọng số = 1 / Tỷ lệ rơi. Nguyên liệu càng hiếm (tỷ lệ rơi thấp) → trọng số càng cao.</em>
                     </p>
-                    <p style="margin-top: 10px;"><strong>Ví dụ với tỷ lệ mặc định (65%-25%-10%):</strong></p>
+                    
+                    <p style="margin-top: 15px;"><strong>📌 Quy tắc đặc biệt khi tỷ lệ rơi = 0%:</strong></p>
+                    <p style="font-size: 0.9em; padding: 8px; background: rgba(255,255,255,0.1); border-radius: 5px;">
+                        • Món <strong>KHÔNG cần</strong> nguyên liệu đó → Trọng số = 0 (không ảnh hưởng hiệu suất)<br>
+                        • Món <strong>CẦN</strong> nguyên liệu đó → Hiệu suất = 0 (không thể nấu được)
+                    </p>
+                    
+                    <p style="margin-top: 15px;"><strong>Ví dụ với tỷ lệ 90%-10%-0%:</strong></p>
                     <p style="font-size: 0.9em;">
-                        • Food1 (65% rơi) → Trọng số 1.54<br>
-                        • Food2 (25% rơi) → Trọng số 4.00 (khan hiếm hơn 2.6x)<br>
-                        • Food3 (10% rơi) → Trọng số 10.00 (hiếm nhất)
+                        • Food1 (90% rơi) → Trọng số 1.11<br>
+                        • Food2 (10% rơi) → Trọng số 10.00 (khan hiếm)<br>
+                        • Food3 (0% rơi) → Trọng số ∞ hoặc 0 (tùy món có cần hay không)
                     </p>
                     <p style="font-size: 0.9em; margin-top: 10px;">
-                        • Món A: Lợi nhuận 452, cần 10-6-0 → Hiệu suất = 452 ÷ (10×1.54 + 6×4.00) = <strong>11.5</strong><br>
-                        • Món B: Lợi nhuận 424, cần 8-4-0 → Hiệu suất = 424 ÷ (8×1.54 + 4×4.00) = <strong>16.2</strong> ⭐
+                        • <strong>Hàu nướng</strong>: Lợi nhuận -12, cần 1-0-0 → Hiệu suất = -12 ÷ (1×1.11) = <strong>-10.8</strong> ❌<br>
+                        • <strong>Shasimi cá đuối</strong>: Lợi nhuận 60, cần 5-0-0 → Hiệu suất = 60 ÷ (5×1.11) = <strong>10.8</strong> ✓<br>
+                        • <strong>Cánh cá người</strong>: Cần Food3 nhưng tỷ lệ rơi = 0% → Hiệu suất = <strong>0</strong> (không nấu được)
                     </p>
                     <p style="margin-top: 10px; color: #ffd700;">
-                        → <strong>Món B hiệu quả hơn</strong> vì tốn ít Food2 (khan hiếm), nấu được nhiều món hơn!
+                        → Ưu tiên món <strong>không cần nguyên liệu hiếm</strong> và có <strong>hiệu suất cao</strong>!
                     </p>
                 </div>
                 
