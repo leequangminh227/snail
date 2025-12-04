@@ -404,8 +404,8 @@
                     { id: 5, name: 'Phô mai muối', food1: 4, food2: 2, food3: 0, price: 342 },
                     { id: 6, name: 'Thuỷ Long Nướng', food1: 6, food2: 3, food3: 0, price: 442 },
                     { id: 7, name: 'Cánh cá người', food1: 5, food2: 2, food3: 1, price: 420 },
-                    { id: 81, name: 'Rắn biển', food1: 8, food2: 4, food3: 0, price: 528 },
-                    { id: 91, name: 'Rồng biển xào', food1: 2, food2: 3, food3: 0, price: 360 },
+                    { id: 8, name: 'Rắn biển', food1: 8, food2: 4, food3: 0, price: 528 },
+                    { id: 9, name: 'Rồng biển xào', food1: 2, food2: 3, food3: 0, price: 360 },
                     { id: 10, name: 'Món Set 2 - 10', food1: 8, food2: 4, food3: 0, price: 0 },
                     { id: 11, name: 'Món Set 2 - 11', food1: 8, food2: 5, food3: 3, price: 0 },
                     { id: 12, name: 'Món Set 2 - 12', food1: 20, food2: 10, food3: 5, price: 0 }
@@ -414,8 +414,8 @@
             // Thêm set3, set4,... tại đây
         };
 
-        // Tỷ lệ rơi nguyên liệu (giống nhau cho tất cả set)
-        const FOOD_DROP_RATE = {
+        // Tỷ lệ rơi nguyên liệu mặc định
+        const DEFAULT_FOOD_DROP_RATE = {
             food1: 0.65,  // 65%
             food2: 0.25,  // 25%
             food3: 0.10   // 10%
@@ -470,9 +470,49 @@
                         }
                         return { ...dish, enabled: true };
                     }),
-                    ingredients: savedSetState?.ingredients || { food1: 650, food2: 250, food3: 100 }
+                    ingredients: savedSetState?.ingredients || { food1: 650, food2: 250, food3: 100 },
+                    foodDropRate: savedSetState?.foodDropRate || { ...DEFAULT_FOOD_DROP_RATE }
                 };
             });
+        }
+
+        // Update food rates cho từng set
+        function updateFoodRates(setKey) {
+            const rate1 = parseFloat(document.getElementById(`${setKey}-rate1`).value) || 0;
+            const rate2 = parseFloat(document.getElementById(`${setKey}-rate2`).value) || 0;
+            const rate3 = parseFloat(document.getElementById(`${setKey}-rate3`).value) || 0;
+            
+            setStates[setKey].foodDropRate = {
+                food1: rate1 / 100,
+                food2: rate2 / 100,
+                food3: rate3 / 100
+            };
+            
+            // Cập nhật tổng và cảnh báo
+            const total = rate1 + rate2 + rate3;
+            document.getElementById(`${setKey}-totalRate`).textContent = total.toFixed(2);
+            
+            const warning = document.getElementById(`${setKey}-rateWarning`);
+            if (Math.abs(total - 100) > 0.01) {
+                warning.style.display = 'inline';
+            } else {
+                warning.style.display = 'none';
+            }
+            
+            // Cập nhật label của nguyên liệu
+            const set = SETS[setKey];
+            document.getElementById(`${setKey}-food1-label`).textContent = 
+                `Food 1 (${rate1.toFixed(0)}% - Giá lẻ: ${set.foodPrices.food1})`;
+            document.getElementById(`${setKey}-food2-label`).textContent = 
+                `Food 2 (${rate2.toFixed(0)}% - Giá lẻ: ${set.foodPrices.food2})`;
+            document.getElementById(`${setKey}-food3-label`).textContent = 
+                `Food 3 (${rate3.toFixed(0)}% - Giá lẻ: ${set.foodPrices.food3})`;
+            
+            saveToLocalStorage();
+            renderDishTable(setKey);
+            const result = calculateSetStrategy(setKey);
+            displaySetStrategy(setKey, result);
+            displayComparison();
         }
 
         // Tính chi phí cơ hội
@@ -524,20 +564,45 @@
                 return `
                     <div id="content-${setKey}" class="tab-content ${index === 0 ? 'active' : ''}">
         <div class="section">
+                            <h2>⚙️ Tỷ Lệ Rơi Nguyên Liệu</h2>
+            <div class="input-grid">
+                <div class="input-group">
+                                    <label>Food 1 (%):</label>
+                                    <input type="number" id="${setKey}-rate1" value="${(setStates[setKey].foodDropRate.food1 * 100).toFixed(2)}" 
+                                           step="0.01" min="0" max="100" onchange="updateFoodRates('${setKey}')">
+                </div>
+                <div class="input-group">
+                                    <label>Food 2 (%):</label>
+                                    <input type="number" id="${setKey}-rate2" value="${(setStates[setKey].foodDropRate.food2 * 100).toFixed(2)}" 
+                                           step="0.01" min="0" max="100" onchange="updateFoodRates('${setKey}')">
+                </div>
+                <div class="input-group">
+                                    <label>Food 3 (%):</label>
+                                    <input type="number" id="${setKey}-rate3" value="${(setStates[setKey].foodDropRate.food3 * 100).toFixed(2)}" 
+                                           step="0.01" min="0" max="100" onchange="updateFoodRates('${setKey}')">
+                </div>
+            </div>
+                            <div style="margin-top: 10px; color: #666; font-size: 0.9em;">
+                                <strong>Tổng:</strong> <span id="${setKey}-totalRate">100.00</span>%
+                                <span id="${setKey}-rateWarning" style="color: #ff6b6b; margin-left: 10px; display: none;">⚠️ Tổng tỷ lệ nên bằng 100%</span>
+                            </div>
+        </div>
+
+        <div class="section">
                             <h2>📦 Nguyên Liệu ${set.name}</h2>
             <div class="input-grid">
                 <div class="input-group">
-                                    <label>Food 1 (65% - Giá lẻ: ${set.foodPrices.food1})</label>
+                                    <label id="${setKey}-food1-label">Food 1 (${(setStates[setKey].foodDropRate.food1 * 100).toFixed(0)}% - Giá lẻ: ${set.foodPrices.food1})</label>
                                     <input type="number" id="${setKey}-food1" value="${setStates[setKey].ingredients.food1}" min="0" 
                                            onchange="updateIngredients('${setKey}')">
                 </div>
                 <div class="input-group">
-                                    <label>Food 2 (25% - Giá lẻ: ${set.foodPrices.food2})</label>
+                                    <label id="${setKey}-food2-label">Food 2 (${(setStates[setKey].foodDropRate.food2 * 100).toFixed(0)}% - Giá lẻ: ${set.foodPrices.food2})</label>
                                     <input type="number" id="${setKey}-food2" value="${setStates[setKey].ingredients.food2}" min="0"
                                            onchange="updateIngredients('${setKey}')">
                 </div>
                 <div class="input-group">
-                                    <label>Food 3 (10% - Giá lẻ: ${set.foodPrices.food3})</label>
+                                    <label id="${setKey}-food3-label">Food 3 (${(setStates[setKey].foodDropRate.food3 * 100).toFixed(0)}% - Giá lẻ: ${set.foodPrices.food3})</label>
                                     <input type="number" id="${setKey}-food3" value="${setStates[setKey].ingredients.food3}" min="0"
                                            onchange="updateIngredients('${setKey}')">
                 </div>
@@ -550,7 +615,7 @@
                                 💾 Trạng thái checkbox và giá bán được tự động lưu
                             </p>
                             <p style="text-align: center; color: #17a2b8; font-size: 0.85em; margin-bottom: 10px;">
-                                ℹ️ <strong>Hiệu suất</strong> = Lợi nhuận ÷ Trọng số nguyên liệu (xét tỷ lệ rơi 65%-25%-10%). Càng cao = càng tối ưu!
+                                ℹ️ <strong>Hiệu suất</strong> = Lợi nhuận ÷ Trọng số nguyên liệu (xét tỷ lệ rơi đã cài đặt). Dùng để so sánh món ăn!
                             </p>
             <div class="table-container">
                                 <table>
@@ -662,14 +727,14 @@
             const opportunityCost = calculateOpportunityCost(dish, setKey);
             const profit = dish.price - opportunityCost;
             
+            // Lấy tỷ lệ rơi của set này
+            const dropRate = setStates[setKey].foodDropRate;
+            
             // Trọng số khan hiếm dựa trên tỷ lệ rơi (số càng cao = càng khan hiếm)
-            // food1: 65% -> weight = 1.54
-            // food2: 25% -> weight = 4.00 (khan hiếm gấp 2.6 lần food1)
-            // food3: 10% -> weight = 10.00 (hiếm nhất)
             const scarcityWeights = {
-                food1: 1 / FOOD_DROP_RATE.food1,  // 1.54
-                food2: 1 / FOOD_DROP_RATE.food2,  // 4.00
-                food3: 1 / FOOD_DROP_RATE.food3   // 10.00
+                food1: 1 / dropRate.food1,
+                food2: 1 / dropRate.food2,
+                food3: 1 / dropRate.food3
             };
             
             // Tổng chi phí có trọng số (weighted cost)
@@ -685,7 +750,19 @@
             return { profit, efficiency, weightedCost };
         }
 
-        // Tính toán chiến lược cho 1 set
+        // Tính hiệu suất đơn giản dựa trên số lượng nguyên liệu (không dùng drop rate)
+        function calculateSimpleEfficiency(dish, setKey) {
+            const opportunityCost = calculateOpportunityCost(dish, setKey);
+            const profit = dish.price - opportunityCost;
+            
+            // Hiệu suất đơn giản = lợi nhuận / tổng số nguyên liệu cần
+            const totalIngredients = dish.food1 + dish.food2 + dish.food3;
+            const efficiency = totalIngredients > 0 ? profit / totalIngredients : 0;
+            
+            return { profit, efficiency };
+        }
+
+        // Tính toán chiến lược cho 1 set (dựa trên nguyên liệu hiện tại)
         function calculateSetStrategy(setKey) {
             const ingredients = setStates[setKey].ingredients;
             const foodPrices = SETS[setKey].foodPrices;
@@ -696,15 +773,14 @@
                                ingredients.food2 * foodPrices.food2 + 
                                ingredients.food3 * foodPrices.food3;
 
-            // Tính lợi nhuận và hiệu suất cho mỗi món
+            // Tính lợi nhuận và hiệu suất đơn giản cho mỗi món
             const dishProfits = enabledDishes.map(dish => {
                 const opportunityCost = calculateOpportunityCost(dish, setKey);
-                const { profit, efficiency, weightedCost } = calculateDishEfficiency(dish, setKey);
-                return { ...dish, opportunityCost, profit, efficiency, weightedCost };
+                const { profit, efficiency } = calculateSimpleEfficiency(dish, setKey);
+                return { ...dish, opportunityCost, profit, efficiency };
             });
 
-            // Sắp xếp theo HIỆU SUẤT giảm dần (thay vì chỉ lợi nhuận)
-            // Món có hiệu suất cao = tận dụng nguyên liệu tốt hơn
+            // Sắp xếp theo lợi nhuận/nguyên liệu (hiệu suất đơn giản)
             dishProfits.sort((a, b) => b.efficiency - a.efficiency);
 
             // Greedy algorithm
@@ -754,13 +830,78 @@
             };
         }
 
-        // Tính toán cho 1000 food
+        // Tính toán chiến lược dựa trên drop rate (cho so sánh giữa các set)
+        function calculateSetStrategyWithDropRate(setKey, ingredients) {
+            const foodPrices = SETS[setKey].foodPrices;
+            const enabledDishes = setStates[setKey].dishes.filter(d => d.enabled);
+
+            // Tính tổng giá bán lẻ
+            const totalRetail = ingredients.food1 * foodPrices.food1 + 
+                               ingredients.food2 * foodPrices.food2 + 
+                               ingredients.food3 * foodPrices.food3;
+
+            // Tính lợi nhuận và hiệu suất (dùng drop rate) cho mỗi món
+            const dishProfits = enabledDishes.map(dish => {
+                const opportunityCost = calculateOpportunityCost(dish, setKey);
+                const { profit, efficiency } = calculateDishEfficiency(dish, setKey);
+                return { ...dish, opportunityCost, profit, efficiency };
+            });
+
+            // Sắp xếp theo hiệu suất (xét drop rate)
+            dishProfits.sort((a, b) => b.efficiency - a.efficiency);
+
+            // Greedy algorithm
+            let remaining = { ...ingredients };
+            let totalRevenue = 0;
+            const strategy = [];
+
+            for (const dish of dishProfits) {
+                if (dish.profit <= 0) continue;
+
+                let maxCook = Infinity;
+                if (dish.food1 > 0) maxCook = Math.min(maxCook, Math.floor(remaining.food1 / dish.food1));
+                if (dish.food2 > 0) maxCook = Math.min(maxCook, Math.floor(remaining.food2 / dish.food2));
+                if (dish.food3 > 0) maxCook = Math.min(maxCook, Math.floor(remaining.food3 / dish.food3));
+
+                if (maxCook > 0 && maxCook !== Infinity) {
+                    const revenue = maxCook * dish.price;
+                    const netProfit = maxCook * dish.profit;
+
+                    remaining.food1 -= maxCook * dish.food1;
+                    remaining.food2 -= maxCook * dish.food2;
+                    remaining.food3 -= maxCook * dish.food3;
+                    totalRevenue += revenue;
+
+                    strategy.push({ dish, count: maxCook, revenue, netProfit });
+                }
+            }
+
+            // Tính giá trị nguyên liệu dư
+            const remainingValue = remaining.food1 * foodPrices.food1 +
+                                  remaining.food2 * foodPrices.food2 +
+                                  remaining.food3 * foodPrices.food3;
+
+            const finalRevenue = totalRevenue + remainingValue;
+            const profitIncrease = finalRevenue - totalRetail;
+            const profitPercent = totalRetail > 0 ? (profitIncrease / totalRetail * 100) : 0;
+
+            return {
+                strategy,
+                remaining,
+                remainingValue,
+                totalRevenue: totalRevenue,
+                finalRevenue,
+                totalRetail,
+                profitIncrease,
+                profitPercent
+            };
+        }
+
+        // Tính toán cho 1000 food (dùng drop rate để so sánh)
         function calculate1000FoodStrategy() {
             const results = {};
             
             Object.keys(SETS).forEach(setKey => {
-                const foodPrices = SETS[setKey].foodPrices;
-                
                 // 1000 food theo tỷ lệ 65-25-10
                 const ingredients = {
                     food1: 650,
@@ -768,21 +909,8 @@
                     food3: 100
                 };
                 
-                // Tạo state tạm với 1000 food
-                const tempState = {
-                    ...setStates[setKey],
-                    ingredients: ingredients
-                };
-                
-                // Backup state hiện tại
-                const originalState = setStates[setKey];
-                setStates[setKey] = tempState;
-                
-                // Tính toán
-                const result = calculateSetStrategy(setKey);
-                
-                // Restore state
-                setStates[setKey] = originalState;
+                // Tính toán với drop rate
+                const result = calculateSetStrategyWithDropRate(setKey, ingredients);
                 
                 results[setKey] = {
                     setName: SETS[setKey].name,
@@ -810,13 +938,11 @@
                 `;
             } else {
                 let html = '<div class="strategy-item"><h3>🎯 Chiến Lược Nấu Ăn Tối Ưu:</h3>';
-                html += '<p style="font-size: 0.9em; opacity: 0.9; margin-bottom: 10px;">Sắp xếp theo hiệu suất (xét tỷ lệ rơi nguyên liệu)</p>';
+                html += '<p style="font-size: 0.9em; opacity: 0.9; margin-bottom: 10px;">Sắp xếp theo lợi nhuận/nguyên liệu (dựa trên số lượng hiện tại)</p>';
                 
                 result.strategy.forEach((item, index) => {
-                    const { efficiency } = calculateDishEfficiency(item.dish, setKey);
                     html += `
-                        <p><strong>${index + 1}. ${item.dish.name}</strong> 
-                        <span style="color: #ffd700;">[Hiệu suất: ${efficiency.toFixed(1)}]</span>: 
+                        <p><strong>${index + 1}. ${item.dish.name}</strong>: 
                         Nấu <strong>${item.count} món</strong> 
                         → Thu về <strong>${item.revenue.toFixed(0)}</strong> 
                         (Lợi nhuận: <strong>+${item.netProfit.toFixed(0)}</strong>)</p>
@@ -937,6 +1063,9 @@
             const overallHTML = `
                 <div class="strategy-item">
                     <h3>🎯 KẾT LUẬN: Với 1000 Nguyên Liệu (650-250-100)</h3>
+                    <p style="font-size: 0.9em; opacity: 0.9; margin-bottom: 15px;">
+                        <em>So sánh này dựa trên tỷ lệ rơi đã cài đặt cho mỗi Set</em>
+                    </p>
                     <p style="font-size: 1.2em; margin: 15px 0;">
                         <strong>→ NÊN FARM TẠI: ${results1000[bestSet].setName}</strong>
                     </p>
@@ -991,16 +1120,18 @@
                 
                 <div class="strategy-item" style="background: rgba(23, 162, 184, 0.2);">
                     <h3>💡 Cách Tính Toán (Thuật Toán Cải Tiến)</h3>
-                    <p><strong>Trước đây:</strong> Sắp xếp món theo lợi nhuận/món (có thể sai!)</p>
-                    <p><strong>Bây giờ:</strong> Sắp xếp món theo <strong>Hiệu suất</strong></p>
                     <p style="margin-top: 10px;"><strong>Hiệu suất = Lợi nhuận ÷ Trọng số nguyên liệu</strong></p>
-                    <p style="font-size: 0.9em; margin-top: 5px;">
+                    <p style="font-size: 0.9em; margin-top: 5px; color: #17a2b8;">
+                        <em>Trọng số được tính dựa vào tỷ lệ rơi của từng Set.<br>
+                        Mỗi Set có thể có tỷ lệ rơi khác nhau, bạn có thể chỉnh ở phần "Tỷ Lệ Rơi Nguyên Liệu" trong mỗi tab.</em>
+                    </p>
+                    <p style="margin-top: 10px;"><strong>Ví dụ với tỷ lệ mặc định (65%-25%-10%):</strong></p>
+                    <p style="font-size: 0.9em;">
                         • Food1 (65% rơi) → Trọng số 1.54<br>
                         • Food2 (25% rơi) → Trọng số 4.00 (khan hiếm hơn 2.6x)<br>
                         • Food3 (10% rơi) → Trọng số 10.00 (hiếm nhất)
                     </p>
-                    <p style="margin-top: 10px;"><strong>Ví dụ:</strong></p>
-                    <p style="font-size: 0.9em;">
+                    <p style="font-size: 0.9em; margin-top: 10px;">
                         • Món A: Lợi nhuận 452, cần 10-6-0 → Hiệu suất = 452 ÷ (10×1.54 + 6×4.00) = <strong>11.5</strong><br>
                         • Món B: Lợi nhuận 424, cần 8-4-0 → Hiệu suất = 424 ÷ (8×1.54 + 4×4.00) = <strong>16.2</strong> ⭐
                     </p>
