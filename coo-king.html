@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="vi">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -123,7 +124,8 @@
             margin-bottom: 20px;
         }
 
-        th, td {
+        th,
+        td {
             padding: 12px;
             text-align: center;
             border-bottom: 1px solid #ddd;
@@ -250,7 +252,8 @@
             color: white;
         }
 
-        .back-button, .reset-button {
+        .back-button,
+        .reset-button {
             display: inline-block;
             padding: 10px 20px;
             background: #f8f9fa;
@@ -328,16 +331,19 @@
                 font-size: 14px;
             }
 
-            th, td {
+            th,
+            td {
                 padding: 8px 4px;
             }
         }
     </style>
 </head>
+
 <body>
     <div class="container">
         <h1>🍳 Coo-king Calculator - Multi Set</h1>
-        <div style="text-align: center; margin-bottom: 20px; display: flex; gap: 10px; justify-content: center; flex-wrap: wrap;">
+        <div
+            style="text-align: center; margin-bottom: 20px; display: flex; gap: 10px; justify-content: center; flex-wrap: wrap;">
             <a href="/" class="back-button">← Quay lại trang chủ</a>
             <button onclick="resetToDefault()" class="reset-button">🔄 Reset về mặc định</button>
         </div>
@@ -377,17 +383,17 @@
                 name: 'Set 1 (Đảo Hề)',
                 foodPrices: { food1: 29, food2: 86, food3: 156 },
                 dishes: [
-                    { id: 1, name: 'Sâu hồi', food1: 1, food2: 0, food3: 0, price: 20 },
-                    { id: 2, name: 'Hamburger', food1: 3, food2: 0, food3: 0, price: 86 },
-                    { id: 3, name: 'Pudding', food1: 2, food2: 1, food3: 0, price: 154 },
-                    { id: 4, name: 'Salad', food1: 5, food2: 0, food3: 0, price: 192 },
-                    { id: 5, name: 'Gumball', food1: 3, food2: 2, food3: 0, price: 288 },
-                    { id: 6, name: 'Thần lằn', food1: 4, food2: 2, food3: 0, price: 364 },
-                    { id: 7, name: 'Xương bò ma', food1: 6, food2: 3, food3: 0, price: 590 },
-                    { id: 8, name: 'Súp đặc mắt nhện', food1: 5, food2: 2, food3: 1, price: 571 },
-                    { id: 9, name: 'Phô mai giòi', food1: 10, food2: 6, food3: 0, price: 1258 },
-                    { id: 10, name: 'Tinh linh máu', food1: 8, food2: 4, food3: 0, price: 844 },
-                    { id: 11, name: 'Chân sư tử', food1: 8, food2: 5, food3: 3, price: 1008 },
+                    { id: 1, name: 'Sâu hồi', food1: 1, food2: 0, food3: 0, price: 20 }, //full
+                    { id: 2, name: 'Hamburger', food1: 3, food2: 0, food3: 0, price: 86 }, //full
+                    { id: 3, name: 'Pudding', food1: 2, food2: 1, food3: 0, price: 154 }, //full
+                    { id: 4, name: 'Salad', food1: 5, food2: 0, food3: 0, price: 192 }, //full
+                    { id: 5, name: 'Gumball', food1: 3, food2: 2, food3: 0, price: 288 }, //full
+                    { id: 6, name: 'Thần lằn', food1: 4, food2: 2, food3: 0, price: 364 }, //full
+                    { id: 7, name: 'Xương bò ma', food1: 6, food2: 3, food3: 0, price: 590 }, //full
+                    { id: 8, name: 'Súp đặc mắt nhện', food1: 5, food2: 2, food3: 1, price: 672 }, //full
+                    { id: 9, name: 'Phô mai giòi', food1: 10, food2: 6, food3: 0, price: 1258 }, //full
+                    { id: 10, name: 'Tinh linh máu', food1: 8, food2: 4, food3: 0, price: 844 }, //full
+                    { id: 11, name: 'Chân sư tử', food1: 8, food2: 5, food3: 3, price: 1260 },
                     { id: 12, name: 'Bánh quy pho mát', food1: 20, food2: 10, food3: 5, price: 2700 }
                 ]
             },
@@ -397,18 +403,38 @@
                 foodPrices: { food1: 36, food2: 108, food3: 195 },
                 dishes: [
                     // THÊM CÁC MÓN ĂN SET 2 TẠI ĐÂY
-                    { id: 1, name: 'Hàu nướng', food1: 1, food2: 0, food3: 0, price: 24 },
-                    { id: 2, name: 'Bạch tuộc ngâm', food1: 3, food2: 0, food3: 0, price: 108 },
-                    { id: 3, name: 'Shasimi cá đuối', food1: 5, food2: 0, food3: 0, price: 240 },
-                    { id: 4, name: 'Tôm kỳ lạ', food1: 2, food2: 1, food3: 0, price: 192 },
-                    { id: 5, name: 'Phô mai muối', food1: 4, food2: 2, food3: 0, price: 456 },
-                    { id: 6, name: 'Thuỷ Long Nướng', food1: 6, food2: 3, food3: 0, price: 738 },
-                    { id: 7, name: 'Cánh cá người', food1: 5, food2: 2, food3: 1, price: 504 },
-                    { id: 8, name: 'Rắn biển', food1: 8, food2: 4, food3: 0, price: 633 },
-                    { id: 9, name: 'Rồng biển xào', food1: 3, food2: 2, food3: 0, price: 270 },
-                    { id: 10, name: 'Cá mập sừng ma', food1: 8, food2: 5, food3: 3, price: 1050 },
-                    { id: 11, name: 'Mực máu ngân rượu', food1: 10, food2: 6, food3: 0, price: 943 },
-                    { id: 12, name: 'Rắn biển xào', food1: 8, food2: 4, food3: 0, price: 792 }
+                    { id: 1, name: 'Hàu nướng', food1: 1, food2: 0, food3: 0, price: 24 }, //full
+                    { id: 2, name: 'Bạch tuộc ngâm', food1: 3, food2: 0, food3: 0, price: 108 }, //full
+                    { id: 3, name: 'Shasimi cá đuối', food1: 5, food2: 0, food3: 0, price: 240 }, //full
+                    { id: 4, name: 'Tôm kỳ lạ', food1: 2, food2: 1, food3: 0, price: 192 }, //full
+                    { id: 5, name: 'Phô mai muối', food1: 4, food2: 2, food3: 0, price: 456 }, //full
+                    { id: 6, name: 'Thuỷ Long Nướng', food1: 6, food2: 3, food3: 0, price: 738 }, //full
+                    { id: 7, name: 'Cánh cá người', food1: 5, food2: 2, food3: 1, price: 630 },
+                    { id: 8, name: 'Rắn biển', food1: 8, food2: 4, food3: 0, price: 1056 }, //full
+                    { id: 9, name: 'Rồng biển xào', food1: 3, food2: 2, food3: 0, price: 360 },//full
+                    { id: 10, name: 'Cá mập sừng ma', food1: 8, food2: 5, food3: 3, price: 1260 },
+                    { id: 11, name: 'Mực máu ngân rượu', food1: 10, food2: 6, food3: 0, price: 1572 }, //full
+                    { id: 12, name: 'Súp vi lao', food1: 20, food2: 10, food3: 5, price: 2250 }
+                ]
+            },
+            set3: {
+                id: 'set3',
+                name: 'Set 3 (Đảo Thú)',
+                foodPrices: { food1: 48, food2: 144, food3: 240 },
+                dishes: [
+                    // THÊM CÁC MÓN ĂN SET 3 TẠI ĐÂY
+                    { id: 1, name: 'Hàu nướng', food1: 1, food2: 0, food3: 0, price: 24 }, //full
+                    { id: 2, name: 'Bạch tuộc ngâm', food1: 3, food2: 0, food3: 0, price: 108 }, //full
+                    { id: 3, name: 'Shasimi cá đuối', food1: 5, food2: 0, food3: 0, price: 240 }, //full
+                    { id: 4, name: 'Tôm kỳ lạ', food1: 2, food2: 1, food3: 0, price: 192 }, //full
+                    { id: 5, name: 'Phô mai muối', food1: 4, food2: 2, food3: 0, price: 456 }, //full
+                    { id: 6, name: 'Thuỷ Long Nướng', food1: 6, food2: 3, food3: 0, price: 738 }, //full
+                    { id: 7, name: 'Cánh cá người', food1: 5, food2: 2, food3: 1, price: 630 },
+                    { id: 8, name: 'Rắn biển', food1: 8, food2: 4, food3: 0, price: 1056 }, //full
+                    { id: 9, name: 'Rồng biển xào', food1: 3, food2: 2, food3: 0, price: 360 },//full
+                    { id: 10, name: 'Cá mập sừng ma', food1: 8, food2: 5, food3: 3, price: 1260 },
+                    { id: 11, name: 'Mực máu ngân rượu', food1: 10, food2: 6, food3: 0, price: 1572 }, //full
+                    { id: 12, name: 'Súp vi lao', food1: 20, food2: 10, food3: 5, price: 2250 }
                 ]
             }
             // Thêm set3, set4,... tại đây
@@ -451,11 +477,11 @@
         // Khởi tạo state cho các set
         function initializeStates() {
             const savedStates = loadFromLocalStorage();
-            
+
             Object.keys(SETS).forEach(setKey => {
                 const set = SETS[setKey];
                 const savedSetState = savedStates[setKey];
-                
+
                 setStates[setKey] = {
                     dishes: set.dishes.map(dish => {
                         if (savedSetState) {
@@ -481,33 +507,33 @@
             const rate1 = parseFloat(document.getElementById(`${setKey}-rate1`).value) || 0;
             const rate2 = parseFloat(document.getElementById(`${setKey}-rate2`).value) || 0;
             const rate3 = parseFloat(document.getElementById(`${setKey}-rate3`).value) || 0;
-            
+
             setStates[setKey].foodDropRate = {
                 food1: rate1 / 100,
                 food2: rate2 / 100,
                 food3: rate3 / 100
             };
-            
+
             // Cập nhật tổng và cảnh báo
             const total = rate1 + rate2 + rate3;
             document.getElementById(`${setKey}-totalRate`).textContent = total.toFixed(2);
-            
+
             const warning = document.getElementById(`${setKey}-rateWarning`);
             if (Math.abs(total - 100) > 0.01) {
                 warning.style.display = 'inline';
             } else {
                 warning.style.display = 'none';
             }
-            
+
             // Cập nhật label của nguyên liệu
             const set = SETS[setKey];
-            document.getElementById(`${setKey}-food1-label`).textContent = 
+            document.getElementById(`${setKey}-food1-label`).textContent =
                 `Food 1 (${rate1.toFixed(0)}% - Giá lẻ: ${set.foodPrices.food1})`;
-            document.getElementById(`${setKey}-food2-label`).textContent = 
+            document.getElementById(`${setKey}-food2-label`).textContent =
                 `Food 2 (${rate2.toFixed(0)}% - Giá lẻ: ${set.foodPrices.food2})`;
-            document.getElementById(`${setKey}-food3-label`).textContent = 
+            document.getElementById(`${setKey}-food3-label`).textContent =
                 `Food 3 (${rate3.toFixed(0)}% - Giá lẻ: ${set.foodPrices.food3})`;
-            
+
             saveToLocalStorage();
             renderDishTable(setKey);
             const result = calculateSetStrategy(setKey);
@@ -518,9 +544,9 @@
         // Tính chi phí cơ hội
         function calculateOpportunityCost(dish, setKey) {
             const foodPrices = SETS[setKey].foodPrices;
-            return dish.food1 * foodPrices.food1 + 
-                   dish.food2 * foodPrices.food2 + 
-                   dish.food3 * foodPrices.food3;
+            return dish.food1 * foodPrices.food1 +
+                dish.food2 * foodPrices.food2 +
+                dish.food3 * foodPrices.food3;
         }
 
         // Đánh giá món ăn (dựa trên hiệu suất + lợi nhuận)
@@ -536,7 +562,7 @@
         // Tạo tabs
         function createTabs() {
             const tabsContainer = document.getElementById('setTabs');
-            tabsContainer.innerHTML = Object.keys(SETS).map((setKey, index) => 
+            tabsContainer.innerHTML = Object.keys(SETS).map((setKey, index) =>
                 `<div class="tab ${index === 0 ? 'active' : ''}" onclick="switchTab('${setKey}')">
                     ${SETS[setKey].name}
                 </div>`
@@ -546,11 +572,11 @@
         // Switch tab
         function switchTab(setKey) {
             currentSet = setKey;
-            
+
             // Update active tab
             document.querySelectorAll('.tab').forEach(tab => tab.classList.remove('active'));
             event.target.classList.add('active');
-            
+
             // Update active content
             document.querySelectorAll('.tab-content').forEach(content => content.classList.remove('active'));
             document.getElementById(`content-${setKey}`).classList.add('active');
@@ -654,19 +680,19 @@
         function renderDishTable(setKey) {
             const tbody = document.getElementById(`${setKey}-table-body`);
             const dishes = setStates[setKey].dishes;
-            
+
             tbody.innerHTML = dishes.map(dish => {
                 const opportunityCost = calculateOpportunityCost(dish, setKey);
                 const { profit, efficiency } = calculateDishEfficiency(dish, setKey);
                 const rating = getRating(profit, efficiency);
-                
+
                 // Màu sắc cho hiệu suất
                 let efficiencyColor = '#666';
                 if (efficiency >= 100) efficiencyColor = '#ffd700'; // Vàng - Xuất sắc
                 else if (efficiency >= 60) efficiencyColor = '#28a745'; // Xanh - Tốt
                 else if (efficiency >= 30) efficiencyColor = '#17a2b8'; // Xanh dương - Khá
                 else if (efficiency < 0) efficiencyColor = '#dc3545'; // Đỏ - Tệ
-                
+
                 return `
                     <tr>
                     <td class="checkbox-cell">
@@ -726,10 +752,10 @@
         function calculateDishEfficiency(dish, setKey) {
             const opportunityCost = calculateOpportunityCost(dish, setKey);
             const profit = dish.price - opportunityCost;
-            
+
             // Lấy tỷ lệ rơi của set này
             const dropRate = setStates[setKey].foodDropRate;
-            
+
             // Trọng số khan hiếm dựa trên tỷ lệ rơi (số càng cao = càng khan hiếm)
             // Nếu tỷ lệ rơi = 0, chỉ tính trọng số nếu món cần loại nguyên liệu đó
             // Nếu món không cần loại đó (dish.foodX = 0), trọng số = 0 để không ảnh hưởng
@@ -741,24 +767,24 @@
                 }
                 return 1 / rate;
             };
-            
+
             const scarcityWeights = {
                 food1: getWeight(dropRate.food1, dish.food1),
                 food2: getWeight(dropRate.food2, dish.food2),
                 food3: getWeight(dropRate.food3, dish.food3)
             };
-            
+
             // Tổng chi phí có trọng số (weighted cost)
-            const weightedCost = 
-                dish.food1 * scarcityWeights.food1 + 
-                dish.food2 * scarcityWeights.food2 + 
+            const weightedCost =
+                dish.food1 * scarcityWeights.food1 +
+                dish.food2 * scarcityWeights.food2 +
                 dish.food3 * scarcityWeights.food3;
-            
+
             // Hiệu suất = Lợi nhuận / Chi phí có trọng số
             // Món nào hiệu suất cao = tận dụng nguyên liệu tốt hơn
             // Nếu weightedCost = Infinity (cần nguyên liệu không rơi) -> hiệu suất = 0
             const efficiency = (weightedCost > 0 && isFinite(weightedCost)) ? profit / weightedCost : 0;
-            
+
             return { profit, efficiency, weightedCost };
         }
 
@@ -766,11 +792,11 @@
         function calculateSimpleEfficiency(dish, setKey) {
             const opportunityCost = calculateOpportunityCost(dish, setKey);
             const profit = dish.price - opportunityCost;
-            
+
             // Hiệu suất đơn giản = lợi nhuận / tổng số nguyên liệu cần
             const totalIngredients = dish.food1 + dish.food2 + dish.food3;
             const efficiency = totalIngredients > 0 ? profit / totalIngredients : 0;
-            
+
             return { profit, efficiency };
         }
 
@@ -781,9 +807,9 @@
             const enabledDishes = setStates[setKey].dishes.filter(d => d.enabled);
 
             // Tính tổng giá bán lẻ
-            const totalRetail = ingredients.food1 * foodPrices.food1 + 
-                               ingredients.food2 * foodPrices.food2 + 
-                               ingredients.food3 * foodPrices.food3;
+            const totalRetail = ingredients.food1 * foodPrices.food1 +
+                ingredients.food2 * foodPrices.food2 +
+                ingredients.food3 * foodPrices.food3;
 
             // Tính lợi nhuận và hiệu suất đơn giản cho mỗi món
             const dishProfits = enabledDishes.map(dish => {
@@ -823,8 +849,8 @@
 
             // Tính giá trị nguyên liệu dư
             const remainingValue = remaining.food1 * foodPrices.food1 +
-                                  remaining.food2 * foodPrices.food2 +
-                                  remaining.food3 * foodPrices.food3;
+                remaining.food2 * foodPrices.food2 +
+                remaining.food3 * foodPrices.food3;
 
             const finalRevenue = totalRevenue + remainingValue;
             const profitIncrease = finalRevenue - totalRetail;
@@ -848,9 +874,9 @@
             const enabledDishes = setStates[setKey].dishes.filter(d => d.enabled);
 
             // Tính tổng giá bán lẻ
-            const totalRetail = ingredients.food1 * foodPrices.food1 + 
-                               ingredients.food2 * foodPrices.food2 + 
-                               ingredients.food3 * foodPrices.food3;
+            const totalRetail = ingredients.food1 * foodPrices.food1 +
+                ingredients.food2 * foodPrices.food2 +
+                ingredients.food3 * foodPrices.food3;
 
             // Tính lợi nhuận và hiệu suất (dùng drop rate) cho mỗi món
             const dishProfits = enabledDishes.map(dish => {
@@ -890,8 +916,8 @@
 
             // Tính giá trị nguyên liệu dư
             const remainingValue = remaining.food1 * foodPrices.food1 +
-                                  remaining.food2 * foodPrices.food2 +
-                                  remaining.food3 * foodPrices.food3;
+                remaining.food2 * foodPrices.food2 +
+                remaining.food3 * foodPrices.food3;
 
             const finalRevenue = totalRevenue + remainingValue;
             const profitIncrease = finalRevenue - totalRetail;
@@ -913,28 +939,28 @@
         function calculate1000FoodStrategy() {
             const results = {};
             const TOTAL_FOOD = 1000;
-            
+
             Object.keys(SETS).forEach(setKey => {
                 // Lấy tỷ lệ rơi của set này
                 const dropRate = setStates[setKey].foodDropRate;
                 const totalRate = dropRate.food1 + dropRate.food2 + dropRate.food3;
-                
+
                 // Tính nguyên liệu theo tỷ lệ rơi của set (nếu tổng != 1, normalize)
                 const normalizedRate = totalRate > 0 ? {
                     food1: dropRate.food1 / totalRate,
                     food2: dropRate.food2 / totalRate,
                     food3: dropRate.food3 / totalRate
                 } : { food1: 0.65, food2: 0.25, food3: 0.10 };
-                
+
                 const ingredients = {
                     food1: Math.round(TOTAL_FOOD * normalizedRate.food1),
                     food2: Math.round(TOTAL_FOOD * normalizedRate.food2),
                     food3: Math.round(TOTAL_FOOD * normalizedRate.food3)
                 };
-                
+
                 // Tính toán với drop rate
                 const result = calculateSetStrategyWithDropRate(setKey, ingredients);
-                
+
                 results[setKey] = {
                     setName: SETS[setKey].name,
                     ingredients: ingredients, // Lưu lại số nguyên liệu đã dùng
@@ -945,7 +971,7 @@
                     strategy: result.strategy
                 };
             });
-            
+
             return results;
         }
 
@@ -953,7 +979,7 @@
         function displaySetStrategy(setKey, result) {
             const content = document.getElementById(`${setKey}-strategy`);
             const foodPrices = SETS[setKey].foodPrices;
-            
+
             if (result.strategy.length === 0) {
                 content.innerHTML = `
                     <div class="strategy-item">
@@ -964,7 +990,7 @@
             } else {
                 let html = '<div class="strategy-item"><h3>🎯 Chiến Lược Nấu Ăn Tối Ưu:</h3>';
                 html += '<p style="font-size: 0.9em; opacity: 0.9; margin-bottom: 10px;">Sắp xếp theo lợi nhuận/nguyên liệu (dựa trên số lượng hiện tại)</p>';
-                
+
                 result.strategy.forEach((item, index) => {
                     html += `
                         <p><strong>${index + 1}. ${item.dish.name}</strong>: 
@@ -1012,7 +1038,7 @@
         // Hiển thị so sánh giữa các set
         function displayComparison() {
             const results1000 = calculate1000FoodStrategy();
-            
+
             // Tìm set tốt nhất
             let bestSet = null;
             let maxRevenue = -Infinity;
@@ -1022,7 +1048,7 @@
                     bestSet = setKey;
                 }
             });
-            
+
             const comparisonHTML = Object.keys(results1000)
                 .sort((a, b) => results1000[b].finalRevenue - results1000[a].finalRevenue) // Sắp xếp giảm dần
                 .map(setKey => {
@@ -1030,7 +1056,7 @@
                     const isBest = setKey === bestSet;
                     const diff = maxRevenue - result.finalRevenue;
                     const diffPercent = result.finalRevenue > 0 ? (diff / result.finalRevenue * 100) : 0;
-                    
+
                     return `
                         <div class="set-card ${isBest ? 'best' : ''}">
                             <h3>${isBest ? '🏆 ' : ''}${result.setName}</h3>
@@ -1051,13 +1077,13 @@
                         </div>
                     `;
                 }).join('');
-            
+
             // Tính khoảng cách giữa set tốt nhất và set thứ 2
             const sortedSets = Object.keys(results1000)
                 .sort((a, b) => results1000[b].finalRevenue - results1000[a].finalRevenue);
             const secondBestRevenue = sortedSets.length > 1 ? results1000[sortedSets[1]].finalRevenue : 0;
             const advantage = maxRevenue - secondBestRevenue;
-            
+
             document.getElementById('setComparison').innerHTML = `
                 <p style="text-align: center; font-size: 1.1em; margin-bottom: 20px; padding: 15px; background: rgba(255,255,255,0.2); border-radius: 8px;">
                     <strong>${results1000[bestSet].setName}</strong> cho thu nhập <strong>${maxRevenue.toFixed(0)}</strong>
@@ -1067,7 +1093,7 @@
                     ${comparisonHTML}
                 </div>
             `;
-            
+
             // Tính chênh lệch so với set tốt nhất
             const comparisonDetails = Object.keys(results1000)
                 .filter(setKey => setKey !== bestSet)
@@ -1099,11 +1125,11 @@
                     </p>
                     <p style="font-size: 0.85em; opacity: 0.85; margin-bottom: 15px; padding: 10px; background: rgba(255,255,255,0.1); border-radius: 5px;">
                         ${Object.keys(results1000).map(setKey => {
-                            const r = results1000[setKey];
-                            const rate = r.dropRate;
-                            return `<strong>${r.setName}</strong>: ${r.ingredients.food1}-${r.ingredients.food2}-${r.ingredients.food3} 
-                                    <span style="opacity: 0.7;">(${(rate.food1*100).toFixed(0)}%-${(rate.food2*100).toFixed(0)}%-${(rate.food3*100).toFixed(0)}%)</span>`;
-                        }).join('<br>')}
+                const r = results1000[setKey];
+                const rate = r.dropRate;
+                return `<strong>${r.setName}</strong>: ${r.ingredients.food1}-${r.ingredients.food2}-${r.ingredients.food3} 
+                                    <span style="opacity: 0.7;">(${(rate.food1 * 100).toFixed(0)}%-${(rate.food2 * 100).toFixed(0)}%-${(rate.food3 * 100).toFixed(0)}%)</span>`;
+            }).join('<br>')}
                     </p>
                     <p style="font-size: 1.2em; margin: 15px 0;">
                         <strong>→ NÊN FARM TẠI: ${results1000[bestSet].setName}</strong>
@@ -1130,9 +1156,9 @@
                     ` : ''}
                     
                     <h4 style="margin-top: 20px;">📋 Chiến lược nấu món tại ${results1000[bestSet].setName}:</h4>
-                    ${results1000[bestSet].strategy.map((item, index) => 
-                        `<p>${index + 1}. <strong>${item.dish.name}</strong>: Nấu ${item.count} món → ${item.revenue.toFixed(0)}</p>`
-                    ).join('')}
+                    ${results1000[bestSet].strategy.map((item, index) =>
+                `<p>${index + 1}. <strong>${item.dish.name}</strong>: Nấu ${item.count} món → ${item.revenue.toFixed(0)}</p>`
+            ).join('')}
                 </div>
                 
                 ${Object.keys(results1000)
@@ -1149,9 +1175,9 @@
                                     <span style="color: #ff6b6b; font-weight: 600;">(Kém ${diff.toFixed(0)})</span>
                                 </p>
                                 ${result.strategy.length > 0 ? `
-                                    ${result.strategy.map((item, index) => 
-                                        `<p style="font-size: 0.95em;">${index + 1}. <strong>${item.dish.name}</strong>: Nấu ${item.count} món → ${item.revenue.toFixed(0)}</p>`
-                                    ).join('')}
+                                    ${result.strategy.map((item, index) =>
+                            `<p style="font-size: 0.95em;">${index + 1}. <strong>${item.dish.name}</strong>: Nấu ${item.count} món → ${item.revenue.toFixed(0)}</p>`
+                        ).join('')}
                                 ` : '<p style="color: #ff6b6b;">Không có chiến lược lợi nhuận (nên bán lẻ)</p>'}
                             </div>
                         `;
@@ -1200,12 +1226,12 @@
                         </thead>
                         <tbody>
                             ${Object.keys(results1000)
-                                .sort((a, b) => results1000[b].finalRevenue - results1000[a].finalRevenue)
-                                .map((setKey, index) => {
-                                    const result = results1000[setKey];
-                                    const diff = result.finalRevenue - results1000[bestSet].finalRevenue;
-                                    const isBest = setKey === bestSet;
-                                    return `
+                    .sort((a, b) => results1000[b].finalRevenue - results1000[a].finalRevenue)
+                    .map((setKey, index) => {
+                        const result = results1000[setKey];
+                        const diff = result.finalRevenue - results1000[bestSet].finalRevenue;
+                        const isBest = setKey === bestSet;
+                        return `
                                         <tr style="background: ${isBest ? 'rgba(255, 215, 0, 0.2)' : 'transparent'};">
                                             <td style="padding: 10px; font-weight: 600;">
                                                 ${isBest ? '🏆 ' : ''}${result.setName}
@@ -1225,12 +1251,12 @@
                                             </td>
                                         </tr>
                                     `;
-                                }).join('')}
+                    }).join('')}
                         </tbody>
                     </table>
                 </div>
             `;
-            
+
             document.getElementById('overallStrategy').innerHTML = overallHTML;
         }
 
@@ -1262,4 +1288,5 @@
         calculateAll();
     </script>
 </body>
+
 </html>
