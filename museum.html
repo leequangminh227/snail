@@ -1,10 +1,13 @@
 <!DOCTYPE html>
 <html lang="vi">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Bảo Tàng</title>
-    <link href="https://fonts.googleapis.com/css2?family=Noto+Serif:wght@400;600;700&family=Crimson+Pro:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link
+        href="https://fonts.googleapis.com/css2?family=Noto+Serif:wght@400;600;700&family=Crimson+Pro:wght@400;500;600;700&display=swap"
+        rel="stylesheet">
     <style>
         * {
             margin: 0;
@@ -284,8 +287,15 @@
         }
 
         @keyframes pulse-available {
-            0%, 100% { box-shadow: 0 4px 15px rgba(74, 222, 128, 0.4); }
-            50% { box-shadow: 0 4px 25px rgba(74, 222, 128, 0.7); }
+
+            0%,
+            100% {
+                box-shadow: 0 4px 15px rgba(74, 222, 128, 0.4);
+            }
+
+            50% {
+                box-shadow: 0 4px 25px rgba(74, 222, 128, 0.7);
+            }
         }
 
         .node.in-progress {
@@ -543,7 +553,9 @@
         }
 
         @keyframes dash {
-            to { stroke-dashoffset: -12; }
+            to {
+                stroke-dashoffset: -12;
+            }
         }
 
 
@@ -571,7 +583,7 @@
                 height: 55px;
                 font-size: 1.1em;
             }
-            
+
             .left-sidebar {
                 position: static;
                 max-height: none;
@@ -599,6 +611,7 @@
         }
     </style>
 </head>
+
 <body>
     <div class="container">
         <div class="header">
@@ -617,11 +630,11 @@
                     <div class="sidebar-title">Tổng Điểm Cần Dùng</div>
                     <div class="sidebar-total-points" id="totalPointsAllMaps">0</div>
                 </div>
-                
+
                 <button class="sidebar-reset-btn" onclick="resetAllNodes()">
                     🔄 Reset Toàn Bộ Node
                 </button>
-                
+
                 <div class="sidebar-section">
                     <div class="sidebar-title">Danh Sách Bảo Tàng</div>
                     <ul class="museum-list" id="museumList">
@@ -664,7 +677,7 @@
             MID_RIGHT: 65,
             RIGHT: 80
         };
-        
+
         const MUSEUMS = {
             caoLien: {
                 id: 'caoLien',
@@ -689,11 +702,13 @@
                         row: 1, col: COLS.LEFT, colName: 'LEFT',
                         requires: [1],
                         milestones: [
-                            { level: 1, points: 50, effects: [
-                                'Nhận Thẻ hoạt động bảo tàng',
-                                'Tốc độ ký hợp đồng thường +10%',
-                                'Giới hạn lưu trữ hợp đồng thường +4'
-                            ]}
+                            {
+                                level: 1, points: 50, effects: [
+                                    'Nhận Thẻ hoạt động bảo tàng',
+                                    'Tốc độ ký hợp đồng thường +10%',
+                                    'Giới hạn lưu trữ hợp đồng thường +4'
+                                ]
+                            }
                         ]
                     },
                     3: {
@@ -749,11 +764,13 @@
                         row: 3, col: COLS.LEFT, colName: 'LEFT',
                         requires: [4],
                         milestones: [
-                            { level: 1, points: 100, effects: [
-                                'Tốc độ ký hợp đồng thường +10%',
-                                'Giới hạn lưu trữ hợp đồng thường +4',
-                                'Mở khóa trang trí khu triển lãm Lam Bình (Sảnh Trụ)'
-                            ]}
+                            {
+                                level: 1, points: 100, effects: [
+                                    'Tốc độ ký hợp đồng thường +10%',
+                                    'Giới hạn lưu trữ hợp đồng thường +4',
+                                    'Mở khóa trang trí khu triển lãm Lam Bình (Sảnh Trụ)'
+                                ]
+                            }
                         ]
                     },
                     // Row 4: 10, 11, 8 (con của cột giữa 7 - thấp hơn row 3)
@@ -799,9 +816,11 @@
                         row: 5, col: COLS.RIGHT, colName: 'RIGHT',
                         requires: [8],
                         milestones: [
-                            { level: 1, points: 100, effects: [
-                                'Tất cả du khách tham quan, điểm thích +5%'
-                            ]}
+                            {
+                                level: 1, points: 100, effects: [
+                                    'Tất cả du khách tham quan, điểm thích +5%'
+                                ]
+                            }
                         ]
                     },
                     // Row 6: 12, 15, 14 (con của 11 - cột giữa, phải thấp hơn row 5)
@@ -847,10 +866,12 @@
                         row: 7, col: COLS.LEFT, colName: 'LEFT',
                         requires: [12],
                         milestones: [
-                            { level: 1, points: 100, effects: [
-                                'Tất cả du khách tham quan, điểm thích +5%',
-                                'Mở khóa trang trí đặc sắc khu triển lãm Lam Bình'
-                            ]}
+                            {
+                                level: 1, points: 100, effects: [
+                                    'Tất cả du khách tham quan, điểm thích +5%',
+                                    'Mở khóa trang trí đặc sắc khu triển lãm Lam Bình'
+                                ]
+                            }
                         ]
                     },
                     // Row 8: 16, 25, 20 (con của 15 - cột giữa, phải thấp hơn row 7)
@@ -860,9 +881,11 @@
                         row: 8, col: COLS.LEFT_MID, colName: 'LEFT_MID',
                         requires: [15],
                         milestones: [
-                            { level: 1, points: 200, effects: [
-                                'Nhận giấy phép xây dựng khu triển lãm Đông Phú'
-                            ]}
+                            {
+                                level: 1, points: 200, effects: [
+                                    'Nhận giấy phép xây dựng khu triển lãm Đông Phú'
+                                ]
+                            }
                         ]
                     },
                     25: {
@@ -897,11 +920,13 @@
                         row: 9, col: COLS.LEFT_MID, colName: 'LEFT_MID',
                         requires: [25],
                         milestones: [
-                            { level: 1, points: 200, effects: [
-                                'Tốc độ ký hợp đồng thường +10%',
-                                'Giới hạn lưu trữ hợp đồng thường +4',
-                                'Mở khóa trang trí khu triển lãm Lam Bình (Tường Vẽ)'
-                            ]}
+                            {
+                                level: 1, points: 200, effects: [
+                                    'Tốc độ ký hợp đồng thường +10%',
+                                    'Giới hạn lưu trữ hợp đồng thường +4',
+                                    'Mở khóa trang trí khu triển lãm Lam Bình (Tường Vẽ)'
+                                ]
+                            }
                         ]
                     },
                     'empty': {
@@ -911,14 +936,18 @@
                         requires: [25],
                         isEmpty: true,
                         milestones: [
-                            { level: 1, points: 300, effects: [
-                                'Du khách thường tham quan, 5% xác suất nhân 2',
-                                'Giới hạn tặng hoa +10'
-                            ]},
-                            { level: 2, points: 400, effects: [
-                                'Du khách thường tham quan, 10% xác suất nhân 2',
-                                'Giới hạn tặng hoa +20'
-                            ]}
+                            {
+                                level: 1, points: 300, effects: [
+                                    'Du khách thường tham quan, 5% xác suất nhân 2',
+                                    'Giới hạn tặng hoa +10'
+                                ]
+                            },
+                            {
+                                level: 2, points: 400, effects: [
+                                    'Du khách thường tham quan, 10% xác suất nhân 2',
+                                    'Giới hạn tặng hoa +20'
+                                ]
+                            }
                         ]
                     }
                 },
@@ -931,7 +960,7 @@
                     // From node 4
                     [4, 5],
                     // From node 7 - connects to 8 and 11
-                    [7, 8], [7,10], [7, 11],
+                    [7, 8], [7, 10], [7, 11],
                     // From node 8
                     [8, 9],
                     [11, 12], [11, 14], [11, 15],
@@ -1161,11 +1190,13 @@
                         row: 9, col: COLS.MIDDLE, colName: 'MIDDLE',
                         requires: [44],
                         milestones: [
-                            { level: 1, points: 1200, effects: [
-                                'Tốc độ ký hợp đồng thường +10%',
-                                'Giới hạn lưu trữ hợp đồng thường +4',
-                                'Mở khóa trang trí'
-                            ] }
+                            {
+                                level: 1, points: 1200, effects: [
+                                    'Tốc độ ký hợp đồng thường +10%',
+                                    'Giới hạn lưu trữ hợp đồng thường +4',
+                                    'Mở khóa trang trí'
+                                ]
+                            }
                         ]
                     }
                 },
@@ -1426,11 +1457,13 @@
                         row: 8, col: COLS.MID_RIGHT, colName: 'MID_RIGHT',
                         requires: [68],
                         milestones: [
-                            { level: 1, points: 2000, effects: [
-                                'Tốc độ ký hợp đồng thường +10%',
-                                'Giới hạn lưu trữ hợp đồng thường +4',
-                                'Mở khóa trang trí'
-                            ] }
+                            {
+                                level: 1, points: 2000, effects: [
+                                    'Tốc độ ký hợp đồng thường +10%',
+                                    'Giới hạn lưu trữ hợp đồng thường +4',
+                                    'Mở khóa trang trí'
+                                ]
+                            }
                         ]
                     }
                 },
@@ -1921,8 +1954,8 @@
                         row: 8, col: COLS.RIGHT, colName: 'RIGHT',
                         requires: [85],
                         milestones: [
-                            { level: 1, points: 3500, effects: ['Tất cả du khách tham quan, điểm thích +5%'] },
-                            { level: 2, points: 4000, effects: ['Tất cả du khách tham quan, điểm thích +10%, Mở khóa trang trí'] }
+                            { level: 1, points: 3500, effects: ['Tỉ lệ crit thích +5%'] },
+                            { level: 2, points: 4000, effects: ['Tỉ lệ crit thích +10%, Mở khóa trang trí'] }
                         ]
                     },
                     // Row 9: 92 (LEFT), empty7 (MIDDLE)
@@ -1946,7 +1979,7 @@
                         milestones: [
                             { level: 1, points: 4000, effects: ['+Kinh doanh'] },
                             { level: 2, points: 4500, effects: ['+Kinh doanh'] },
-                            { level: 3, points: 5000, effects: ['+Kinh doanh'] },   
+                            { level: 3, points: 5000, effects: ['+Kinh doanh'] },
                             { level: 4, points: 5500, effects: ['+Kinh doanh'] },
                             { level: 5, points: 6000, effects: ['+Kinh doanh, 40 mảnh bv'] }
                         ]
@@ -3136,7 +3169,7 @@
             const museum = MUSEUMS[currentMap];
             const nodesContainer = document.getElementById('treeNodes');
             const wrapper = document.getElementById('treeWrapper');
-            
+
             // Calculate wrapper dimensions
             const wrapperWidth = wrapper.offsetWidth || 600;
             const nodeSize = 60;
@@ -3147,7 +3180,7 @@
                 const nodeProgress = getNodeProgress(currentMap, node.id);
                 const isSelected = selectedNode === node.id;
                 const totalMilestones = node.milestones.length;
-                
+
                 // Determine node state for coloring
                 let nodeClass = 'locked'; // Default: dark/locked
                 if (nodeProgress.currentLevel > 0 && nodeProgress.currentLevel < totalMilestones) {
@@ -3155,17 +3188,17 @@
                 } else if (nodeProgress.currentLevel >= totalMilestones) {
                     nodeClass = 'maxed'; // Complete: gold
                 }
-                
+
                 // Calculate position based on row and col
                 const x = (node.col / 100) * wrapperWidth;
                 const y = node.row * ROW_HEIGHT + 20;
-                
+
                 // Special styling for empty node
                 const isEmptyNode = node.isEmpty === true;
                 const specialClass = node.isSpecial ? 'special-node' : '';
                 const displayId = isEmptyNode ? '☯' : node.id;
                 const nodeIdStr = typeof node.id === 'string' ? `'${node.id}'` : node.id;
-                
+
                 // Add red color styling if isOne is true
                 const textStyle = node.isOne ? 'color: #ef4444;' : '';
 
@@ -3192,11 +3225,11 @@
             const nodeRadius = 30;
 
             let svgContent = '';
-            
+
             museum.connections.forEach(([fromId, toId]) => {
                 const fromNode = museum.nodes[fromId];
                 const toNode = museum.nodes[toId];
-                
+
                 if (!fromNode || !toNode) return;
 
                 // Calculate positions
@@ -3207,7 +3240,7 @@
 
                 // Always use default line class, no coloring
                 let lineClass = 'tree-line';
-                
+
                 // Special dashed line for special nodes
                 if (toNode.isSpecial) {
                     lineClass += ' special-line';
@@ -3233,13 +3266,13 @@
             const state = getNodeState(currentMap, nodeId);
 
             const panel = document.getElementById('detailPanel');
-            
+
             // Check if this is the empty/special node
             const isEmptyNode = node.isEmpty === true;
             const isSpecialNode = node.isSpecial === true;
             const displayId = isEmptyNode ? '☯' : node.id;
             const nodeIdArg = typeof nodeId === 'string' ? `'${nodeId}'` : nodeId;
-            
+
             let requirementsHTML = '';
             if (node.requires.length > 0) {
                 requirementsHTML = `
@@ -3247,16 +3280,16 @@
                         <strong style="color: #d4af37;">Yêu cầu:</strong>
                         <ul style="margin-top: 8px; list-style: none;">
                             ${node.requires.map(reqId => {
-                                const reqNode = museum.nodes[reqId];
-                                const reqState = getNodeState(currentMap, reqId);
-                                const isComplete = reqState === 'maxed';
-                                const reqDisplayId = reqNode.isEmpty ? '☯' : reqId;
-                                return `
+                    const reqNode = museum.nodes[reqId];
+                    const reqState = getNodeState(currentMap, reqId);
+                    const isComplete = reqState === 'maxed';
+                    const reqDisplayId = reqNode.isEmpty ? '☯' : reqId;
+                    return `
                                     <li style="margin: 5px 0; color: ${isComplete ? '#4ade80' : '#ff6b6b'};">
                                         ${isComplete ? '✓' : '✗'} Node ${reqDisplayId}: ${reqNode.name}
                                     </li>
                                 `;
-                            }).join('')}
+                }).join('')}
                         </ul>
                     </div>
                 `;
@@ -3265,7 +3298,7 @@
             const milestonesHTML = node.milestones.map((milestone, index) => {
                 const isCompleted = nodeProgress.currentLevel > index;
                 const isCurrent = nodeProgress.currentLevel === index;
-                
+
                 return `
                     <div class="milestone-item ${isCompleted ? 'completed' : ''} ${isCurrent ? 'current' : ''}">
                         <div class="milestone-header">
@@ -3278,13 +3311,13 @@
                         </div>
                         <ul class="milestone-effects">
                             ${milestone.effects.map(effect => {
-                                let effectClass = 'effect-positive';
-                                // if (effect.includes('+')) effectClass = 'effect-positive';
-                                // else if (effect.includes('Mở khóa')) effectClass = 'effect-unlock';
-                                // else if (effect.includes('Nhận')) effectClass = 'effect-special';
-                                // else if (effect.includes('%')) effectClass = 'effect-positive';
-                                return `<li class="${effectClass}">${effect}</li>`;
-                            }).join('')}
+                    let effectClass = 'effect-positive';
+                    // if (effect.includes('+')) effectClass = 'effect-positive';
+                    // else if (effect.includes('Mở khóa')) effectClass = 'effect-unlock';
+                    // else if (effect.includes('Nhận')) effectClass = 'effect-special';
+                    // else if (effect.includes('%')) effectClass = 'effect-positive';
+                    return `<li class="${effectClass}">${effect}</li>`;
+                }).join('')}
                         </ul>
                     </div>
                 `;
@@ -3295,7 +3328,7 @@
             for (let i = 0; i < nodeProgress.currentLevel; i++) {
                 pointsSpent += node.milestones[i].points;
             }
-            
+
             // Column info
             const colInfo = node.colName ? `<span style="font-size: 0.8em; color: #888;">[Cột: ${node.colName}]</span>` : '';
 
@@ -3304,15 +3337,14 @@
                     <h2>${isEmptyNode ? '☯ ' : ''}${node.name}</h2>
                     <span class="node-id">${isEmptyNode ? 'Node Đặc Biệt' : `Node ${displayId}`} ${colInfo}</span>
                     ${isSpecialNode ? '<div style="margin-top: 5px; font-size: 0.85em; color: #f472b6;">✨ Node nhánh đặc biệt</div>' : ''}
-                    <div style="margin-top: 10px; color: ${
-                        state === 'maxed' ? '#d4af37' : 
-                        state === 'completed' ? '#38bdf8' :
+                    <div style="margin-top: 10px; color: ${state === 'maxed' ? '#d4af37' :
+                    state === 'completed' ? '#38bdf8' :
                         state === 'in-progress' ? '#fbbf24' :
-                        state === 'available' ? '#4ade80' : '#666'
-                    };">
-                        ${state === 'maxed' ? '⭐ ĐÃ MAX' : 
-                          state === 'in-progress' ? '🔄 ĐANG NÂNG' :
-                          state === 'available' ? '✓ CÓ THỂ NÂNG' : '🔒 CHƯA MỞ KHÓA'}
+                            state === 'available' ? '#4ade80' : '#666'
+                };">
+                        ${state === 'maxed' ? '⭐ ĐÃ MAX' :
+                    state === 'in-progress' ? '🔄 ĐANG NÂNG' :
+                        state === 'available' ? '✓ CÓ THỂ NÂNG' : '🔒 CHƯA MỞ KHÓA'}
                     </div>
                 </div>
 
@@ -3348,14 +3380,14 @@
         function updateStats() {
             // Calculate total points spent across ALL museums
             let totalPointsAllMaps = 0;
-            
+
             Object.keys(MUSEUMS).forEach(mapId => {
                 const museum = MUSEUMS[mapId];
                 const nodes = Object.values(museum.nodes);
-                
+
                 nodes.forEach(node => {
                     const nodeProgress = getNodeProgress(mapId, node.id);
-                    
+
                     for (let i = 0; i < nodeProgress.currentLevel; i++) {
                         totalPointsAllMaps += node.milestones[i].points;
                     }
@@ -3375,7 +3407,7 @@
                         progress[mapId].nodes[nodeId] = { currentLevel: 0 };
                     });
                 });
-                
+
                 saveProgress();
                 renderTree();
                 updateStats();
@@ -3390,7 +3422,7 @@
         function init() {
             // Update title based on current map
             document.getElementById('mapTitle').textContent = `Bảo tàng ${MUSEUMS[currentMap].name}`;
-            
+
             renderMuseumList();
             renderTree();
             updateStats();
@@ -3406,5 +3438,5 @@
         init();
     </script>
 </body>
-</html>
 
+</html>
