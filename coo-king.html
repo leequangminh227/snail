@@ -172,99 +172,173 @@
         }
 
         .strategy-section {
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            color: white;
-            padding: 25px;
-            border-radius: 10px;
-            margin-top: 20px;
+            background: #ffffff;
+            color: #333;
+            padding: 30px;
+            border-radius: 20px;
+            margin-top: 30px;
+            border: 1px solid #e0e0e0;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.05);
         }
 
         .strategy-section h2 {
-            color: white;
+            color: #764ba2;
+            margin-bottom: 25px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .strategy-card {
+            background: #f8f9fa;
+            border-radius: 15px;
+            padding: 20px;
             margin-bottom: 20px;
+            border-left: 5px solid #667eea;
         }
 
-        .strategy-item {
-            background: rgba(255, 255, 255, 0.2);
-            padding: 15px;
-            border-radius: 8px;
-            margin-bottom: 15px;
-            backdrop-filter: blur(10px);
+        .strategy-card.highlight {
+            background: linear-gradient(135deg, #fdfcfb 0%, #e2d1c3 100%);
+            border-left-color: #ffd700;
         }
 
-        .strategy-item h3 {
+        .cooking-step {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            padding: 12px;
+            background: white;
+            border-radius: 10px;
             margin-bottom: 10px;
-            font-size: 1.2em;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05);
         }
 
-        .strategy-item p {
-            margin: 5px 0;
-            line-height: 1.6;
+        .step-number {
+            background: #667eea;
+            color: white;
+            width: 28px;
+            height: 28px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            flex-shrink: 0;
         }
 
         .total-box {
-            background: rgba(255, 255, 255, 0.95);
-            color: #333;
-            padding: 20px;
-            border-radius: 10px;
-            margin-top: 15px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 25px;
+            border-radius: 15px;
             text-align: center;
+            margin-top: 20px;
         }
 
         .total-box h3 {
-            color: #667eea;
-            font-size: 1.8em;
+            color: rgba(255, 255, 255, 0.9);
+            font-size: 1.2em;
             margin-bottom: 10px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
         }
 
         .total-box .amount {
-            font-size: 2.5em;
-            font-weight: 700;
-            color: #28a745;
+            font-size: 3em;
+            font-weight: 800;
+            text-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
         }
 
-        .comparison {
-            margin-top: 15px;
-            font-size: 1.1em;
+        .comparison-summary {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 20px;
+            margin-top: 20px;
         }
 
-        .badge {
-            display: inline-block;
-            padding: 3px 8px;
-            border-radius: 12px;
-            font-size: 0.85em;
-            font-weight: 600;
-            margin-left: 5px;
+        .set-card {
+            background: white;
+            padding: 20px;
+            border-radius: 15px;
+            border: 1px solid #eee;
+            transition: all 0.3s;
+            position: relative;
+            overflow: hidden;
         }
 
-        .badge-best {
+        .set-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+        }
+
+        .set-card.best {
+            border: 2px solid #ffd700;
+            background: #fffdf0;
+        }
+
+        .set-card.best::before {
+            content: "KHUYÊN DÙNG";
+            position: absolute;
+            top: 10px;
+            right: -30px;
             background: #ffd700;
             color: #333;
+            padding: 5px 40px;
+            font-size: 0.7em;
+            font-weight: bold;
+            transform: rotate(45deg);
         }
 
-        .badge-good {
-            background: #28a745;
-            color: white;
+        .info-pill {
+            display: inline-block;
+            padding: 4px 12px;
+            background: #e9ecef;
+            border-radius: 20px;
+            font-size: 0.85em;
+            color: #495057;
+            margin-top: 10px;
         }
 
-        .badge-bad {
-            background: #dc3545;
-            color: white;
+        .explanation-box {
+            background: #eef2ff;
+            border-radius: 15px;
+            padding: 20px;
+            margin-top: 25px;
+            border-left: 5px solid #17a2b8;
         }
 
+        .explanation-box h4 {
+            color: #17a2b8;
+            margin-bottom: 10px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        /* Buttons */
         .back-button,
         .reset-button {
-            display: inline-block;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
             padding: 10px 20px;
-            background: #f8f9fa;
+            background: white;
             color: #667eea;
             text-decoration: none;
-            border-radius: 8px;
+            border-radius: 12px;
             font-weight: 600;
             transition: all 0.3s;
             border: 2px solid #667eea;
             cursor: pointer;
             font-family: inherit;
+            font-size: 0.95em;
+        }
+
+        .back-button:hover {
+            background: #667eea;
+            color: white;
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(102, 126, 234, 0.3);
         }
 
         .reset-button {
@@ -272,50 +346,40 @@
             border-color: #dc3545;
         }
 
-        .back-button:hover {
-            background: #667eea;
-            color: white;
-            transform: translateY(-2px);
-            box-shadow: 0 4px 12px rgba(102, 126, 234, 0.4);
-        }
-
         .reset-button:hover {
             background: #dc3545;
             color: white;
             transform: translateY(-2px);
-            box-shadow: 0 4px 12px rgba(220, 53, 69, 0.4);
+            box-shadow: 0 5px 15px rgba(220, 53, 69, 0.3);
         }
 
-        .comparison-section {
-            background: linear-gradient(135deg, #28a745 0%, #20c997 100%);
-            color: white;
-            padding: 25px;
-            border-radius: 10px;
-            margin-top: 20px;
+        /* Badges for table */
+        .badge {
+            display: inline-block;
+            padding: 4px 10px;
+            border-radius: 20px;
+            font-size: 0.8em;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
         }
 
-        .comparison-section h2 {
-            color: white;
-            margin-bottom: 20px;
+        .badge-best {
+            background: #fff9db;
+            color: #f08c00;
+            border: 1px solid #ffe066;
         }
 
-        .set-comparison {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 15px;
-            margin-top: 15px;
+        .badge-good {
+            background: #ebfbee;
+            color: #2b8a3e;
+            border: 1px solid #b2f2bb;
         }
 
-        .set-card {
-            background: rgba(255, 255, 255, 0.2);
-            padding: 15px;
-            border-radius: 8px;
-            backdrop-filter: blur(10px);
-        }
-
-        .set-card.best {
-            background: rgba(255, 215, 0, 0.3);
-            border: 3px solid #ffd700;
+        .badge-bad {
+            background: #fff5f5;
+            color: #c92a2a;
+            border: 1px solid #ffc9c9;
         }
 
         @media (max-width: 768px) {
@@ -420,7 +484,7 @@
             set3: {
                 id: 'set3',
                 name: 'Set 3 (Đảo Thú)',
-                foodPrices: { food1: 48, food2: 144, food3: 240 },
+                foodPrices: { food1: 48, food2: 144, food3: 260 },
                 dishes: [
                     // THÊM CÁC MÓN ĂN SET 3 TẠI ĐÂY
                     { id: 1, name: 'Bánh quy nhện', food1: 1, food2: 0, food3: 0, price: 32 }, //full
@@ -979,33 +1043,50 @@
 
             if (result.strategy.length === 0) {
                 content.innerHTML = `
-                    <div class="strategy-item">
-                        <h3>⚠️ Không có chiến lược lợi nhuận</h3>
-                        <p>Tất cả các món đều lỗ hoặc không đủ nguyên liệu. Nên bán lẻ nguyên liệu!</p>
+                    <div class="strategy-card">
+                        <h3>⚠️ Không có chiến lược nấu ăn tối ưu</h3>
+                        <p>Dựa trên giá bán hiện tại, việc nấu ăn không mang lại thêm lợi nhuận so với bán lẻ nguyên liệu.</p>
+                        <p style="margin-top: 10px; color: #dc3545; font-weight: bold;">Lời khuyên: Nên bán lẻ toàn bộ nguyên liệu!</p>
                     </div>
                 `;
             } else {
-                let html = '<div class="strategy-item"><h3>🎯 Chiến Lược Nấu Ăn Tối Ưu:</h3>';
-                html += '<p style="font-size: 0.9em; opacity: 0.9; margin-bottom: 10px;">Sắp xếp theo lợi nhuận/nguyên liệu (dựa trên số lượng hiện tại)</p>';
+                let html = '<div class="strategy-card"><h3>👨‍� Hướng Dẫn Nấu Ăn Tối Ưu:</h3>';
 
                 result.strategy.forEach((item, index) => {
                     html += `
-                        <p><strong>${index + 1}. ${item.dish.name}</strong>: 
-                        Nấu <strong>${item.count} món</strong> 
-                        → Thu về <strong>${item.revenue.toFixed(0)}</strong> 
-                        (Lợi nhuận: <strong>+${item.netProfit.toFixed(0)}</strong>)</p>
+                        <div class="cooking-step">
+                            <div class="step-number">${index + 1}</div>
+                            <div style="flex-grow: 1;">
+                                <strong>${item.dish.name}</strong>: Nấu <strong>${item.count}</strong> món
+                            </div>
+                            <div style="text-align: right; font-size: 0.9em; color: #28a745; font-weight: bold;">
+                                +${item.netProfit.toFixed(0)} 🎉
+                            </div>
+                        </div>
                     `;
                 });
-
                 html += '</div>';
 
                 html += `
-                    <div class="strategy-item">
-                        <h3>📊 Nguyên Liệu Còn Lại:</h3>
-                        <p>Food1: <strong>${result.remaining.food1}</strong> (${(result.remaining.food1 * foodPrices.food1).toFixed(0)})</p>
-                        <p>Food2: <strong>${result.remaining.food2}</strong> (${(result.remaining.food2 * foodPrices.food2).toFixed(0)})</p>
-                        <p>Food3: <strong>${result.remaining.food3}</strong> (${(result.remaining.food3 * foodPrices.food3).toFixed(0)})</p>
-                        <p>Tổng giá trị bán lẻ dư: <strong>${result.remainingValue.toFixed(0)}</strong></p>
+                    <div class="strategy-card">
+                        <h3>� Tận Dụng Nguyên Liệu:</h3>
+                        <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; text-align: center;">
+                            <div style="padding: 10px; background: white; border-radius: 8px;">
+                                <div style="font-size: 0.8em; color: #666;">CÒN DƯ F1</div>
+                                <div style="font-weight: bold;">${result.remaining.food1}</div>
+                                <div style="font-size: 0.75em; color: #999;">~${(result.remaining.food1 * foodPrices.food1).toFixed(0)}</div>
+                            </div>
+                            <div style="padding: 10px; background: white; border-radius: 8px;">
+                                <div style="font-size: 0.8em; color: #666;">CÒN DƯ F2</div>
+                                <div style="font-weight: bold;">${result.remaining.food2}</div>
+                                <div style="font-size: 0.75em; color: #999;">~${(result.remaining.food2 * foodPrices.food2).toFixed(0)}</div>
+                            </div>
+                            <div style="padding: 10px; background: white; border-radius: 8px;">
+                                <div style="font-size: 0.8em; color: #666;">CÒN DƯ F3</div>
+                                <div style="font-weight: bold;">${result.remaining.food3}</div>
+                                <div style="font-size: 0.75em; color: #999;">~${(result.remaining.food3 * foodPrices.food3).toFixed(0)}</div>
+                            </div>
+                        </div>
                     </div>
                 `;
 
@@ -1014,19 +1095,15 @@
 
             content.innerHTML += `
                 <div class="total-box">
-                    <h3>💰 TỔNG THU NHẬP</h3>
+                    <h3>💰 TỔNG THU NHẬP MỤC TIÊU</h3>
                     <div class="amount">${result.finalRevenue.toFixed(0)}</div>
-                    <div class="comparison">
-                        <p>• Tổng bán món ăn: <strong>${result.totalRevenue.toFixed(0)}</strong></p>
-                        <p>• Tổng giá trị nguyên liệu còn lại: <strong>${result.remainingValue.toFixed(0)}</strong></p>
-                        <p style="border-top: 2px solid #ddd; padding-top: 10px; margin-top: 10px;">
-                            So với bán lẻ toàn bộ: <strong>${result.totalRetail.toFixed(0)}</strong>
-                        </p>
-                        <p style="font-size: 1.3em; color: ${result.profitIncrease >= 0 ? '#28a745' : '#dc3545'}">
-                            ${result.profitIncrease >= 0 ? '✓' : '✗'} 
-                            <strong>${result.profitIncrease >= 0 ? '+' : ''}${result.profitIncrease.toFixed(0)} 
-                            (${result.profitIncrease >= 0 ? '+' : ''}${result.profitPercent.toFixed(1)}%)</strong>
-                        </p>
+                    <div style="margin-top: 15px; padding-top: 15px; border-top: 1px solid rgba(255,255,255,0.2); font-size: 0.95em;">
+                        <span style="opacity: 0.9;">So với bán lẻ (<strong>${result.totalRetail.toFixed(0)}</strong>):</span>
+                        <div style="font-size: 1.4em; font-weight: bold; margin-top: 5px;">
+                            ${result.profitIncrease >= 0 ? '📈 Lời Thêm' : '📉 Lỗ'} 
+                            ${result.profitIncrease >= 0 ? '+' : ''}${result.profitIncrease.toFixed(0)} 
+                            (${result.profitPercent.toFixed(1)}%)
+                        </div>
                     </div>
                 </div>
             `;
@@ -1036,7 +1113,6 @@
         function displayComparison() {
             const results1000 = calculate1000FoodStrategy();
 
-            // Tìm set tốt nhất
             let bestSet = null;
             let maxRevenue = -Infinity;
             Object.keys(results1000).forEach(setKey => {
@@ -1047,7 +1123,7 @@
             });
 
             const comparisonHTML = Object.keys(results1000)
-                .sort((a, b) => results1000[b].finalRevenue - results1000[a].finalRevenue) // Sắp xếp giảm dần
+                .sort((a, b) => results1000[b].finalRevenue - results1000[a].finalRevenue)
                 .map(setKey => {
                     const result = results1000[setKey];
                     const isBest = setKey === bestSet;
@@ -1056,201 +1132,89 @@
 
                     return `
                         <div class="set-card ${isBest ? 'best' : ''}">
-                            <h3>${isBest ? '🏆 ' : ''}${result.setName}</h3>
-                            <p style="font-size: 1.5em; font-weight: 700; margin: 10px 0;">
+                            <div style="font-weight: bold; font-size: 1.1em; color: ${isBest ? '#764ba2' : '#666'}">${result.setName}</div>
+                            <div style="font-size: 1.8em; font-weight: 800; margin: 10px 0; color: #333;">
                                 ${result.finalRevenue.toFixed(0)}
-                            </p>
-                            <p>Lợi nhuận: <strong style="color: ${result.profitIncrease >= 0 ? '#90EE90' : '#FF6B6B'}">
-                                ${result.profitIncrease >= 0 ? '+' : ''}${result.profitIncrease.toFixed(0)} 
-                                (${result.profitPercent.toFixed(1)}%)
-                            </strong></p>
+                            </div>
+                            <div style="color: ${result.profitIncrease >= 0 ? '#28a745' : '#dc3545'}; font-weight: bold; font-size: 0.9em;">
+                                ${result.profitIncrease >= 0 ? 'Lời' : 'Lỗ'}: +${result.profitPercent.toFixed(1)}%
+                            </div>
                             ${!isBest ? `
-                                <p style="margin-top: 10px; padding: 8px; background: rgba(220, 53, 69, 0.2); border-radius: 5px;">
-                                    <span style="color: #ff6b6b; font-weight: 600;">
-                                        ↓ Kém ${diff.toFixed(0)} (-${diffPercent.toFixed(1)}%)
-                                    </span>
-                                </p>
-                            ` : '<p style="margin-top: 10px; font-weight: 600; color: #ffd700;">⭐ FARM Ở ĐÂY!</p>'}
+                                <div style="margin-top: 10px; color: #dc3545; font-size: 0.85em;">
+                                    ↓ Thấp hơn ${diff.toFixed(0)} (-${diffPercent.toFixed(1)}%)
+                                </div>
+                            ` : '<div style="margin-top: 10px; color: #ffd700; font-weight: bold;">⭐ LỰA CHỌN TỐT NHẤT</div>'}
                         </div>
                     `;
                 }).join('');
 
-            // Tính khoảng cách giữa set tốt nhất và set thứ 2
             const sortedSets = Object.keys(results1000)
                 .sort((a, b) => results1000[b].finalRevenue - results1000[a].finalRevenue);
-            const secondBestRevenue = sortedSets.length > 1 ? results1000[sortedSets[1]].finalRevenue : 0;
-            const advantage = maxRevenue - secondBestRevenue;
+            const advantage = maxRevenue - (sortedSets.length > 1 ? results1000[sortedSets[1]].finalRevenue : 0);
 
             document.getElementById('setComparison').innerHTML = `
-                <p style="text-align: center; font-size: 1.1em; margin-bottom: 20px; padding: 15px; background: rgba(255,255,255,0.2); border-radius: 8px;">
-                    <strong>${results1000[bestSet].setName}</strong> cho thu nhập <strong>${maxRevenue.toFixed(0)}</strong>
-                    ${sortedSets.length > 1 ? `— Lời hơn set gần nhất <strong style="color: #ffd700;">${advantage.toFixed(0)}</strong>` : ''}
-                </p>
-                <div class="set-comparison">
+                <div style="background: #eef2ff; padding: 20px; border-radius: 15px; margin-bottom: 20px; text-align: center;">
+                    <div style="font-size: 1.1em;">Đảo mang lại thu nhập cao nhất: <strong style="color: #764ba2;">${results1000[bestSet].setName}</strong></div>
+                    <div style="font-size: 1.5em; font-weight: 800; color: #28a745; margin: 5px 0;">${maxRevenue.toFixed(0)} Vàng</div>
+                    ${sortedSets.length > 1 ? `<div style="font-size: 0.9em; color: #666;">Vượt trội hơn đảo gần nhất <span style="color: #764ba2; font-weight: bold;">${advantage.toFixed(0)}</span> Vàng</div>` : ''}
+                </div>
+                <div class="comparison-summary">
                     ${comparisonHTML}
                 </div>
             `;
 
-            // Tính chênh lệch so với set tốt nhất
-            const comparisonDetails = Object.keys(results1000)
-                .filter(setKey => setKey !== bestSet)
-                .map(setKey => {
-                    const result = results1000[setKey];
-                    const diff = results1000[bestSet].finalRevenue - result.finalRevenue;
-                    const diffPercent = result.finalRevenue > 0 ? (diff / result.finalRevenue * 100) : 0;
-                    return {
-                        setName: result.setName,
-                        revenue: result.finalRevenue,
-                        diff: diff,
-                        diffPercent: diffPercent
-                    };
-                })
-                .sort((a, b) => b.revenue - a.revenue); // Sắp xếp theo thu nhập giảm dần
-
-            // Tạo text mô tả nguyên liệu của từng đảo
-            const ingredientDescriptions = Object.keys(results1000).map(setKey => {
-                const r = results1000[setKey];
-                return `${r.setName}: ${r.ingredients.food1}-${r.ingredients.food2}-${r.ingredients.food3}`;
-            }).join(' | ');
-
             // Phân tích tổng thể
+            const best = results1000[bestSet];
             const overallHTML = `
-                <div class="strategy-item">
-                    <h3>🎯 KẾT LUẬN: Với 1000 Nguyên Liệu</h3>
-                    <p style="font-size: 0.9em; opacity: 0.9; margin-bottom: 10px;">
-                        <em>Phân bổ theo tỷ lệ rơi của từng đảo:</em>
-                    </p>
-                    <p style="font-size: 0.85em; opacity: 0.85; margin-bottom: 15px; padding: 10px; background: rgba(255,255,255,0.1); border-radius: 5px;">
-                        ${Object.keys(results1000).map(setKey => {
-                const r = results1000[setKey];
-                const rate = r.dropRate;
-                return `<strong>${r.setName}</strong>: ${r.ingredients.food1}-${r.ingredients.food2}-${r.ingredients.food3} 
-                                    <span style="opacity: 0.7;">(${(rate.food1 * 100).toFixed(0)}%-${(rate.food2 * 100).toFixed(0)}%-${(rate.food3 * 100).toFixed(0)}%)</span>`;
-            }).join('<br>')}
-                    </p>
-                    <p style="font-size: 1.2em; margin: 15px 0;">
-                        <strong>→ NÊN FARM TẠI: ${results1000[bestSet].setName}</strong>
-                    </p>
-                    <p>Thu nhập: <strong>${results1000[bestSet].finalRevenue.toFixed(0)}</strong></p>
-                    <p>Lợi nhuận: <strong>+${results1000[bestSet].profitIncrease.toFixed(0)} (+${results1000[bestSet].profitPercent.toFixed(1)}%)</strong></p>
-                    
-                    ${comparisonDetails.length > 0 ? `
-                        <div style="margin-top: 20px; padding: 15px; background: rgba(255,255,255,0.1); border-radius: 8px;">
-                            <h4 style="margin-bottom: 10px;">📉 So Sánh Với Các Set Khác:</h4>
-                            ${comparisonDetails.map(comp => `
-                                <p style="font-size: 0.95em; margin: 8px 0;">
-                                    • Farm tại <strong>${comp.setName}</strong>: 
-                                    ${comp.revenue.toFixed(0)} 
-                                    <span style="color: #ff6b6b; font-weight: 600;">
-                                        (-${comp.diff.toFixed(0)} hoặc -${comp.diffPercent.toFixed(1)}%)
-                                    </span>
-                                </p>
-                            `).join('')}
-                            <p style="margin-top: 12px; color: #ffd700; font-weight: 600;">
-                                → Lợi thế farm ${results1000[bestSet].setName}: Lời hơn ${comparisonDetails[0].diff.toFixed(0)} so với set gần nhất!
-                            </p>
+                <div class="strategy-card highlight">
+                    <h3 style="color: #764ba2; margin-bottom: 15px;">🏆 KHUYÊN DÙNG: FARM TẠI ${best.setName}</h3>
+                    <p style="margin-bottom: 10px;">Dựa trên phân tích <strong>1,000 nguyên liệu</strong> rơi theo tỷ lệ thực tế:</p>
+                    <div style="display: flex; gap: 20px; flex-wrap: wrap;">
+                        <div style="flex: 1; min-width: 200px;">
+                            <div style="font-size: 0.8em; color: #666;">TỔNG THU NHẬP</div>
+                            <div style="font-size: 1.8em; font-weight: 800; color: #28a745;">${best.finalRevenue.toFixed(0)}</div>
                         </div>
-                    ` : ''}
-                    
-                    <h4 style="margin-top: 20px;">📋 Chiến lược nấu món tại ${results1000[bestSet].setName}:</h4>
-                    ${results1000[bestSet].strategy.map((item, index) =>
-                `<p>${index + 1}. <strong>${item.dish.name}</strong>: Nấu ${item.count} món → ${item.revenue.toFixed(0)}</p>`
-            ).join('')}
+                        <div style="flex: 1; min-width: 200px;">
+                            <div style="font-size: 0.8em; color: #666;">LỢI NHUẬN TĂNG THÊM</div>
+                            <div style="font-size: 1.8em; font-weight: 800; color: #764ba2;">+${best.profitPercent.toFixed(1)}%</div>
+                            <div style="font-size: 0.8em; color: #666;">(+${best.profitIncrease.toFixed(0)} vàng)</div>
+                        </div>
+                    </div>
                 </div>
-                
-                ${Object.keys(results1000)
-                    .filter(setKey => setKey !== bestSet)
-                    .sort((a, b) => results1000[b].finalRevenue - results1000[a].finalRevenue)
-                    .map(setKey => {
-                        const result = results1000[setKey];
-                        const diff = results1000[bestSet].finalRevenue - result.finalRevenue;
-                        return `
-                            <div class="strategy-item" style="background: rgba(255,255,255,0.15); border-left: 4px solid #ff6b6b;">
-                                <h3>📋 Chiến Lược Tại ${result.setName}</h3>
-                                <p style="color: #ffb3b3; margin-bottom: 10px;">
-                                    Thu nhập: ${result.finalRevenue.toFixed(0)} 
-                                    <span style="color: #ff6b6b; font-weight: 600;">(Kém ${diff.toFixed(0)})</span>
-                                </p>
-                                ${result.strategy.length > 0 ? `
-                                    ${result.strategy.map((item, index) =>
-                            `<p style="font-size: 0.95em;">${index + 1}. <strong>${item.dish.name}</strong>: Nấu ${item.count} món → ${item.revenue.toFixed(0)}</p>`
-                        ).join('')}
-                                ` : '<p style="color: #ff6b6b;">Không có chiến lược lợi nhuận (nên bán lẻ)</p>'}
-                            </div>
-                        `;
-                    }).join('')}
-                
-                <div class="strategy-item" style="background: rgba(23, 162, 184, 0.2);">
-                    <h3>💡 Cách Tính Toán Hiệu Suất</h3>
-                    <p style="margin-top: 10px;"><strong>Hiệu suất = Lợi nhuận ÷ Trọng số nguyên liệu</strong></p>
-                    <p style="font-size: 0.9em; margin-top: 5px; color: #17a2b8;">
-                        <em>Trọng số = 1 / Tỷ lệ rơi. Nguyên liệu càng hiếm (tỷ lệ rơi thấp) → trọng số càng cao.</em>
-                    </p>
-                    
-                    <p style="margin-top: 15px;"><strong>📌 Quy tắc đặc biệt khi tỷ lệ rơi = 0%:</strong></p>
-                    <p style="font-size: 0.9em; padding: 8px; background: rgba(255,255,255,0.1); border-radius: 5px;">
-                        • Món <strong>KHÔNG cần</strong> nguyên liệu đó → Trọng số = 0 (không ảnh hưởng hiệu suất)<br>
-                        • Món <strong>CẦN</strong> nguyên liệu đó → Hiệu suất = 0 (không thể nấu được)
-                    </p>
-                    
-                    <p style="margin-top: 15px;"><strong>Ví dụ với tỷ lệ 90%-10%-0%:</strong></p>
-                    <p style="font-size: 0.9em;">
-                        • Food1 (90% rơi) → Trọng số 1.11<br>
-                        • Food2 (10% rơi) → Trọng số 10.00 (khan hiếm)<br>
-                        • Food3 (0% rơi) → Trọng số ∞ hoặc 0 (tùy món có cần hay không)
-                    </p>
-                    <p style="font-size: 0.9em; margin-top: 10px;">
-                        • <strong>Hàu nướng</strong>: Lợi nhuận -12, cần 1-0-0 → Hiệu suất = -12 ÷ (1×1.11) = <strong>-10.8</strong> ❌<br>
-                        • <strong>Shasimi cá đuối</strong>: Lợi nhuận 60, cần 5-0-0 → Hiệu suất = 60 ÷ (5×1.11) = <strong>10.8</strong> ✓<br>
-                        • <strong>Cánh cá người</strong>: Cần Food3 nhưng tỷ lệ rơi = 0% → Hiệu suất = <strong>0</strong> (không nấu được)
-                    </p>
-                    <p style="margin-top: 10px; color: #ffd700;">
-                        → Ưu tiên món <strong>không cần nguyên liệu hiếm</strong> và có <strong>hiệu suất cao</strong>!
+
+                <div class="strategy-card">
+                    <h4 style="margin-bottom: 15px;">👨‍🍳 Chiến lược nấu ăn tại ${best.setName}:</h4>
+                    ${best.strategy.map((item, index) => `
+                        <div class="cooking-step">
+                            <div class="step-number">${index + 1}</div>
+                            <div style="flex-grow: 1;"><strong>${item.dish.name}</strong>: Nấu <strong>${item.count}</strong> món</div>
+                            <div style="color: #28a745; font-weight: bold;">+${item.revenue.toFixed(0)}</div>
+                        </div>
+                    `).join('')}
+                </div>
+
+                <div class="explanation-box">
+                    <h4>💡 Giải Thích Chiến Thuật</h4>
+                    <p style="font-size: 0.95em; line-height: 1.6;">
+                        Tại sao chọn <strong>${best.setName}</strong> mặc dù có thể % lợi nhuận thấp hơn các đảo khác?
+                        <br><br>
+                        • <strong>Giá trị nguyên liệu:</strong> Mỗi đảo có giá trị nguyên liệu cơ bản khác nhau. Các đảo cấp cao thường có giá nguyên liệu đắt hơn.
+                        <br>
+                        • <strong>Thu nhập thực tế:</strong> Mục tiêu cuối cùng là <strong>tổng số tiền vàng</strong> bạn nhận được. 26% của một con số lớn (Set 3) vẫn tốt hơn 37% của một con số nhỏ (Set 2).
+                        <br>
+                        • <strong>Tận dụng drop rate:</strong> Công cụ đã tự động tính toán số nguyên liệu rơi ra theo đúng tỷ lệ (%) của đảo đó để đưa ra kết quả chính xác nhất.
                     </p>
                 </div>
-                
-                <div class="strategy-item">
-                    <h3>📊 Bảng So Sánh Toàn Bộ Các Set</h3>
-                    <table style="width: 100%; margin-top: 15px; border-collapse: collapse;">
-                        <thead>
-                            <tr style="background: rgba(255,255,255,0.1);">
-                                <th style="padding: 10px; text-align: left;">Set</th>
-                                <th style="padding: 10px; text-align: right;">Thu Nhập</th>
-                                <th style="padding: 10px; text-align: right;">Lợi Nhuận</th>
-                                <th style="padding: 10px; text-align: right;">Chênh Lệch</th>
-                                <th style="padding: 10px; text-align: center;">Xếp Hạng</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            ${Object.keys(results1000)
-                    .sort((a, b) => results1000[b].finalRevenue - results1000[a].finalRevenue)
-                    .map((setKey, index) => {
-                        const result = results1000[setKey];
-                        const diff = result.finalRevenue - results1000[bestSet].finalRevenue;
-                        const isBest = setKey === bestSet;
-                        return `
-                                        <tr style="background: ${isBest ? 'rgba(255, 215, 0, 0.2)' : 'transparent'};">
-                                            <td style="padding: 10px; font-weight: 600;">
-                                                ${isBest ? '🏆 ' : ''}${result.setName}
-                                            </td>
-                                            <td style="padding: 10px; text-align: right; font-weight: 600;">
-                                                ${result.finalRevenue.toFixed(0)}
-                                            </td>
-                                            <td style="padding: 10px; text-align: right; color: ${result.profitIncrease >= 0 ? '#90EE90' : '#FF6B6B'};">
-                                                ${result.profitIncrease >= 0 ? '+' : ''}${result.profitIncrease.toFixed(0)}
-                                                (${result.profitPercent.toFixed(1)}%)
-                                            </td>
-                                            <td style="padding: 10px; text-align: right; color: ${isBest ? '#FFD700' : '#FF6B6B'}; font-weight: 600;">
-                                                ${isBest ? '—' : diff.toFixed(0)}
-                                            </td>
-                                            <td style="padding: 10px; text-align: center; font-size: 1.2em;">
-                                                ${index === 0 ? '🥇' : index === 1 ? '🥈' : index === 2 ? '🥉' : ''}
-                                            </td>
-                                        </tr>
-                                    `;
-                    }).join('')}
-                        </tbody>
-                    </table>
+
+                <div class="explanation-box" style="background: #fdf2f2; border-left-color: #dc3545;">
+                    <h4 style="color: #dc3545;">📊 Hiệu Suất Món Ăn - Bạn cần biết</h4>
+                    <p style="font-size: 0.9em; line-height: 1.6;">
+                        <strong>Hiệu suất</strong> trong bảng món ăn được tính bằng <code>Lợi nhuận / Trọng số khan hiếm</code>.
+                        <br>
+                        - Món nào dùng nguyên liệu <strong>càng dễ kiếm (drop rate cao)</strong> mà vẫn có <strong>lợi nhuận tốt</strong> thì hiệu suất sẽ <strong>càng cao</strong>.
+                        <br>
+                        - Hãy ưu tiên nấu các món có hiệu suất cao nhất để không bị "kẹt" nguyên liệu hiếm!
+                    </p>
                 </div>
             `;
 
