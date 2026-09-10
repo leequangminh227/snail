@@ -609,6 +609,85 @@
         ::-webkit-scrollbar-thumb:hover {
             background: rgba(212, 175, 55, 0.5);
         }
+
+        /* Hover Image Tooltip */
+        .node-image-tooltip {
+            position: fixed;
+            pointer-events: none;
+            z-index: 99999;
+            display: none;
+            background: linear-gradient(135deg, rgba(26, 26, 46, 0.96) 0%, rgba(22, 33, 62, 0.96) 100%);
+            border: 2px solid #d4af37;
+            border-radius: 14px;
+            padding: 12px;
+            box-shadow: 0 12px 35px rgba(0, 0, 0, 0.8), 0 0 20px rgba(212, 175, 55, 0.35);
+            backdrop-filter: blur(8px);
+            width: 360px;
+            max-width: 90vw;
+            transition: opacity 0.15s ease, transform 0.15s ease;
+            opacity: 0;
+            transform: scale(0.92);
+        }
+
+        .node-image-tooltip.visible {
+            display: block;
+            opacity: 1;
+            transform: scale(1);
+        }
+
+        .node-tooltip-img-wrapper {
+            width: 100%;
+            height: 480px;
+            max-height: 65vh;
+            border-radius: 10px;
+            overflow: hidden;
+            background: rgba(0, 0, 0, 0.4);
+            border: 1px solid rgba(212, 175, 55, 0.25);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+        }
+
+        .node-tooltip-img-wrapper img {
+            width: 100%;
+            height: 100%;
+            object-fit: contain;
+            display: block;
+        }
+
+        .node-tooltip-title {
+            margin-top: 10px;
+            font-size: 1.05em;
+            font-weight: 700;
+            color: #d4af37;
+            text-align: center;
+            text-shadow: 0 2px 4px rgba(0, 0, 0, 0.5);
+        }
+
+        .node-tooltip-subtitle {
+            margin-top: 4px;
+            font-size: 0.8em;
+            color: #c4a77d;
+            text-align: center;
+            word-break: break-all;
+        }
+
+        .node-tooltip-fallback {
+            display: none;
+            padding: 15px 10px;
+            text-align: center;
+            color: #ef4444;
+            font-size: 0.85em;
+            width: 100%;
+        }
+
+        .node-tooltip-fallback.active {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 6px;
+        }
     </style>
 </head>
 
@@ -747,10 +826,11 @@
                     },
                     6: {
                         id: 6,
-                        name: 'Học Giả Lịch Sử',
+                        name: 'Nhà nghiên cứu lịch sử',
                         row: 2, col: COLS.RIGHT, colName: 'RIGHT',
                         requires: [3],
                         isOne: true,
+                        image: 'guest_6.jpg',
                         milestones: [
                             { level: 1, points: 50, effects: ['Mở khoá khách đặc biệt'] },
                             { level: 2, points: 100, effects: ['Khách đặc biệt này +10%'] },
@@ -776,10 +856,11 @@
                     // Row 4: 10, 11, 8 (con của cột giữa 7 - thấp hơn row 3)
                     10: {
                         id: 10,
-                        name: 'Nữ Đoàn Tập Luyện',
+                        name: 'Thực tập sinh nhóm nhạc nữ',
                         row: 4, col: COLS.LEFT, colName: 'LEFT',
                         requires: [7],
                         isOne: true,
+                        image: 'guest_10.jpg',
                         milestones: [
                             { level: 1, points: 100, effects: ['Mở khoá khách đặc biệt'] },
                             { level: 2, points: 150, effects: ['Khách đặc biệt này +10%'] },
@@ -849,10 +930,11 @@
                     },
                     14: {
                         id: 14,
-                        name: 'Thương Nhân Cổ Vật',
+                        name: 'Công tố viên',
                         row: 6, col: COLS.RIGHT, colName: 'RIGHT',
                         requires: [11],
                         isOne: true,
+                        image: 'guest_14.jpg',
                         milestones: [
                             { level: 1, points: 100, effects: ['Mở khoá khách đặc biệt'] },
                             { level: 2, points: 150, effects: ['Khách đặc biệt này +10%'] },
@@ -903,10 +985,11 @@
                     },
                     20: {
                         id: 20,
-                        name: 'Văn Vật Điệp Tử',
+                        name: 'Đại lý đồ cổ',
                         row: 8, col: COLS.MID_RIGHT, colName: 'MID_RIGHT',
                         requires: [15],
                         isOne: true,
+                        image: 'guest_20.jpg',
                         milestones: [
                             { level: 1, points: 300, effects: ['Mở khoá khách đặc biệt'] },
                             { level: 2, points: 400, effects: ['Khách đặc biệt này +10%'] },
@@ -1025,10 +1108,11 @@
                     // Row 3: 24 (LEFT, red border), 27 (MIDDLE), 22 (RIGHT)
                     24: {
                         id: 24,
-                        name: 'Khuyến Khích',
+                        name: 'Những người yêu nước cải cách',
                         row: 3, col: COLS.LEFT, colName: 'LEFT',
                         requires: [21],
                         isOne: true,
+                        image: 'guest_24.jpg',
                         milestones: [
                             { level: 1, points: 300, effects: ['Mở khoá khách đặc biệt'] },
                             { level: 2, points: 400, effects: ['Sản lượng khách đặc biệt này +10%'] },
@@ -1070,10 +1154,11 @@
                     },
                     28: {
                         id: 28,
-                        name: 'Giúp Sức Sản Xuất',
+                        name: 'Ninja',
                         row: 5, col: COLS.RIGHT, colName: 'RIGHT',
                         requires: [27],
                         isOne: true,
+                        image: 'guest_28.jpg',
                         milestones: [
                             { level: 1, points: 400, effects: ['Mở khoá khách đặc biệt'] },
                             { level: 2, points: 500, effects: ['Sản lượng khách đặc biệt này +10%'] },
@@ -1139,10 +1224,11 @@
                     },
                     32: {
                         id: 32,
-                        name: 'Nguyên Liệu Hiếm',
+                        name: 'Otaku',
                         row: 7, col: COLS.RIGHT, colName: 'RIGHT',
                         requires: [31],
                         isOne: true,
+                        image: 'guest_32.jpg',
                         milestones: [
                             { level: 1, points: 450, effects: ['Mở khoá khách đặc biệt'] },
                             { level: 2, points: 600, effects: ['Sản lượng khách đặc biệt này +10%'] },
@@ -1263,11 +1349,13 @@
                     },
                     36: {
                         id: 36,
-                        name: 'Du Lịch Xã Chiêu Tiêu',
+                        name: 'Nhà phát triển game',
                         row: 1, col: COLS.RIGHT, colName: 'RIGHT',
                         requires: [34],
+                        isOne: true,
+                        image: 'guest_36.jpg',
                         milestones: [
-                            { level: 1, points: 600, effects: ['Mở khóa khách đặc biệt'] },
+                            { level: 1, points: 600, effects: ['Mở khoá khách đặc biệt'] },
                             { level: 2, points: 800, effects: ['Sản lượng khách đặc biệt này +10%'] },
                             { level: 3, points: 1000, effects: ['Sản lượng khách đặc biệt này +20%'] }
                         ]
@@ -1297,10 +1385,11 @@
                     },
                     39: {
                         id: 39,
-                        name: 'Hoạt Động Tiếp Thị',
+                        name: 'Bo mạch chủ',
                         row: 2, col: COLS.RIGHT, colName: 'RIGHT',
                         requires: [37],
                         isOne: true,
+                        image: 'guest_39.jpg',
                         milestones: [
                             { level: 1, points: 800, effects: ['Mở khoá khách đặc biệt'] },
                             { level: 2, points: 1000, effects: ['Sản lượng khách đặc biệt này +10%'] },
@@ -1333,10 +1422,11 @@
                     },
                     42: {
                         id: 42,
-                        name: 'Hoạt Động Tiếp Thị',
+                        name: 'Thợ săn ma',
                         row: 3, col: COLS.RIGHT, colName: 'RIGHT',
                         requires: [40],
                         isOne: true,
+                        image: 'guest_42.jpg',
                         milestones: [
                             { level: 1, points: 1000, effects: ['Mở khoá khách đặc biệt'] },
                             { level: 2, points: 1200, effects: ['Sản lượng khách đặc biệt này +10%'] },
@@ -1369,10 +1459,11 @@
                     },
                     48: {
                         id: 48,
-                        name: 'Hoạt Động Tiếp Thị',
+                        name: 'Tình nguyện viên',
                         row: 4, col: COLS.RIGHT, colName: 'RIGHT',
                         requires: [47],
                         isOne: true,
+                        image: 'guest_48.jpg',
                         milestones: [
                             { level: 1, points: 1000, effects: ['Mở khoá khách đặc biệt'] },
                             { level: 2, points: 1200, effects: ['Sản lượng khách đặc biệt này +10%'] },
@@ -1561,10 +1652,11 @@
                     },
                     59: {
                         id: 59,
-                        name: 'Du Lịch Xã Chiêu Tiêu',
+                        name: 'Nhiếp ảnh gia',
                         row: 2, col: COLS.RIGHT, colName: 'RIGHT',
                         requires: [56],
                         isOne: true,
+                        image: 'guest_59.jpg',
                         milestones: [
                             { level: 1, points: 1500, effects: ['Mở khoá khách đặc biệt'] },
                             { level: 2, points: 2000, effects: ['Sản lượng khách đặc biệt này +10%'] },
@@ -1584,10 +1676,11 @@
                     // Row 4: 63 (LEFT), 64 (MIDDLE), 61 (RIGHT)
                     63: {
                         id: 63,
-                        name: 'Du Lịch Xã Chiêu Tiêu',
+                        name: 'Luật sư kinh doanh',
                         row: 4, col: COLS.LEFT, colName: 'LEFT',
                         requires: [60],
                         isOne: true,
+                        image: 'guest_63.jpg',
                         milestones: [
                             { level: 1, points: 2000, effects: ['Mở khoá khách đặc biệt'] },
                             { level: 2, points: 2250, effects: ['Sản lượng khách đặc biệt này +10%'] },
@@ -1653,10 +1746,11 @@
                     },
                     66: {
                         id: 66,
-                        name: 'Du Lịch Xã Chiêu Tiêu',
+                        name: 'Cán bộ văn hoá ốc sên',
                         row: 6, col: COLS.RIGHT, colName: 'RIGHT',
                         requires: [64],
                         isOne: true,
+                        image: 'guest_66.jpg',
                         milestones: [
                             { level: 1, points: 2500, effects: ['Mở khoá khách đặc biệt'] },
                             { level: 2, points: 2800, effects: ['Sản lượng khách đặc biệt này +10%'] },
@@ -1822,10 +1916,11 @@
                     },
                     77: {
                         id: 77,
-                        name: 'Du Lịch Xã Chiêu Tiêu',
+                        name: 'Bá tước phu nhân',
                         row: 2, col: COLS.RIGHT, colName: 'RIGHT',
                         requires: [74],
                         isOne: true,
+                        image: 'guest_77.jpg',
                         milestones: [
                             { level: 1, points: 2400, effects: ['Mở khoá khách đặc biệt'] },
                             { level: 2, points: 2800, effects: ['Khách du lịch đặc biệt, điểm thích +10%'] },
@@ -1845,10 +1940,11 @@
                     // Row 4: 81 (LEFT), 82 (MIDDLE), 79 (RIGHT)
                     81: {
                         id: 81,
-                        name: 'Du Lịch Xã Chiêu Tiêu',
+                        name: 'Nhà khảo cổ học',
                         row: 4, col: COLS.LEFT, colName: 'LEFT',
                         requires: [78],
                         isOne: true,
+                        image: 'guest_81.jpg',
                         milestones: [
                             { level: 1, points: 2500, effects: ['Mở khoá khách đặc biệt'] },
                             { level: 2, points: 3000, effects: ['Sản lượng khách đặc biệt này +10%'] },
@@ -1914,10 +2010,11 @@
                     },
                     84: {
                         id: 84,
-                        name: 'Du Lịch Xã Chiêu Tiêu',
+                        name: 'Thám tử tư',
                         row: 6, col: COLS.RIGHT, colName: 'RIGHT',
                         requires: [82],
                         isOne: true,
+                        image: 'guest_84.jpg',
                         milestones: [
                             { level: 1, points: 3200, effects: ['Mở khoá khách đặc biệt'] },
                             { level: 2, points: 3600, effects: ['Sản lượng khách đặc biệt này +10%'] },
@@ -2102,10 +2199,11 @@
                     },
                     94: {
                         id: 94,
-                        name: 'Du Lịch Xã Chiêu Tiêu',
+                        name: 'Thằn lằn cái',
                         row: 1, col: COLS.RIGHT, colName: 'RIGHT',
                         requires: [93],
                         isOne: true,
+                        image: 'guest_94.jpg',
                         milestones: [
                             { level: 1, points: 5500, effects: ['Mở khoá khách đặc biệt'] },
                             { level: 2, points: 6000, effects: ['Sản lượng khách đặc biệt này +10%'] },
@@ -2137,10 +2235,11 @@
                     },
                     96: {
                         id: 96,
-                        name: 'Du Lịch Xã Chiêu Tiêu',
+                        name: 'Người bán hàng rong',
                         row: 2, col: COLS.RIGHT, colName: 'RIGHT',
                         requires: [95],
                         isOne: true,
+                        image: 'guest_96.jpg',
                         milestones: [
                             { level: 1, points: 6000, effects: ['Mở khoá khách đặc biệt'] },
                             { level: 2, points: 7000, effects: ['Sản lượng khách đặc biệt này +10%'] },
@@ -2182,10 +2281,11 @@
                     },
                     101: {
                         id: 101,
-                        name: 'Du Lịch Xã Chiêu Tiêu',
+                        name: 'Thầy tế phục sinh',
                         row: 4, col: COLS.RIGHT, colName: 'RIGHT',
                         requires: [100],
                         isOne: true,
+                        image: 'guest_101.jpg',
                         milestones: [
                             { level: 1, points: 7000, effects: ['Mở khoá khách đặc biệt'] },
                             { level: 2, points: 8000, effects: ['Sản lượng khách đặc biệt này +10%'] },
@@ -2220,10 +2320,11 @@
                     },
                     104: {
                         id: 104,
-                        name: 'Du Lịch Xã Chiêu Tiêu',
+                        name: 'Haruhime 1/2',
                         row: 6, col: COLS.RIGHT, colName: 'RIGHT',
                         requires: [103],
                         isOne: true,
+                        image: 'guest_104.jpg',
                         milestones: [
                             { level: 1, points: 6500, effects: ['Mở khoá khách đặc biệt'] },
                             { level: 2, points: 8000, effects: ['Sản lượng khách đặc biệt này +10%'] },
@@ -2464,10 +2565,11 @@
                     },
                     116: {
                         id: 116,
-                        name: 'Du Lịch Xã Chiêu Tiêu',
+                        name: 'Robot làm sạch',
                         row: 3, col: COLS.RIGHT, colName: 'RIGHT',
                         requires: [115],
                         isOne: true,
+                        image: 'guest_116.jpg',
                         milestones: [
                             { level: 1, points: 9000, effects: ['Mở khoá khách đặc biệt'] },
                             { level: 2, points: 10500, effects: ['Khách đặc biệt này +10%'] },
@@ -2499,10 +2601,11 @@
                     },
                     119: {
                         id: 119,
-                        name: 'Du Lịch Xã Chiêu Tiêu',
+                        name: 'Nhà báo',
                         row: 4, col: COLS.RIGHT, colName: 'RIGHT',
                         requires: [117],
                         isOne: true,
+                        image: 'guest_119.jpg',
                         milestones: [
                             { level: 1, points: 10000, effects: ['Mở khoá khách đặc biệt'] },
                             { level: 2, points: 12000, effects: ['Khách đặc biệt này +10%'] },
@@ -2544,10 +2647,11 @@
                     },
                     122: {
                         id: 122,
-                        name: 'Du Lịch Xã Chiêu Tiêu',
+                        name: 'Kiểm soát viên cứu hoả',
                         row: 6, col: COLS.RIGHT, colName: 'RIGHT',
                         requires: [121],
                         isOne: true,
+                        image: 'guest_122.jpg',
                         milestones: [
                             { level: 1, points: 12000, effects: ['Mở khoá khách đặc biệt'] },
                             { level: 2, points: 14000, effects: ['Khách đặc biệt này +10%'] },
@@ -2812,8 +2916,9 @@
                         row: 3, col: COLS.RIGHT, colName: 'RIGHT',
                         requires: [135],
                         isOne: true,
+                        image: 'guest_136.jpg',
                         milestones: [
-                            { level: 1, points: 13000, effects: ['Mở khoá khách đặc biệt: Khổ hạnh tăng'] },
+                            { level: 1, points: 13000, effects: ['Mở khoá khách đặc biệt'] },
                             { level: 2, points: 16000, effects: ['Khách đặc biệt này +10%'] },
                             { level: 3, points: 19000, effects: ['Khách đặc biệt này +20%'] }
                         ]
@@ -2848,8 +2953,9 @@
                         row: 4, col: COLS.RIGHT, colName: 'RIGHT',
                         requires: [137],
                         isOne: true,
+                        image: 'guest_138.jpg',
                         milestones: [
-                            { level: 1, points: 16000, effects: ['Mở khoá khách đặc biệt: Ngoại quốc tĩnh tu khách'] },
+                            { level: 1, points: 16000, effects: ['Mở khoá khách đặc biệt'] },
                             { level: 2, points: 19000, effects: ['Khách đặc biệt này +10%'] },
                             { level: 3, points: 22000, effects: ['Khách đặc biệt này +20%'] }
                         ]
@@ -2895,6 +3001,7 @@
                         row: 6, col: COLS.RIGHT, colName: 'RIGHT',
                         requires: [141],
                         isOne: true,
+                        image: 'guest_142.jpg',
                         milestones: [
                             { level: 1, points: 16000, effects: ['Mở khoá khách đặc biệt: Thất thập nhị đại khương nhân'] },
                             { level: 2, points: 20000, effects: ['Khách đặc biệt này +10%'] },
@@ -3106,6 +3213,7 @@
             saveProgress();
             renderTree();
             updateStats();
+            initNodeImageHover();
             if (selectedNode === nodeId) {
                 showNodeDetail(nodeId);
             }
@@ -3207,6 +3315,7 @@
                          style="left: ${x}px; top: ${y}px; ${textStyle}"
                          onclick="selectNode(${nodeIdStr})"
                          data-id="${node.id}"
+                         data-image="${node.image || ''}"
                          title="${node.name} [${node.colName}]">
                         ${displayId}
                     </div>
@@ -3332,6 +3441,17 @@
             // Column info
             const colInfo = node.colName ? `<span style="font-size: 0.8em; color: #888;">[Cột: ${node.colName}]</span>` : '';
 
+            const imageHTML = node.image ? `
+                <div style="margin-bottom: 15px; text-align: center; background: rgba(0,0,0,0.3); padding: 10px; border-radius: 12px; border: 1px solid rgba(212,175,55,0.3);">
+                    <img src="images/museum/${node.image}" alt="${node.name}" 
+                         onerror="this.style.display='none'; this.nextElementSibling.style.display='block';"
+                         style="width: 100%; max-height: 550px; object-fit: contain; border-radius: 8px; border: 1px solid #d4af37; box-shadow: 0 4px 15px rgba(0,0,0,0.5);" />
+                    <div style="display:none; padding: 8px; color: #888; font-size: 0.85em;">
+                        🖼️ <code>images/museum/${node.image}</code> (Chưa tìm thấy file)
+                    </div>
+                </div>
+            ` : '';
+
             panel.innerHTML = `
                 <div class="detail-header">
                     <h2>${isEmptyNode ? '☯ ' : ''}${node.name}</h2>
@@ -3349,6 +3469,7 @@
                 </div>
 
                 ${requirementsHTML}
+                ${imageHTML}
 
                 <div style="margin-bottom: 15px; text-align: center; color: #c4a77d;">
                     Tiến độ: <strong style="color: #d4af37;">${nodeProgress.currentLevel}/${node.milestones.length}</strong>
@@ -3437,6 +3558,93 @@
 
         init();
     </script>
+
+    <!-- Hover Image Tooltip Container -->
+    <div id="nodeImageTooltip" class="node-image-tooltip">
+        <div id="nodeTooltipImgWrapper" class="node-tooltip-img-wrapper">
+            <img id="nodeTooltipImg" src="" alt="Guest Image">
+            <div id="nodeTooltipFallback" class="node-tooltip-fallback">
+                <span style="font-size: 1.6em;">🖼️</span>
+                <span style="font-weight: 600;">Chưa có file ảnh</span>
+                <span style="font-size: 0.8em; color: #aaa;">Vui lòng thêm file <code class="fallback-filename"
+                        style="color: #fbbf24; background: rgba(0,0,0,0.4); padding: 2px 5px; border-radius: 4px;"></code>
+                    vào <br><code>images/museum/</code></span>
+            </div>
+        </div>
+        <div id="nodeTooltipTitle" class="node-tooltip-title"></div>
+        <div id="nodeTooltipSubtitle" class="node-tooltip-subtitle"></div>
+    </div>
+
+    <script>
+        // Hover Image Preview Handler
+        function initNodeImageHover() {
+            const tooltip = document.getElementById('nodeImageTooltip');
+            const tooltipImg = document.getElementById('nodeTooltipImg');
+            const tooltipTitle = document.getElementById('nodeTooltipTitle');
+            const tooltipSubtitle = document.getElementById('nodeTooltipSubtitle');
+            const fallback = document.getElementById('nodeTooltipFallback');
+
+            let currentHoveredImage = null;
+
+            document.addEventListener('mousemove', (e) => {
+                const nodeEl = e.target.closest('.node');
+                if (nodeEl && nodeEl.dataset.image) {
+                    const imageName = nodeEl.dataset.image;
+                    const nodeName = nodeEl.getAttribute('title') || 'Node';
+                    const imagePath = `images/museum/${imageName}`;
+
+                    if (currentHoveredImage !== imageName) {
+                        currentHoveredImage = imageName;
+                        tooltipImg.style.display = 'block';
+                        fallback.classList.remove('active');
+                        tooltipImg.src = imagePath;
+                        tooltipTitle.textContent = nodeName;
+                        tooltipSubtitle.textContent = `Path: images/museum/${imageName}`;
+                    }
+
+                    tooltip.classList.add('visible');
+
+                    // Position calculating with boundaries check
+                    const padding = 15;
+                    const tooltipWidth = tooltip.offsetWidth || 360;
+                    const tooltipHeight = tooltip.offsetHeight || 520;
+
+                    let left = e.clientX + padding;
+                    let top = e.clientY + padding;
+
+                    if (left + tooltipWidth > window.innerWidth - padding) {
+                        left = e.clientX - tooltipWidth - padding;
+                    }
+                    if (top + tooltipHeight > window.innerHeight - padding) {
+                        top = e.clientY - tooltipHeight - padding;
+                    }
+                    if (left < padding) left = padding;
+                    if (top < padding) top = padding;
+
+                    tooltip.style.left = `${left}px`;
+                    tooltip.style.top = `${top}px`;
+                } else {
+                    if (currentHoveredImage !== null) {
+                        currentHoveredImage = null;
+                        tooltip.classList.remove('visible');
+                    }
+                }
+            });
+
+            tooltipImg.addEventListener('error', () => {
+                tooltipImg.style.display = 'none';
+                fallback.classList.add('active');
+                const fnEl = fallback.querySelector('.fallback-filename');
+                if (fnEl) fnEl.textContent = currentHoveredImage || '';
+            });
+
+            tooltipImg.addEventListener('load', () => {
+                tooltipImg.style.display = 'block';
+                fallback.classList.remove('active');
+            });
+        }
+    </script>
+
 </body>
 
 </html>
