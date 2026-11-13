@@ -3261,6 +3261,327 @@
                     // From node 147
                     [147, 148], [147, 'empty30']
                 ]
+            },
+            thoiKhong: {
+                id: 'thoiKhong',
+                name: 'Thời Không',
+                description: 'Bảo tàng vùng Thời Không (时空孔隙展区)',
+                nodes: {
+                    // Row 0 - Top (MIDDLE)
+                    1: {
+                        id: 1,
+                        name: 'Phục Hồi Cổ Vật Thời Không 1',
+                        row: 0, col: COLS.MIDDLE, colName: 'MIDDLE',
+                        requires: [],
+                        milestones: [
+                            { level: 1, points: 36000, effects: ['Kinh doanh +450'] },
+                            { level: 2, points: 36000, effects: ['Kinh doanh +450'] },
+                            { level: 3, points: 36000, effects: ['Kinh doanh +450, Sổ Tay Đại Sư +20'] }
+                        ]
+                    },
+                    // Row 1: 2 (LEFT), 3 (MIDDLE)
+                    2: {
+                        id: 2,
+                        name: 'Ký Kết Đại Lý Du Lịch',
+                        row: 1, col: COLS.LEFT, colName: 'LEFT',
+                        requires: [1],
+                        milestones: [
+                            { level: 1, points: 36000, effects: ['Tốc độ ký hợp đồng thường +10%, giới hạn lưu trữ hợp đồng thường +4'] },
+                            { level: 2, points: 36000, effects: ['Tốc độ ký hợp đồng thường +20%, giới hạn lưu trữ hợp đồng thường +8'] }
+                        ]
+                    },
+                    3: {
+                        id: 3,
+                        name: 'Phục Hồi Cổ Vật Thời Không 2',
+                        row: 1, col: COLS.MIDDLE, colName: 'MIDDLE',
+                        requires: [1],
+                        milestones: [
+                            { level: 1, points: 37000, effects: ['Kinh doanh +500'] },
+                            { level: 2, points: 37000, effects: ['Kinh doanh +500'] },
+                            { level: 3, points: 37000, effects: ['Kinh doanh +500, Sổ Tay Đại Sư +20'] }
+                        ]
+                    },
+                    // Row 2: 4 (LEFT), 6 (MIDDLE), 5 (RIGHT)
+                    4: {
+                        id: 4,
+                        name: 'Bồi Dưỡng Hướng Dẫn Viên',
+                        row: 2, col: COLS.LEFT, colName: 'LEFT',
+                        requires: [3],
+                        milestones: [
+                            { level: 1, points: 37000, effects: ['Du khách đặc biệt tham quan, điểm thích +10%'] },
+                            { level: 2, points: 37000, effects: ['Du khách đặc biệt tham quan, điểm thích +20%'] }
+                        ]
+                    },
+                    6: {
+                        id: 6,
+                        name: 'Phục Hồi Cổ Vật Thời Không 3',
+                        row: 2, col: COLS.MIDDLE, colName: 'MIDDLE',
+                        requires: [3],
+                        milestones: [
+                            { level: 1, points: 38000, effects: ['Kinh doanh +550'] },
+                            { level: 2, points: 38000, effects: ['Kinh doanh +550'] },
+                            { level: 3, points: 38000, effects: ['Kinh doanh +550'] },
+                            { level: 4, points: 38000, effects: ['Kinh doanh +550, Sổ Tay Tông Sư +20'] }
+                        ]
+                    },
+                    5: {
+                        id: 5,
+                        name: 'Diễn Đàn Học Thuật',
+                        row: 2, col: COLS.RIGHT, colName: 'RIGHT',
+                        requires: [3],
+                        milestones: [
+                            { level: 1, points: 37000, effects: ['Du khách thường tham quan, điểm thích crit +10%'] },
+                            { level: 2, points: 37000, effects: ['Du khách thường tham quan, điểm thích crit +20%'] },
+                            { level: 3, points: 37000, effects: ['Du khách thường tham quan, điểm thích crit +30%'] }
+                        ]
+                    },
+                    // Row 3: 8 (MIDDLE), 7 (RIGHT - con của 5)
+                    8: {
+                        id: 8,
+                        name: 'Phục Hồi Cổ Vật Thời Không 4',
+                        row: 3, col: COLS.MIDDLE, colName: 'MIDDLE',
+                        requires: [6],
+                        milestones: [
+                            { level: 1, points: 38000, effects: ['Kinh doanh +600'] },
+                            { level: 2, points: 38000, effects: ['Kinh doanh +600'] },
+                            { level: 3, points: 39000, effects: ['Kinh doanh +600'] },
+                            { level: 4, points: 39000, effects: ['Kinh doanh +600, Sổ Tay Tông Sư +40'] }
+                        ]
+                    },
+                    7: {
+                        id: 7,
+                        name: 'Diễn Đàn Học Thuật Cấp Cao',
+                        row: 3, col: COLS.RIGHT, colName: 'RIGHT',
+                        requires: [5],
+                        milestones: [
+                            { level: 1, points: 38000, effects: ['Du khách đặc biệt tham quan, điểm thích crit +8%'] },
+                            { level: 2, points: 38000, effects: ['Du khách đặc biệt tham quan, điểm thích crit +15%'] },
+                            { level: 3, points: 38000, effects: ['Du khách đặc biệt tham quan, điểm thích crit +22%'] },
+                            { level: 4, points: 38000, effects: ['Du khách đặc biệt tham quan, điểm thích crit +30%'] }
+                        ]
+                    },
+                    // Row 4: 9 (LEFT), 11 (MIDDLE)
+                    9: {
+                        id: 9,
+                        name: 'Phát Triển Sản Phẩm Văn Hoá Và Sáng Tạo',
+                        row: 4, col: COLS.LEFT, colName: 'LEFT',
+                        requires: [8],
+                        milestones: [
+                            { level: 1, points: 39000, effects: ['Mở Cửa Hàng Bảo Tàng, số lần mua Rương Báu Quán Trưởng +1'] },
+                            { level: 2, points: 39000, effects: ['Số lần mua Rương Báu Quán Trưởng +2'] },
+                            { level: 3, points: 39000, effects: ['Số lần mua Rương Báu Quán Trưởng +3'] },
+                            { level: 4, points: 39000, effects: ['Số lần mua Rương Báu Quán Trưởng +4'] },
+                            { level: 5, points: 39000, effects: ['Số lần mua Rương Báu Quán Trưởng +5'] }
+                        ]
+                    },
+                    11: {
+                        id: 11,
+                        name: 'Phục Hồi Cổ Vật Thời Không 5',
+                        row: 4, col: COLS.MIDDLE, colName: 'MIDDLE',
+                        requires: [8],
+                        milestones: [
+                            { level: 1, points: 39000, effects: ['Kinh doanh +520'] },
+                            { level: 2, points: 39000, effects: ['Kinh doanh +520'] },
+                            { level: 3, points: 40000, effects: ['Kinh doanh +520'] },
+                            { level: 4, points: 40000, effects: ['Kinh doanh +520'] },
+                            { level: 5, points: 40000, effects: ['Kinh doanh +520, Sổ Tay Tông Sư +40'] }
+                        ]
+                    },
+                    // Row 5: 10 (LEFT - con của 9), 12 (MIDDLE), empty31 (RIGHT - con của 11)
+                    10: {
+                        id: 10,
+                        name: 'Bồi Dưỡng Hướng Dẫn Viên',
+                        row: 5, col: COLS.LEFT, colName: 'LEFT',
+                        requires: [9],
+                        milestones: [
+                            { level: 1, points: 39000, effects: ['Du khách đặc biệt tham quan, điểm thích +10%'] },
+                            { level: 2, points: 39000, effects: ['Du khách đặc biệt tham quan, điểm thích +20%'] }
+                        ]
+                    },
+                    12: {
+                        id: 12,
+                        name: 'Phục Hồi Cổ Vật Thời Không 6',
+                        row: 5, col: COLS.MIDDLE, colName: 'MIDDLE',
+                        requires: [11],
+                        milestones: [
+                            { level: 1, points: 40000, effects: ['Kinh doanh +560'] },
+                            { level: 2, points: 40000, effects: ['Kinh doanh +560'] },
+                            { level: 3, points: 40000, effects: ['Kinh doanh +560'] },
+                            { level: 4, points: 40000, effects: ['Kinh doanh +560'] },
+                            { level: 5, points: 41000, effects: ['Kinh doanh +560, Bảo vật: Mảnh Vũ Trụ Trong Vỏ Hạt +40'] }
+                        ]
+                    },
+                    'empty31': {
+                        id: 'empty31',
+                        name: 'Cải Thiện Môi Trường Phòng Triển Lãm',
+                        row: 5, col: COLS.RIGHT, colName: 'RIGHT',
+                        requires: [11],
+                        isEmpty: true,
+                        milestones: [
+                            { level: 1, points: 40000, effects: ['Du khách thường tham quan, 15% cơ hội quyên góp nnt x2, giới hạn quyên góp nnt +500'] },
+                            { level: 2, points: 40000, effects: ['Du khách thường tham quan, 15% cơ hội quyên góp nnt x2, giới hạn quyên góp nnt +500'] },
+                            { level: 3, points: 40000, effects: ['Du khách thường tham quan, 15% cơ hội quyên góp nnt x2, giới hạn quyên góp nnt +500'] }
+                        ]
+                    },
+                    // Row 6: 13 (LEFT), 14 (MIDDLE), empty32 (RIGHT - con của 12)
+                    13: {
+                        id: 13,
+                        name: 'Nghiên Cứu Và Trao Đổi',
+                        row: 6, col: COLS.LEFT, colName: 'LEFT',
+                        requires: [12],
+                        milestones: [
+                            { level: 1, points: 41000, effects: ['Thành viên ghé thăm, mỗi lượt thích +20'] },
+                            { level: 2, points: 41000, effects: ['Thành viên ghé thăm, mỗi lượt thích +40'] },
+                            { level: 3, points: 41000, effects: ['Thành viên ghé thăm, mỗi lượt thích +60'] }
+                        ]
+                    },
+                    14: {
+                        id: 14,
+                        name: 'Phục Hồi Cổ Vật Thời Không 7',
+                        row: 6, col: COLS.MIDDLE, colName: 'MIDDLE',
+                        requires: [12],
+                        milestones: [
+                            { level: 1, points: 41000, effects: ['Kinh doanh +750'] },
+                            { level: 2, points: 41000, effects: ['Kinh doanh +750'] },
+                            { level: 3, points: 41000, effects: ['Kinh doanh +750'] },
+                            { level: 4, points: 41000, effects: ['Kinh doanh +750'] },
+                            { level: 5, points: 42000, effects: ['Kinh doanh +750, Bảo vật: Mảnh Vũ Trụ Trong Vỏ Hạt +40'] }
+                        ]
+                    },
+                    'empty32': {
+                        id: 'empty32',
+                        name: 'Sức Mạnh Của Phòng Triển Lãm',
+                        row: 6, col: COLS.RIGHT, colName: 'RIGHT',
+                        requires: [12],
+                        isEmpty: true,
+                        milestones: [
+                            { level: 1, points: 42000, effects: ['Mỗi lần hoàn thành 1 khu triển lãm, ốc sên sát thương nguyên tố hoả +150'] },
+                            { level: 2, points: 42000, effects: ['Mỗi lần hoàn thành 1 khu triển lãm, ốc sên sát thương nguyên tố hoả +150'] },
+                            { level: 3, points: 42000, effects: ['Mỗi lần hoàn thành 1 khu triển lãm, ốc sên sát thương nguyên tố hoả +150'] },
+                            { level: 4, points: 42000, effects: ['Mỗi lần hoàn thành 1 khu triển lãm, ốc sên sát thương nguyên tố hoả +150'] },
+                            { level: 5, points: 43000, effects: ['Mỗi lần hoàn thành 1 khu triển lãm, ốc sên sát thương nguyên tố hoả +150'] }
+                        ]
+                    },
+                    // Row 7: empty33 (LEFT - con của 14), 15 (MIDDLE)
+                    'empty33': {
+                        id: 'empty33',
+                        name: 'Sức Mạnh Của Phòng Triển Lãm',
+                        row: 7, col: COLS.LEFT, colName: 'LEFT',
+                        requires: [14],
+                        isEmpty: true,
+                        milestones: [
+                            { level: 1, points: 43000, effects: ['Mỗi lần hoàn thành 1 khu triển lãm, ốc sên sát thương nguyên tố hoả +150'] },
+                            { level: 2, points: 43000, effects: ['Mỗi lần hoàn thành 1 khu triển lãm, ốc sên sát thương nguyên tố hoả +150'] },
+                            { level: 3, points: 43000, effects: ['Mỗi lần hoàn thành 1 khu triển lãm, ốc sên sát thương nguyên tố hoả +150'] },
+                            { level: 4, points: 44000, effects: ['Mỗi lần hoàn thành 1 khu triển lãm, ốc sên sát thương nguyên tố hoả +150'] },
+                            { level: 5, points: 44000, effects: ['Mỗi lần hoàn thành 1 khu triển lãm, ốc sên sát thương nguyên tố hoả +150'] }
+                        ]
+                    },
+                    15: {
+                        id: 15,
+                        name: 'Phục Hồi Cổ Vật Thời Không 8',
+                        row: 7, col: COLS.MIDDLE, colName: 'MIDDLE',
+                        requires: [14],
+                        milestones: [
+                            { level: 1, points: 43000, effects: ['Kinh doanh +800'] },
+                            { level: 2, points: 43000, effects: ['Kinh doanh +800'] },
+                            { level: 3, points: 43000, effects: ['Kinh doanh +800'] },
+                            { level: 4, points: 43000, effects: ['Kinh doanh +800'] },
+                            { level: 5, points: 43000, effects: ['Kinh doanh +800, Bảo vật: Mảnh Vũ Trụ Trong Vỏ Hạt +40'] }
+                        ]
+                    },
+                    // Row 8: 16 (MIDDLE), empty34 (RIGHT - con của 15)
+                    'empty34': {
+                        id: 'empty34',
+                        name: 'Sức Mạnh Của Phòng Triển Lãm',
+                        row: 8, col: COLS.RIGHT, colName: 'RIGHT',
+                        requires: [15],
+                        isEmpty: true,
+                        milestones: [
+                            { level: 1, points: 44000, effects: ['Mỗi lần hoàn thành 1 khu triển lãm, ốc sên sát thương nguyên tố phong +150'] },
+                            { level: 2, points: 44000, effects: ['Mỗi lần hoàn thành 1 khu triển lãm, ốc sên sát thương nguyên tố phong +150'] },
+                            { level: 3, points: 44000, effects: ['Mỗi lần hoàn thành 1 khu triển lãm, ốc sên sát thương nguyên tố phong +150'] },
+                            { level: 4, points: 44000, effects: ['Mỗi lần hoàn thành 1 khu triển lãm, ốc sên sát thương nguyên tố phong +150'] },
+                            { level: 5, points: 44000, effects: ['Mỗi lần hoàn thành 1 khu triển lãm, ốc sên sát thương nguyên tố phong +150'] }
+                        ]
+                    },
+                    16: {
+                        id: 16,
+                        name: 'Phục Hồi Cổ Vật Thời Không 9',
+                        row: 8, col: COLS.MIDDLE, colName: 'MIDDLE',
+                        requires: [15],
+                        milestones: [
+                            { level: 1, points: 44000, effects: ['Kinh doanh +850'] },
+                            { level: 2, points: 44000, effects: ['Kinh doanh +850'] },
+                            { level: 3, points: 45000, effects: ['Kinh doanh +850'] },
+                            { level: 4, points: 45000, effects: ['Kinh doanh +850'] },
+                            { level: 5, points: 45000, effects: ['Kinh doanh +850, Bảo vật: Mảnh Vũ Trụ Trong Vỏ Hạt +40'] }
+                        ]
+                    },
+                    // Row 9: 17 (MIDDLE), empty35 (RIGHT - con của 16)
+                    17: {
+                        id: 17,
+                        name: 'Phục Hồi Cổ Vật Thời Không 10',
+                        row: 9, col: COLS.MIDDLE, colName: 'MIDDLE',
+                        requires: [16],
+                        milestones: [
+                            { level: 1, points: 45000, effects: ['Bảo vật: Mảnh Vũ Trụ Trong Vỏ Hạt +40'] },
+                            { level: 2, points: 45000, effects: ['Bảo vật: Mảnh Vũ Trụ Trong Vỏ Hạt +40'] },
+                            { level: 3, points: 45000, effects: ['Bảo vật: Mảnh Vũ Trụ Trong Vỏ Hạt +40'] }
+                        ]
+                    },
+                    'empty35': {
+                        id: 'empty35',
+                        name: 'Sức Mạnh Của Phòng Triển Lãm',
+                        row: 9, col: COLS.RIGHT, colName: 'RIGHT',
+                        requires: [16],
+                        isEmpty: true,
+                        milestones: [
+                            { level: 1, points: 43000, effects: ['Mỗi lần hoàn thành 1 khu triển lãm, ốc sên sát thương nguyên tố thổ +150'] },
+                            { level: 2, points: 43000, effects: ['Mỗi lần hoàn thành 1 khu triển lãm, ốc sên sát thương nguyên tố thổ +150'] },
+                            { level: 3, points: 43000, effects: ['Mỗi lần hoàn thành 1 khu triển lãm, ốc sên sát thương nguyên tố thổ +150'] },
+                            { level: 4, points: 44000, effects: ['Mỗi lần hoàn thành 1 khu triển lãm, ốc sên sát thương nguyên tố thổ +150'] },
+                            { level: 5, points: 44000, effects: ['Mỗi lần hoàn thành 1 khu triển lãm, ốc sên sát thương nguyên tố thổ +150'] }
+                        ]
+                    },
+                    // Row 10: empty36 (MID_RIGHT - con của 17)
+                    'empty36': {
+                        id: 'empty36',
+                        name: 'Bản Vẽ Mở Rộng Khu Triển Lãm (Vô Hạn)',
+                        row: 10, col: COLS.MID_RIGHT, colName: 'MID_RIGHT',
+                        requires: [17],
+                        isEmpty: true,
+                        milestones: [
+                            { level: 1, points: 45000, effects: ['Mua 1 lần Rương Báu Quán Trưởng, ngũ vi ốc sên +2 (giới hạn +15 lần)', 'Sát thương toàn bộ nguyên tố +12×cấp bản vẽ', 'Kháng toàn bộ nguyên tố +12×cấp bản vẽ'] },
+                            { level: 2, points: 50000, effects: ['Mua 1 lần Rương Báu Quán Trưởng, ngũ vi ốc sên +2 (giới hạn +15 lần)', 'Sát thương toàn bộ nguyên tố +12×cấp bản vẽ', 'Kháng toàn bộ nguyên tố +12×cấp bản vẽ'] },
+                            { level: 3, points: 55000, effects: ['Mua 1 lần Rương Báu Quán Trưởng, ngũ vi ốc sên +2 (giới hạn +15 lần)', 'Sát thương toàn bộ nguyên tố +12×cấp bản vẽ', 'Kháng toàn bộ nguyên tố +12×cấp bản vẽ'] }
+                        ]
+                    }
+                },
+                connections: [
+                    // From node 1
+                    [1, 2], [1, 3],
+                    // From node 3
+                    [3, 4], [3, 6], [3, 5],
+                    // From node 6 và 5
+                    [6, 8], [5, 7],
+                    // From node 8
+                    [8, 9], [8, 11],
+                    // From node 9
+                    [9, 10],
+                    // From node 11
+                    [11, 12], [11, 'empty31'],
+                    // From node 12
+                    [12, 13], [12, 14], [12, 'empty32'],
+                    // From node 14
+                    [14, 'empty33'], [14, 15],
+                    // From node 15
+                    [15, 'empty34'], [15, 16],
+                    // From node 16
+                    [16, 17], [16, 'empty35'],
+                    // From node 17
+                    [17, 'empty36']
+                ]
             }
             // More maps can be added here
         };
@@ -3649,7 +3970,8 @@
             daiLuan: 'pay_guest_daiLuan.jpg',
             daiMac: 'pay_guest_daiMac.jpg',
             coHy: 'pay_guest_coHy.jpg',
-            namTruc: 'pay_guest_namTruc.jpg'
+            namTruc: 'pay_guest_namTruc.jpg',
+            thoiKhong: 'pay_guest_thoiKhong.jpg'
         };
 
         // Pay Guest Name
@@ -3661,7 +3983,8 @@
             daiLuan: 'Lầu Phong',
             daiMac: 'Lầu Trăng',
             coHy: 'Trường Học Cổ Hy',
-            namTruc: 'Khu Vườn Nam Trúc'
+            namTruc: 'Khu Vườn Nam Trúc',
+            thoiKhong: 'Khe Thời Không'
         };
 
         // Render Special Guests & Pay Guest Cards Below Museum Tree
